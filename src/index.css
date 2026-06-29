@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at top left, #e0f2fe 0%, #f8fafc 45%, #f8fafc 100%);
+}
+
+.theme-dark .text-slate-900 {
+  color: #f8fafc !important;
+}
+
+.theme-dark .text-slate-800,
+.theme-dark .text-slate-700 {
+  color: #e2e8f0 !important;
+}
+
+.theme-dark .text-slate-600,
+.theme-dark .text-slate-500 {
+  color: #94a3b8 !important;
+}
+
+.theme-dark .bg-white,
+.theme-dark .bg-white\/80,
+.theme-dark .bg-white\/90,
+.theme-dark .bg-slate-50 {
+  background-color: #111827 !important;
+}
+
+.theme-dark .border-slate-200,
+.theme-dark .border-slate-300 {
+  border-color: #334155 !important;
+}
+
+.theme-dark .hover\:bg-slate-50:hover,
+.theme-dark .hover\:bg-slate-100:hover {
+  background-color: #1f2937 !important;
+}
+
+.theme-dark .bg-emerald-50 {
+  background-color: #052e2b !important;
+}
+
+.theme-dark .bg-emerald-100 {
+  background-color: #064e3b !important;
+}
+
+.theme-dark .text-emerald-900 {
+  color: #d1fae5 !important;
+}
+
+.theme-dark .text-emerald-700,
+.theme-dark .text-emerald-800 {
+  color: #86efac !important;
+}
+
+.theme-dark .bg-rose-50 {
+  background-color: #3a0c1c !important;
+}
+
+.theme-dark .bg-rose-100 {
+  background-color: #4c0519 !important;
+}
+
+.theme-dark .bg-sky-100 {
+  background-color: #0c4a6e !important;
+}
+
+.theme-dark .text-rose-900 {
+  color: #ffe4e6 !important;
+}
+
+.theme-dark .text-rose-700,
+.theme-dark .text-rose-800 {
+  color: #fda4af !important;
+}
+
+.theme-dark .text-sky-900,
+.theme-dark .text-emerald-900,
+.theme-dark .text-rose-900 {
+  color: #f8fafc !important;
+}
+
+.theme-dark .text-emerald-700 {
+  color: #6ee7b7 !important;
+}
+
+.theme-dark .bg-red-50 {
+  background-color: #3f1d1d !important;
+}
+
+.theme-dark .text-red-700 {
+  color: #fca5a5 !important;
+}
+
+.theme-dark .border-red-200,
+.theme-dark .border-emerald-200 {
+  border-color: #475569 !important;
+}
+
+.theme-dark .session-shell {
+  background-color: #0f172a !important;
+  border-color: #334155 !important;
+}
+
+.theme-dark .session-progress-pill {
+  background-color: #1e293b !important;
+  color: #e2e8f0 !important;
+}
+
+.theme-dark .session-card-face {
+  background: linear-gradient(135deg, #0f172a, #1e293b) !important;
+  border-color: #334155 !important;
+}
+
+.theme-dark .session-card-face p {
+  color: #e2e8f0 !important;
+}
+
+.theme-dark .session-flip-button:focus-visible,
+.theme-dark .session-nav-button:focus-visible {
+  box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.7) !important;
+}

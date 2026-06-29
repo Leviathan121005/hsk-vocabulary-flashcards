@@ -1,0 +1,501 @@
+no,word,pinyin,part_of_speech,translation
+1,阿姨,āyí,noun,aunt
+2,矮,ǎi,adjective,short
+3,爱⼈,àiren,noun,spouse
+4,安静,ānjìng,adjective,quiet
+5,安全,ānquán,adjective,safe
+6,把,bǎ,classifier 、 preposition,measure word for objects with handles; particle for object-fronting
+7,搬,bān,verb,"to move, to carry"
+8,班级,bānjí,noun,"class, grade"
+9,搬家,bānjiā,verb,to move house
+10,办,bàn,verb,"to do, to handle"
+11,办法,bànfǎ,noun,"way, solution"
+12,办公室,bàngōngshì,noun,office
+13,半天,bàntiān,number-classifierhalf,"a day, a long time"
+14,帮助,bāngzhù,verb,help
+15,饱,bǎo,adjective,full
+16,报纸,bàozhǐ,noun,newspaper
+17,北,běi,noun,north
+18,北⽅,běifāng,noun,north
+19,被,bèi,preposition,by
+20,笔记,bǐjì,noun,notes
+21,⽐较,bǐjiào,verb 、 preposition 、 adverb,"to compare; quite, relatively; than"
+22,笔记本,bǐjìběn,noun,notebook
+23,⽐如,bǐrú,verb,for example
+24,⽐赛,bǐsài,verb 、 noun,"to compete; game, match"
+25,必须,bìxū,adverb,must
+26,变,biàn,verb,"to change, to become"
+27,遍,biàn,classifier,measure word for actions
+28,变成,biànchéng,verb,"to become, to turn into"
+29,变化,biànhuà,verb 、 noun,to change; change
+30,表演,biǎoyǎn,verb,"to perform, to act"
+31,别的,biéde,pronoun,other
+32,别⼈,biérén,pronoun,other people
+33,宾馆,bīnguǎn,noun,hotel
+34,冰,bīng,noun,、（ verb ） ice; (to freeze)
+35,冰激凌,bīngjīlíng,noun,ice cream
+36,冰箱,bīngxiāng,noun,refrigerator
+37,病⼈,bìngrén,noun,patient
+38,不但,búdàn,conjunction,not only
+39,不见,bújiàn,verb,"to disappear, to not see"
+40,不⽤,búyòng,adverb,need not
+41,不同,bù,tóng,different
+42,不久,bùjiǔ,adjective,"soon, not long after"
+43,不⾏,bùxíng,verb 、 adjective,"not allowed, won't do; not good"
+44,才,cái,adverb,"just, only"
+45,菜单,càidān,noun,menu
+46,参加,cānjiā,verb,"to join, to attend"
+47,草,cǎo,noun,grass
+48,草地,cǎodì,noun,grassland
+49,层,céng,classifier,"measure word for layer, floor"
+50,查,chá,verb,to check
+51,差,chà,adjective 、 verb,"bad, poor; to lack"
+52,差不多,chàbuduō,adjective 、 adverb,"almost, similar; nearly"
+53,尝,cháng,verb,to taste
+54,常,cháng,adverb,"often, frequent"
+55,常见,cháng,jiàn,common
+56,常⽤,cháng,yòng,commonly used
+57,常常,chángcháng,adverb,often
+58,衬衫,chènshān,noun,shirt
+59,成绩,chéngjì,noun,"score, grade, achievement"
+60,城市,chéngshì,noun,city
+61,迟到,chídào,verb,to be late
+62,出发,chūfā,verb,"to set out, to leave"
+63,出⽣,chūshēng,verb,to be born
+64,出院,chūyuàn,verb,to be discharged from hospital
+65,初中,chūzhōng,noun,junior high school
+66,除了,chúle,preposition,"except, besides"
+67,船,chuán,noun,boat
+68,春天,chūntiān,noun,spring
+69,词典,cídiǎn,noun,dictionary
+70,聪明,cōngmíng,adjective,"smart, clever"
+71,打扫,dǎsǎo,verb,to clean
+72,打算,dǎsuàn,verb 、 noun,"to plan, intend; plan"
+73,⼤概,dàgài,adjective 、 adverb 、,"（ noun ） general, rough; probably, approximately; (general idea)"
+74,⼤⼈,dàren,noun,adult
+75,⼤⼩,dàxiǎo,noun,size
+76,⼤熊猫,dàxióngmāo,noun,giant panda
+77,⼤⾐,dàyī,noun,coat
+78,带,dài,verb,"、（ noun ） to bring, to take; (belt)"
+79,担⼼,dānxīn,verb,to worry
+80,蛋糕,dàngāo,noun,cake
+81,当然,dāngrán,adverb,of course
+82,到处,dàochù,adverb,everywhere
+83,得,dé,verb,"to get, to obtain"
+84,得到,dédào,verb,"to get, to obtain"
+85,得分,défēn,verb 、 noun,to score; score
+86,的话,dehuà,auxiliary particle,"used after a condition clause, if…"
+87,得,děi,verb,"must, need"
+88,灯,dēng,noun,"lamp, light"
+89,地,dì,noun,"ground, earth, land"
+90,地点,dìdiǎn,noun,"place, location"
+91,地⽅,dìfang,noun,place
+92,地图,dìtú,noun,map
+93,电,diàn,noun,、（ verb ） electricity; (to give an electric shock)
+94,电梯,diàntī,noun,elevator
+95,电⼦书,diànzǐshū,noun,e-book
+96,丢,diū,verb,"to lose, to throw away"
+97,东,dōng,noun,east
+98,东北,dōngběi,noun,northeast
+99,东⽅,dōngfāng,noun,east
+100,东南,dōngnán,noun,southeast
+101,冬天,dōngtiān,noun,winter
+102,懂得,dǒngde,verb,to understand
+103,动物,dòngwù,noun,animal
+104,动物园,dòngwùyuán,noun,zoo
+105,短,duǎn,adjective,short
+106,短裤,duǎnkù,noun,shorts
+107,段,duàn,classifier,"measure word of segment, paragraph"
+108,锻炼,duànliàn,verb,to exercise
+109,对话,duìhuà,verb,"dialogue, conversation"
+110,饿,è,adjective,hungry
+111,⽽且,érqiě,"conjunction and,",moreover
+112,⽿朵,ěrduo,noun,ear
+113,⽿机,ěrjī,noun,earphone
+114,发,fā,verb,"to send, to issue"
+115,发烧,fāshāo,verb,to have a fever
+116,发⽣,fāshēng,verb,to happen
+117,发现,fāxiàn,verb,"to find, to discover"
+118,发展,fāzhǎn,verb,to develop
+119,⽅便,fāngbiàn,adjective,convenient
+120,⽅便⾯,fāngbiànmiàn,noun,instant noodles
+121,⽅法,fāngfǎ,noun,method
+122,⽅向,fāngxiàng,noun,direction
+123,房⼦,fángzi,noun,house
+124,放,fàng,verb,"to put, to place"
+125,放假,fàngjià,verb,to have a holiday
+126,放⼼,fàngxīn,verb,"to relax, to feel at ease"
+127,放学,fàngxué,verb,school is over
+128,分开,fēnkāi,verb,to separate
+129,风,fēng,noun,wind
+130,封,fēng,classifier 、,（ verb ） measure word for letters; (to seal)
+131,夫妻,fūqī,noun,husband and wife
+132,服务,fúwù,verb,to serve
+133,附近,fùjìn,noun,nearby
+134,复习,fùxí,verb,to review
+135,该,gāi,verb,should
+136,⼲净,gānjìng,adjective,clean
+137,感兴趣,gǎn,xìngqù,to be interested in
+138,感到,gǎndào,verb,to feel
+139,感冒,gǎnmào,noun 、 verb,cold; to catch a cold
+140,⼲,gàn,verb,"to do, to work"
+141,刚,gāng,adverb,"just, just now"
+142,刚才,gāngcái,noun,just now
+143,刚刚,gānggāng,adverb,"just now, a moment ago"
+144,⾼铁,gāotiě,noun,high-speed rail
+145,根据,gēnjù,verb 、 preposition 、,（ noun ） to base on; according to; (basis)
+146,更,gèng,adverb,more
+147,公⽄,gōngjīn,classifier,kilogram
+148,公园,gōngyuán,noun,park
+149,⼯作⽇,gōngzuòrì,noun,workday
+150,故事,gùshi,noun,story
+151,刮,guā,verb,"to scrape, to blow"
+152,关,guān,verb,"、（ noun ） to close, to turn off; pass"
+153,关机,guānjī,verb,to turn off device
+154,关系,guānxì,noun,、（ verb ） relationship; (to relate)
+155,关⼼,guānxīn,verb,"to care about, to be concerned"
+156,关于,guānyú,preposition,"about, regarding"
+157,关注,guānzhù,verb,"to pay attention to, to follow"
+158,国家,guójiā,noun,country
+159,过节,guòjié,verb,to celebrate a festival
+160,过去,guòqù,noun,past
+161,海,hǎi,noun,sea
+162,害怕,hàipà,verb,to be afraid
+163,好多,hǎoduō,number,"many, a lot"
+164,好久,hǎojiǔ,adjective,a long time
+165,好像,hǎoxiàng,verb 、 adverb,"to seem, as if; perhaps"
+166,号码,hàomǎ,noun,"number, code"
+167,河,hé,noun,river
+168,合适,héshì,adjective,suitable
+169,⿊板,hēibǎn,noun,blackboard
+170,红绿灯,hóng-lǜdēng,noun,traffic light
+171,后来,hòulái,noun,"later, afterwards"
+172,后年,hòunián,noun,the year after next
+173,后天,hòutiān,noun,the day after tomorrow
+174,护照,hùzhào,noun,passport
+175,花园,huāyuán,noun,garden
+176,画家,huàjiā,noun,"painter, artist"
+177,欢迎,huānyíng,verb,to welcome
+178,还,huán,verb,"to return, to give back"
+179,环境,huánjìng,noun,environment
+180,换,huàn,verb,"to exchange, to change"
+181,黄⾊,huángsè,noun,yellow
+182,回答,huídá,verb,to answer
+183,会,huì,noun,meeting
+184,会议,huìyì,noun,meeting
+185,或,huò,conjunction 、,"（ adverb ） or; (perhaps, maybe)"
+186,或者,huòzhě,conjunction,or
+187,鸡,jī,noun,chicken
+188,⼏乎,jīhū,adverb,almost
+189,机会,jīhuì,noun,opportunity
+190,极,jí,adverb,extremely
+191,急,jí,adjective 、 verb,urgent; (to worry)
+192,记,jì,verb,to remember
+193,季,jì,noun,season
+194,季节,jìjié,noun,season
+195,加,jiā,verb,to add
+196,假期,jiàqī,noun,vacation
+197,坚持,jiānchí,verb,to persist
+198,检查,jiǎnchá,verb,"to check, to inspect"
+199,简单,jiǎndān,adjective,simple
+200,检票,jiǎnpiào,verb,ticket checking
+201,健康,jiànkāng,adjective,healthy
+202,见⾯,jiànmiàn,verb,to meet
+203,讲,jiǎng,verb,"to speak, to talk"
+204,⾓,jiǎo,classifier,"measure word for fractions, angle, currency"
+205,脚,jiǎo,noun,foot
+206,接,jiē,verb,"to pick up, to receive"
+207,街,jiē,noun,street
+208,节,jié,classifier 、 noun 、,"（ verb ） measure word for segments, sections, lessons; festival, joint; (to save, to control)"
+209,结婚,jiéhūn,verb,to marry
+210,节⽬,jiémù,noun,program
+211,节⽇,jiérì,noun,festival
+212,结束,jiéshù,verb,to end
+213,解决,jiějué,verb,to solve
+214,姐妹,jiěmèi,noun,sister
+215,借,jiè,verb,to borrow
+216,⽄,jīn,classifier,catty
+217,经过,jīngguò,verb 、 noun,to pass; process
+218,经理,jīnglǐ,noun,manager
+219,久,jiǔ,adjective,long
+220,酒,jiǔ,noun,alcohol
+221,旧,jiù,adjective,old
+222,句,jù,classifier,measure word of sentence
+223,句⼦,jùzi,noun,sentence
+224,决定,juédìng,verb 、 noun,to decide; decision
+225,卡,kǎ,noun,card
+226,开花,kāihuā,verb,to bloom
+227,开会,kāihuì,verb,to have a meeting
+228,开机,kāijī,verb,to turn on device
+229,开⼼,kāixīn,adjective,happy
+230,看来,kànlái,verb,"it seems, it appears"
+231,可,kě,conjunction 、,（ adverb ） but; (yet)
+232,渴,kě,adjective,thirsty
+233,可爱,kě’ài,adjective,lovely
+234,可是,kěshì,conjunction,but
+235,刻,kè,classifier 、,（ verb ） quarter; to carve
+236,课本,kèběn,noun,textbook
+237,客⼈,kèrén,noun,guest
+238,课⽂,kèwén,noun,text
+239,空调,kōngtiáo,noun,air conditioner
+240,哭,kū,verb,to cry
+241,筷⼦,kuàizi,noun,chopsticks
+242,矿泉⽔,kuàngquánshuǐnoun,mineral,water
+243,来⾃,láizì,verb,to come from
+244,蓝,lán,adjective,blue
+245,⽼,lǎo,adjective 、,"prefix 、 （ adverb ） old, aged; prefix indicating seniority or endearment; (always, constantly)"
+246,⽼⼈,lǎorén,noun,elderly person
+247,离开,líkāi,verb,to leave
+248,礼物,lǐwù,noun,gift
+249,历史,lìshǐ,noun,history
+250,脸,liǎn,noun,face
+251,练,liàn,verb,to practice
+252,练习,liànxí,verb 、 noun,to practice; exercise
+253,凉快,liángkuai,adjective,cool
+254,辆,liàng,classifier,measure word for vehicles
+255,聊,liáo,verb,to chat
+256,聊天⼉,liáotiānr,verb,to chat
+257,了解,liǎojiě,verb,to understand
+258,邻居,línjū,noun,neighbor
+259,留学,liúxué,verb,to study abroad
+260,留学⽣,liúxuéshēng,noun,overseas student
+261,楼梯,lóutī,noun,stairs
+262,路边,lùbiān,noun,roadside
+263,路⼜,lùkǒu,noun,intersection
+264,马,mǎ,noun,horse
+265,马路,mǎlù,noun,road
+266,马上,mǎshàng,adverb,immediately
+267,满意,mǎnyì,verb,satisfied
+268,⽑,máo,classifier 、,（ noun ） measure word for money; (hair)
+269,⽶,mǐ,classifier,meter
+270,⾯前,miànqián,noun,in front of
+271,明⽩,míngbai,adjective 、 verb,to understand; clear
+272,名单,míngdān,noun,name list
+273,名⼈,míngrén,noun,famous person
+274,南,nán,noun,south
+275,难,nán,adjective 、,（ verb ） difficult; (to make difficult)
+276,南⽅,nánfāng,noun,south
+277,难过,nánguò,adjective,sad
+278,难看,nánkàn,adjective,ugly
+279,男⼈,nánrén,noun,man
+280,男⽣,nánshēng,noun,boy student
+281,难题,nántí,noun,difficult problem
+282,难听,nántīng,adjective,unpleasant to hear
+283,年级,niánjí,noun,grade
+284,年轻,niánqīng,adjective,young
+285,⽜,niú,noun 、,（ adjective ） cow; (awesome)
+286,努⼒,nǔlì,verb 、 adjective,to work hard; hardworking
+287,⼥⼈,nǚrén,noun,woman
+288,⼥⽣,nǚshēng,noun,girl student
+289,爬,pá,verb,to climb
+290,怕,pà,verb,、（ adverb ） to fear; (perhaps)
+291,拍照,pāizhào,verb,to take a photo
+292,盘⼦,pánzi,noun,plate
+293,胖,pàng,adjective,fat
+294,啤酒,píjiǔ,noun,beer
+295,平时,píngshí,noun,usually
+296,瓶⼦,píngzi,noun,bottle
+297,骑,qí,verb,to ride
+298,奇怪,qíguài,adjective,strange
+299,其实,qíshí,adverb,actually
+300,其他,qítā,pronoun,other
+301,起,qǐ,verb 、,"（ classifier ） to rise, to get up; (measure word for events)"
+302,起飞,qǐfēi,verb,to take off
+303,汽车,qìchē,noun,car
+304,铅笔,qiānbǐ,noun,pencil
+305,前年,qiánnián,noun,the year before last
+306,前天,qiántiān,noun,the day before yesterday
+307,清楚,qīngchu,adjective 、 verb,"clear, obvious; to understand"
+308,请假,qǐngjià,verb,to ask for leave
+309,请客,qǐngkè,verb,"to invite guests, to treat someone"
+310,秋天,qiūtiān,noun,autumn
+311,球场,qiúchǎng,noun,"sports field, court"
+312,裙⼦,qúnzi,noun,skirt
+313,然后,ránhòu,conjunction,"then, afterwards"
+314,热情,rèqíng,adjective,enthusiastic
+315,认得,rènde,verb,"to recognize, to know"
+316,认为,rènwéi,verb,"to think, to consider"
+317,认真,rènzhēn,adjective,"serious, earnest"
+318,容易,róngyì,adjective,easy
+319,如果,rúguǒ,conjunction,if
+320,伞,sǎn,noun,umbrella
+321,扫,sǎo,verb,to sweep
+322,沙发,shāfā,noun,sofa
+323,⼭,shān,noun,mountain
+324,上⾐,shàngyī,noun,"jacket, top garment"
+325,勺⼦,sháozi,noun,spoon
+326,⾝边,shēnbiān,noun,by one's side
+327,⾝⾼,shēngāo,noun,height
+328,声,shēng,noun 、 classifier,"sound, voice; measure word for sounds"
+329,⽣活,shēnghuó,noun 、 verb,life; to live
+330,⽣⽓,shēngqì,verb,to get angry
+331,声⾳,shēngyīn,noun,sound
+332,市,shì,noun,city
+333,试,shì,verb,to try
+334,室,shì,noun,room
+335,世界,shìjiè,noun,world
+336,收,shōu,verb,to receive
+337,收到,shōudào,verb,to receive
+338,受,shòu,verb,"to receive, to be affected"
+339,瘦,shòu,adjective,"thin, slim"
+340,受到,shòudào,verb,"to receive, to be subjected to"
+341,叔叔,shūshu,noun,uncle
+342,树,shù,noun,tree
+343,数学,shùxué,noun,mathematics
+344,刷,shuā,verb,"to brush, to scrub"
+345,双,shuāng,classifier,"pair, measure word for pairs"
+346,⽔平,shuǐpíng,noun,"level, standard"
+347,司机,sījī,noun,driver
+348,四季,sìjì,noun,four seasons
+349,太阳,tàiyáng,noun,sun
+350,糖,táng,noun,"candy, sugar"
+351,特别,tèbié,adjective 、 adverb,special; particularly
+352,提⾼,tígāo,verb,"to raise, to improve"
+353,体育,tǐyù,noun,physical education
+354,体育馆,tǐyùguǎn,noun,gymnasium
+355,甜,tián,adjective,sweet
+356,跳,tiào,verb,to jump
+357,听说,tīngshuō,verb,to hear said
+358,挺,tǐng,adverb,"、（ verb ） quite, rather; (to endure)"
+359,同事,tóngshì,noun,colleague
+360,同意,tóngyì,verb,to agree
+361,头发,tóufa,noun,hair
+362,突然,tūrán,adjective,sudden
+363,图书馆,túshūguǎn,noun,library
+364,腿,tuǐ,noun,leg
+365,外地,wàidì,noun,other place
+366,外卖,wàimài,verb 、 noun,takeaway; to order takeout
+367,外语,wàiyǔ,noun,foreign language
+368,完成,wánchéng,verb,to complete
+369,碗,wǎn,noun,bowl
+370,晚点,wǎndiǎn,verb,to be late
+371,晚会,wǎnhuì,noun,evening party
+372,⽹球,wǎngqiú,noun,tennis
+373,⽹站,wǎngzhàn,noun,website
+374,忘记,wàngjì,verb,to forget
+375,为,wèi,preposition,"for, because of, to"
+376,为了,wèile,preposition,in order to
+377,卫⽣间,wèishēngjiān,noun,"bathroom, restroom"
+378,⽂化,wénhuà,noun,culture
+379,屋⼦,wūzi,noun,"room, house"
+380,西,xī,noun,west
+381,西北,xīběi,noun,northwest
+382,西⽅,xīfāng,noun,west
+383,西⽠,xīguā,noun,watermelon
+384,西南,xīnán,noun,southwest
+385,习惯,xíguàn,verb 、 noun,to be used to; habit
+386,喜爱,xǐ’ài,verb,"to like, to love"
+387,洗⾐机,xǐyījī,noun,washing machine
+388,洗澡,xǐzǎo,verb,to take a bath
+389,夏天,xiàtiān,noun,summer
+390,先,xiān,adverb,"first, before"
+391,⾹蕉,xiāngjiāo,noun,banana
+392,相信,xiāngxìn,verb,to believe
+393,箱⼦,xiāngzi,noun,"box, case"
+394,向,xiàng,verb 、,"prepositionto face, to turn toward; toward, to"
+395,像,xiàng,verb 、,"（ adverb ）、 （ noun ） to resemble, to be like; (as if, such as); (image, statue, portrait)"
+396,相机,xiàngjī,noun,camera
+397,⼩区,xiǎoqū,noun,residential community
+398,⼩⼼,xiǎoxīn,verb 、 adjective,to be careful; careful
+399,校园,xiàoyuán,noun,campus
+400,校长,xiàozhǎng,noun,"principal, headmaster"
+401,鞋,xié,noun,shoe
+402,⼼⾥,xīnlǐ,noun,"heart, mind"
+403,新年,xīnnián,noun,New Year
+404,新闻,xīnwén,noun,news
+405,新鲜,xīnxiān,adjective,fresh
+406,信,xìn,verb 、 noun,to believe; letter
+407,信⽤卡,xìnyòngkǎ,noun,credit card
+408,⾏,xíng,verb 、 adjective,"to go; okay, permissible"
+409,⾏李,xíngli,noun,luggage
+410,兴趣,xìngqù,noun,interest
+411,休假,xiūjià,verb,to take a holiday
+412,需要,xūyào,verb 、 noun,to need; need
+413,选,xuǎn,verb,to choose
+414,选择,xuǎnzé,verb,to choose
+415,学期,xuéqī,noun,semester
+416,⽛,yá,noun,tooth
+417,⽛刷,yáshuā,noun,toothbrush
+418,⽺,yáng,noun,sheep
+419,养,yǎng,verb,"to raise, to keep"
+420,要求,yāoqiú,verb 、 noun,to demand; requirement
+421,页,yè,classifier,measure word for page
+422,⼀定,yídìng,adjective 、 adverb,certain; certainly
+423,⼀共,yígòng,adverb,"altogether, in total"
+424,⼀块⼉,yíkuàir,noun 、 adverb,the same place; together
+425,⼀样,yíyàng,adjective,same
+426,以后,yǐhòu,noun,"later, after"
+427,以前,yǐqián,noun,before
+428,以上,yǐshàng,noun,"above, more than"
+429,以外,yǐwài,noun,"except, besides"
+430,以为,yǐwéi,verb,"to think, to believe"
+431,以下,yǐxià,noun,"below, less than"
+432,⼀般,yìbān,adjective,"general, ordinary"
+433,⼀边,yìbiān,adverb,at the same time
+434,⼀直,yìzhí,adverb,"always, straight"
+435,⾳乐,yīnyuè,noun,music
+436,银⾏,yínháng,noun,bank
+437,银⾏卡,yínhángkǎ,noun,bank card
+438,饮料,yǐnliào,noun,beverage
+439,应该,yīnggāi,verb,"should, ought to"
+440,影响,yǐngxiǎng,verb 、 noun,to affect; influence
+441,⽤,yòng,verb,to use
+442,邮件,yóujiàn,noun,mail
+443,游客,yóukè,noun,tourist
+444,游戏,yóuxì,noun,game
+445,邮箱,yóuxiāng,noun,mailbox
+446,有关,yǒuguān,verb 、,prepositionto have to do with; concerning
+447,有名,yǒumíng,adjective,famous
+448,有⽤,yǒuyòng,adjective,useful
+449,又,yòu,adverb,"again, also"
+450,⽻⽑球,yǔmáoqiú,noun,badminton
+451,语⾔,yǔyán,noun,language
+452,⾬⾐,yǔyī,noun,raincoat
+453,遇到,yùdào,verb,to encounter
+454,遇见,yùjiàn,verb,to meet
+455,园,yuán,noun,garden
+456,员,yuán,suffix,suffix for person with a certain job
+457,愿意,yuànyì,verb,willing
+458,越,yuè,adverb,"more, increasingly"
+459,⽉亮,yuèliang,noun,moon
+460,运动会,yùndònghuì,noun,sports meet
+461,运动员,yùndòngyuán,noun,athlete
+462,咱们,zánmen,pronoun,we
+463,脏,zāng,adjective,dirty
+464,怎么办,zěnme,bàn,what to do
+465,怎样,zěnyàng,pronoun,how
+466,站,zhàn,verb,to stand; station
+467,张,zhāng,verb 、 classifier,to open; measure word for flat objects
+468,长,zhǎng,verb 、,suffix to grow; suffix for head
+469,着急,zháojí,adjective,anxious
+470,照,zhào,verb,"to shine, to photograph"
+471,照顾,zhàogù,verb,to take care of
+472,照⽚,zhàopiàn,noun,photo
+473,照相,zhàoxiàng,verb,to take a picture
+474,直到,zhídào,verb,until
+475,只,zhǐ,adverb,"only, merely"
+476,纸,zhǐ,noun,paper
+477,只能,zhǐ,néng,can only
+478,只是,zhǐshì,adverb 、 conjunction,"only, merely; but"
+479,只要,zhǐyào,conjunction,as long as
+480,只有,zhǐyǒu,conjunction,only if
+481,中,zhōng,noun,middle
+482,中间,zhōngjiān,noun,"middle, between"
+483,终于,zhōngyú,adverb,finally
+484,种,zhǒng,classifier,measure word for kinds
+485,重要,zhòngyào,adjective,important
+486,周末,zhōumò,noun,weekend
+487,主要,zhǔyào,adjective,main
+488,注意,zhùyì,verb,to pay attention to
+489,住院,zhùyuàn,verb,to be hospitalized
+490,字典,zìdiǎn,noun,dictionary
+491,⾃⾏车,zìxíngchē,noun,bicycle
+492,⼦,zi,suffix,noun suffix
+493,总,zǒng,adverb,"、（ verb 、 adjective ） always, invariably; (to sum up, to assemble; total, overall)"
+494,总是,zǒngshì,adverb,always
+495,嘴,zuǐ,noun,mouth
+496,最好,zuìhǎo,adverb,best
+497,最后,zuìhòu,noun,"last, final"
+498,最近,zuìjìn,noun,recently
+499,做客,zuòkè,verb,to be a guest
+500,作业,zuòyè,noun,homework

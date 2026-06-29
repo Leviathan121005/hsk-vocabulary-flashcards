@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.DS_Store
+deployment.md
+plan.md
+projectStructure.md

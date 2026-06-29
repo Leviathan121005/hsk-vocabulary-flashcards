@@ -1,0 +1,301 @@
+no,word,pinyin,part_of_speech,translation
+1,爱,ài,verb,to love
+2,⼋,bā,number,eight
+3,爸爸,bàba,noun,dad
+4,吧,ba,auxiliary particle,"indicating suggestion, confirmation, or hesitation"
+5,⽩天,báitiān,noun,daytime
+6,百,bǎi,number,hundred
+7,半,bàn,number,"、 （ adverb ） half; (half, semi-)"
+8,包⼦,bāozi,noun,steamed stuffed bun
+9,杯⼦,bēizi,noun,"cup, glass"
+10,本,běn,classifier,measure word for books
+11,边,biān,noun 、,suffix side; suffix indicating direction
+12,病,bìng,noun 、 verb,"illness, disease; to be ill"
+13,不,bù,adverb,"not, no"
+14,不客⽓,bú,kèqi,you're welcome
+15,不要,búyào,adverb,"don't, not want"
+16,菜,cài,noun,"vegetable, dish"
+17,茶,chá,noun,tea
+18,唱,chàng,verb,to sing
+19,超市,chāoshì,noun,supermarket
+20,车,chē,noun,"vehicle, car"
+21,吃,chī,verb,to eat
+22,出租车,chūzūchē,noun,taxi
+23,穿,chuān,verb,to wear
+24,打电话,dǎ,diànhuà,to make a phone call
+25,⼤,dà,adjective,big
+26,⼤家,dàjiā,pronoun,everyone
+27,⼤学,dàxué,noun,university
+28,⼤学⽣,dàxuéshēng,noun,university student
+29,到,dào,verb,to arrive
+30,的,de,auxiliary,possessive or modifying particle
+31,第,dì,prefix,prefix for ordinal numbers
+32,弟弟,dìdi,noun,younger brother
+33,点,diǎn,classifier 、,"（ noun ） measure word for small round things; (point, dot)"
+34,店,diàn,noun,"shop, store"
+35,电话,diànhuà,noun,"telephone, phone call"
+36,电脑,diànnǎo,noun,computer
+37,电视,diànshì,noun,television
+38,电影,diànyǐng,noun,"movie, film"
+39,电影院,diànyǐngyuàn,noun,cinema
+40,东西,dōngxi,noun,"thing, object"
+41,都,dōu,adverb,"all, both"
+42,读,dú,verb,to read
+43,读书,dúshū,verb,to read a book
+44,对,duì,adjective 、 preposition 、,"（ verb 、 classifier ） correct, right; to, toward, for; (to treat; pair)"
+45,对不起,duìbuqǐ,verb,sorry
+46,多,duō,adjective 、 verb 、 pronoun 、,"（ number 、 adverb ） many, much; to have more; how many, how much; (more, over)"
+47,多少,duōshao,pronoun,"how many, how much"
+48,⼉⼦,érzi,noun,son
+49,⼆,èr,number,two
+50,饭,fàn,noun,"cooked rice, meal"
+51,饭店,fàndiàn,noun,restaurant
+52,房间,fángjiān,noun,room
+53,⾮常,fēicháng,adverb,"very, extremely"
+54,飞机,fēijī,noun,airplane
+55,分,fēn,classifier 、,"（ verb 、 noun ） minute; (to divide, to separate; component, part)"
+56,分钟,fēnzhōng,classifier,minute
+57,⾼兴,gāoxìng,adjective,"happy, glad"
+58,歌,gē,noun,song
+59,哥哥,gēge,noun,older brother
+60,个,gè,classifier,measure word for general objects
+61,给,gěi,verb 、,"（ preposition ） to give; (to, for)"
+62,公司,gōngsī,noun,company
+63,⼯作,gōngzuò,verb 、 noun,work; to work
+64,狗,gǒu,noun,dog
+65,贵,guì,adjective,expensive
+66,国,guó,noun,country
+67,还,hái,adverb,"still, also; quite"
+68,孩⼦,háizi,noun,child
+69,汉语,Hànyǔ,noun,Chinese language
+70,汉字,Hànzì,noun,Chinese character
+71,好,hǎo,adjective 、,（ adverb ）、 （ verb ） good; (well); (to be fond of)
+72,好吃,hǎochī,adjective,"delicious, tasty"
+73,好看,hǎokàn,adjective,good-looking
+74,好听,hǎotīng,adjective,pleasant to listen to
+75,好玩⼉,hǎowánr,adjective,"fun, amusing"
+76,号,hào,noun 、 classifier,"number; measure word for people, items"
+77,喝,hē,verb,to drink
+78,和,hé,"preposition 、 conjunction and,",with
+79,很,hěn,adverb,very
+80,后,hòu,noun,"behind, later"
+81,回,huí,verb 、,（ classifier ） to return; (measure word for times)
+82,会,huì,verb,"can, to be able to"
+83,⽕车,huǒchē,noun,train
+84,鸡蛋,jīdàn,noun,egg
+85,⼏,jǐ,pronoun 、,"number how many, a few"
+86,家,jiā,noun 、 classifier 、,"（ suffix ） home, family; measure word for families; (suffix indicating a person specializing in something)"
+87,家⼈,jiārén,noun,family member
+88,见,jiàn,verb,to see
+89,件,jiàn,classifier,measure word for items
+90,饺⼦,jiǎozi,noun,dumpling
+91,叫,jiào,verb 、,"（ preposition ） to be called, to call; to make; (by)"
+92,姐姐,jiějie,noun,older sister
+93,今年,jīnnián,noun,this year
+94,今天,jīntiān,noun,today
+95,九,jiǔ,number,nine
+96,觉得,juéde,verb,"to feel, to think"
+97,开,kāi,verb,to open
+98,开车,kāichē,verb,to drive
+99,看,kàn,verb,"to see, to look"
+100,看病,kànbìng,verb,to see a doctor
+101,看见,kànjiàn,verb,to see
+102,可以,kěyǐ,verb 、 adjective,"can, may; okay, fine"
+103,课,kè,noun,"class, lesson"
+104,⼜,kǒu,noun 、 classifier,"mouth; measure word for family members, bites"
+105,块,kuài,classifier,"measure word for pieces, chunks, money"
+106,来,lái,verb,to come
+107,⽼师,lǎoshī,noun,teacher
+108,了,le,auxiliary particle,indicating completed action or change of state
+109,冷,lěng,adjective,cold
+110,⾥,lǐ,noun,"inside, in, mile"
+111,两,liǎng,number,two
+112,零,líng,number,zero
+113,六,liù,number,six
+114,妈妈,māma,noun,mom
+115,吗,ma,auxiliary,question particle
+116,买,mǎi,verb,to buy
+117,卖,mài,verb,to sell
+118,忙,máng,adjective 、 verb,busy; to be busy
+119,猫,māo,noun,cat
+120,没关系,méi,guānxi,"never mind, it's okay"
+121,没事,méishì,verb,"to have nothing to do, it doesn't matter"
+122,没有,méiyǒu,verb 、 adverb,to not have; have not
+123,妹妹,mèimei,noun,younger sister
+124,们,men,suffix,plural suffix for pronouns and nouns
+125,⽶饭,mǐfàn,noun,cooked rice
+126,⾯包,miànbāo,noun,bread
+127,⾯条⼉,miàntiáor,noun,noodles
+128,明年,míngnián,noun,next year
+129,明天,míngtiān,noun,tomorrow
+130,名字,míngzi,noun,name
+131,哪,nǎ,pronoun,which
+132,哪个,nǎge,pronoun,which one
+133,哪⾥,nǎlǐ,pronoun,where
+134,哪⼉,nǎr,pronoun,where
+135,哪些,nǎxiē,pronoun,which ones
+136,那,nà,pronoun 、,（ conjunction ） that; (then)
+137,那边,nàbiān,pronoun,over there
+138,那个,nàge,pronoun,that one
+139,那⾥,nàlǐ,pronoun,there
+140,那⼉,nàr,pronoun,there
+141,那些,nàxiē,pronoun,those
+142,男,nán,adjective,male
+143,男朋友,nánpéngyou,noun,boyfriend
+144,呢,ne,auxiliary,question or continuation particle
+145,能,néng,verb,"can, be able to"
+146,你,nǐ,pronoun,you
+147,你好,nǐ,hǎo,hello
+148,你们,nǐmen,pronoun,you plural
+149,年,nián,noun 、 classifier,year; measure word for years
+150,您,nín,pronoun,you
+151,⽜奶,niúnǎi,noun,milk
+152,⼥,nǚ,adjective,female
+153,⼥⼉,nǚ’ér,noun,daughter
+154,⼥朋友,nǚpéngyou,noun,girlfriend
+155,⼥⼠,nǚshì,noun,"lady, Ms."
+156,朋友,péngyou,noun,friend
+157,便宜,piányi,adjective,cheap
+158,漂亮,piàoliang,adjective,beautiful
+159,苹果,píngguǒ,noun,apple
+160,七,qī,number,seven
+161,起床,qǐchuáng,verb,to get up
+162,千,qiān,number,thousand
+163,前,qián,noun,"front, before"
+164,钱,qián,noun,money
+165,请,qǐng,verb,please
+166,请问,qǐngwèn,verb,may I ask
+167,去,qù,verb,to go
+168,去年,qùnián,noun,last year
+169,热,rè,adjective,hot
+170,⼈,rén,noun,person
+171,认识,rènshi,verb,"to know, to recognize"
+172,⽇,rì,classifier 、,（ noun ） measure word for days; (sun)
+173,三,sān,number,three
+174,商店,shāngdiàn,noun,"store, shop"
+175,上,shàng,noun 、 verb,"up, above; to go up"
+176,上班,shàngbān,verb,to go to work
+177,上课,shàngkè,verb,to attend class
+178,上午,shàngwǔ,noun,morning
+179,上学,shàngxué,verb,to go to school
+180,少,shǎo,adjective 、 verb,"few, little; to lack"
+181,谁,shéi/shuí,pronoun,who
+182,什么,shénme,pronoun,what
+183,⽣病,shēngbìng,verb,to get sick
+184,⼗,shí,number,ten
+185,时候,shíhou,noun,"moment, time"
+186,时间,shíjiān,noun,time
+187,事,shì,noun,"matter, thing"
+188,是,shì,verb,to be
+189,⼿机,shǒujī,noun,cell phone
+190,书,shū,noun,book
+191,书店,shūdiàn,noun,bookstore
+192,⽔,shuǐ,noun,water
+193,⽔果,shuǐguǒ,noun,fruit
+194,睡,shuì,verb,to sleep
+195,睡觉,shuìjiào,verb,to sleep
+196,说,shuō,verb,"to speak, to say"
+197,说话,shuōhuà,verb,to talk
+198,四,sì,number,four
+199,岁,suì,classifier,measure word for age
+200,他,tā,pronoun,"he, him"
+201,它,tā,pronoun,it
+202,她,tā,pronoun,she
+203,他们,tāmen,pronoun,they
+204,它们,tāmen,pronoun,they
+205,她们,tāmen,pronoun,they
+206,太,tài,adverb,"too, extremely"
+207,天,tiān,noun 、 classifier,day; measure word for days
+208,天⽓,tiānqì,noun,weather
+209,听,tīng,verb,to listen
+210,听见,tīngjiàn,verb,to hear
+211,同学,tóngxué,noun,classmate
+212,外,wài,noun,"outside, exterior"
+213,外边,wàibian,noun,outside
+214,玩,wán,verb,to play
+215,晚,wǎn,adjective,late
+216,晚饭,wǎnfàn,noun,dinner
+217,晚上,wǎnshang,noun,evening
+218,喂,wèi,interjection,hello used when answering the phone)
+219,问,wèn,verb,to ask
+220,问题,wèntí,noun,question
+221,我,wǒ,pronoun,I
+222,我们,wǒmen,pronoun,we
+223,五,wǔ,number,five
+224,午饭,wǔfàn,noun,lunch
+225,喜欢,xǐhuan,verb,to like
+226,下,xià,noun 、 verb 、 classifier,"down, below; to go down; measure word for times"
+227,下⾬,xià,yǔ,to rain
+228,下班,xiàbān,verb,to get off work
+229,下课,xiàkè,verb,to finish class
+230,下午,xiàwǔ,noun,afternoon
+231,先⽣,xiānsheng,noun,"Mr., husband"
+232,现在,xiànzài,noun,now
+233,想,xiǎng,verb,to think; to want
+234,⼩,xiǎo,adjective 、,prefix small; prefix indicating small size or endearment
+235,⼩朋友,xiǎopéngyǒu,noun,"little friend, child"
+236,⼩时,xiǎoshí,noun,hour
+237,⼩学,xiǎoxué,noun,primary school
+238,⼩学⽣,xiǎoxuéshēng,noun,primary school student
+239,些,xiē,classifier,measure word for an indefinite amount
+240,写,xiě,verb,to write
+241,谢谢,xièxie,verb,to thank
+242,新,xīn,adjective,new
+243,星期,xīngqī,noun,week
+244,星期⽇,xīngqīrì,noun,Sunday
+245,星期天,xīngqītiān,noun,Sunday
+246,休息,xiūxi,verb,to rest
+247,学,xué,verb,"to learn, to study"
+248,学⽣,xuéshēng,noun,student
+249,学习,xuéxí,verb,to study
+250,学校,xuéxiào,noun,school
+251,雪,xuě,noun,snow
+252,要,yào,verb,"to want, to need"
+253,也,yě,adverb,"also, too"
+254,⼀,yī,number,one
+255,⾐服,yīfu,noun,clothes
+256,医⽣,yīshēng,noun,doctor
+257,医院,yīyuàn,noun,hospital
+258,⼀半,yíbàn,number,half
+259,⼀下,yíxià,numberclassifier,"、 （ adverb ） once, a little; (in a short while)"
+260,椅⼦,yǐzi,noun,chair
+261,⼀点⼉,yìdiǎnr,number-classifiera,"little, a bit"
+262,⼀些,yìxiē,"number-classifiersome,",a few
+263,有,yǒu,verb,"to have, to exist"
+264,有的,yǒude,pronoun,some of them
+265,有点⼉,yǒudiǎnr,adverb,"a little, slightly"
+266,有些,yǒuxiē,pronoun 、,"（ adverb ） some, some of; (somewhat, rather)"
+267,⾬,yǔ,noun,rain
+268,元,yuán,classifier,yuan
+269,⽉,yuè,noun,month; moon
+270,再,zài,adverb,"again, then"
+271,在,zài,verb 、 preposition 、 adverb,to be at; at; in the middle of
+272,再见,zàijiàn,verb,goodbye
+273,早,zǎo,adjective,early
+274,早饭,zǎofàn,noun,breakfast
+275,早上,zǎoshang,noun,morning
+276,怎么,zěnme,pronoun,how
+277,怎么样,zěnmeyàng,pronoun,"how about, what do you think"
+278,找,zhǎo,verb,to look for
+279,这,zhè,pronoun,this
+280,这边,zhèbiān,pronoun,here
+281,这个,zhège,pronoun,this one
+282,这⾥,zhèlǐ,pronoun,here
+283,这⼉,zhèr,pronoun,here
+284,这些,zhèxiē,pronoun,these
+285,真,zhēn,adverb 、,（ adjective ） really; (true)
+286,正在,zhèngzài,adverb,in the process of
+287,只,zhī,classifier,"measure word for animals, one of a pair"
+288,知道,zhīdào,verb,to know
+289,中国,Zhōngguó,noun,China
+290,中⽂,Zhōngwén,noun,Chinese language
+291,中午,zhōngwǔ,noun,noon
+292,中学,zhōngxué,noun,middle school
+293,中学⽣,zhōngxuéshēngnoun,middle,school student
+294,住,zhù,verb,"to live, to reside"
+295,桌⼦,zhuōzi,noun,"table, desk"
+296,字,zì,noun,"character, script"
+297,昨天,zuótiān,noun,yesterday
+298,坐,zuò,verb,to sit
+299,做,zuò,verb,"to do, to make"
+300,做饭,zuò,fàn,to cook
