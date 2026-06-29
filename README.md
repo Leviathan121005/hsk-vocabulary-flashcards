@@ -5,7 +5,7 @@ A simple browser-based HSK flashcard app built with React and Vite.
 ## 1. Clone the repository
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/Leviathan121005/hsk-vocabulary-learning-flashcards.git
 ```
 
 ## 2. Install and run locally
