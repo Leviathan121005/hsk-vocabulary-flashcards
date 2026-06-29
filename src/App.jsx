@@ -624,7 +624,7 @@ export default function App() {
             >
               Progress Backup
             </button>
-            to export/import a JSON file.
+            to export / import a JSON file.
           </div>
 
         </header>

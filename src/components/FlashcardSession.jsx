@@ -32,16 +32,28 @@ export function FlashcardSession({
   const canGoPrevious = currentIndex > 0;
   const canGoNext = currentIndex < safeTotalCount - 1;
 
+  function navigateWithFlip(action) {
+    if (isFlipped) {
+      setIsFlipped(false);
+      setTimeout(() => {
+        action?.();
+      }, 600);
+      return;
+    }
+
+    action?.();
+  }
+
   function handleMarkMastered() {
     if (!currentWord) return;
     onMarkWord?.(currentWord.id, "mastered");
-    setIsFlipped(false);
+    navigateWithFlip(onGoNext);
   }
 
   function handleMarkNotMastered() {
     if (!currentWord) return;
     onMarkWord?.(currentWord.id, "not_mastered");
-    setIsFlipped(false);
+    navigateWithFlip(onGoNext);
   }
 
   useEffect(() => {
@@ -56,35 +68,33 @@ export function FlashcardSession({
 
       if (event.key === "ArrowRight") {
         event.preventDefault();
-        onGoNext?.();
+        navigateWithFlip(onGoNext);
         return;
       }
 
       if (event.key === "ArrowLeft") {
         event.preventDefault();
-        onGoPrevious?.();
+        navigateWithFlip(onGoPrevious);
         return;
       }
 
       if (event.key.toLowerCase() === "m") {
         event.preventDefault();
         onMarkWord?.(currentWord.id, "mastered");
-        setIsFlipped(false);
-        onGoNext?.();
+        navigateWithFlip(onGoNext);
         return;
       }
 
       if (event.key.toLowerCase() === "n") {
         event.preventDefault();
         onMarkWord?.(currentWord.id, "not_mastered");
-        setIsFlipped(false);
-        onGoNext?.();
+        navigateWithFlip(onGoNext);
       }
     }
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [currentWord, onGoNext, onGoPrevious, onMarkWord]);
+  }, [currentWord, navigateWithFlip, onGoNext, onGoPrevious, onMarkWord]);
 
   if (!currentWord) {
     return (
@@ -120,7 +130,7 @@ export function FlashcardSession({
       <div className="mt-2 flex items-center gap-3 sm:gap-4">
         <button
           type="button"
-          onClick={() => onGoPrevious?.()}
+          onClick={() => navigateWithFlip(onGoPrevious)}
           disabled={!canGoPrevious}
           className="session-nav-button inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-slate-300 bg-white text-xl font-bold text-slate-700 shadow-sm transition hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 disabled:cursor-not-allowed disabled:opacity-40"
           aria-label="Go to previous card"
@@ -158,7 +168,7 @@ export function FlashcardSession({
 
         <button
           type="button"
-          onClick={() => onGoNext?.()}
+          onClick={() => navigateWithFlip(onGoNext)}
           className="session-nav-button inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-slate-300 bg-white text-xl font-bold text-slate-700 shadow-sm transition hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-400"
           aria-label="Go to next card"
         >
