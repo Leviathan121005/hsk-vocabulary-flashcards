@@ -459,8 +459,19 @@ export default function App() {
     setSessionIndex((previousIndex) => previousIndex + 1);
   }
 
-  function handleFinishSession() {
-    const finalStats = buildSessionStats(sessionDecisions, sessionWords.length);
+  function handleFinishSession(finalDecision) {
+    const hasFinalDecision =
+      Boolean(finalDecision?.wordId) &&
+      ["mastered", "not_mastered"].includes(finalDecision?.decision);
+
+    const finalDecisions = hasFinalDecision
+      ? {
+          ...sessionDecisions,
+          [finalDecision.wordId]: finalDecision.decision,
+        }
+      : sessionDecisions;
+
+    const finalStats = buildSessionStats(finalDecisions, sessionWords.length);
 
     trackEvent("session_finished", {
       words_total: finalStats.total,
@@ -471,7 +482,8 @@ export default function App() {
       review_pool: reviewPool,
     });
 
-    applySessionDecisions(sessionDecisions);
+    applySessionDecisions(finalDecisions);
+    setSessionDecisions(finalDecisions);
     setSessionStats(finalStats);
     setShowSessionComplete(true);
     setView("summary");

@@ -46,12 +46,34 @@ export function FlashcardSession({
 
   function handleMarkMastered() {
     if (!currentWord) return;
+
+    if (!canGoNext) {
+      navigateWithFlip(() =>
+        onFinishSession?.({
+          wordId: currentWord.id,
+          decision: "mastered",
+        })
+      );
+      return;
+    }
+
     onMarkWord?.(currentWord.id, "mastered");
     navigateWithFlip(onGoNext);
   }
 
   function handleMarkNotMastered() {
     if (!currentWord) return;
+
+    if (!canGoNext) {
+      navigateWithFlip(() =>
+        onFinishSession?.({
+          wordId: currentWord.id,
+          decision: "not_mastered",
+        })
+      );
+      return;
+    }
+
     onMarkWord?.(currentWord.id, "not_mastered");
     navigateWithFlip(onGoNext);
   }
@@ -80,21 +102,19 @@ export function FlashcardSession({
 
       if (event.key.toLowerCase() === "m") {
         event.preventDefault();
-        onMarkWord?.(currentWord.id, "mastered");
-        navigateWithFlip(onGoNext);
+        handleMarkMastered();
         return;
       }
 
       if (event.key.toLowerCase() === "n") {
         event.preventDefault();
-        onMarkWord?.(currentWord.id, "not_mastered");
-        navigateWithFlip(onGoNext);
+        handleMarkNotMastered();
       }
     }
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [currentWord, navigateWithFlip, onGoNext, onGoPrevious, onMarkWord]);
+  }, [currentWord, handleMarkMastered, handleMarkNotMastered, navigateWithFlip, onGoNext, onGoPrevious]);
 
   if (!currentWord) {
     return (
