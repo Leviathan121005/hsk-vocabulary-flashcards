@@ -1,4 +1,4 @@
-import { MASTERY_STATUS } from "../data/mockHsk5Words";
+import { MASTERY_STATUS } from "../data/masteryStatus";
 
 function parseCsvLine(line) {
   const cells = [];

@@ -1,17 +1,17 @@
 no,word,pinyin,part_of_speech,translation
 1,啊,a,auxiliary,"ah, oh"
-2,爱好,àihào,verb 、 noun,to like; hobby
+2,爱好,àihào,"verb, noun",to like; hobby
 3,⽩⾊,báisè,noun,white
-4,班,bān,noun 、,"（ classifier ） class, team; (measure word for groups)"
+4,班,bān,"noun, (classifier)","class, team; (measure word for groups)"
 5,帮,bāng,verb,to help
 6,帮忙,bāngmáng,verb,to help
-7,包,bāo,verb 、 noun 、 classifier,"to wrap, to pack; bag; measure word for bundles"
+7,包,bāo,"verb, noun, classifier","to wrap, to pack; bag; measure word for bundles"
 8,本⼦,běnzi,noun,notebook
-9,⽐,bǐ,verb 、,prepositionto compare; than
-10,笔,bǐ,noun 、,（ classifier ） pen; (measure word for writing tools)
+9,⽐,bǐ,"verb, preposition",to compare; than
+10,笔,bǐ,"noun, (classifier)",pen; (measure word for writing tools)
 11,别,bié,adverb,"don't, not bad"
 12,不错,búcuò,adjective,"not bad, pretty good"
-13,不好意思,bù,hǎoyìsi,"sorry, embarrassed"
+13,不好意思,bùhǎoyìsi,,"sorry, embarrassed"
 14,长,cháng,adjective,long
 15,车站,chēzhàn,noun,station
 16,出,chū,verb,"to go out, to leave"
@@ -21,50 +21,50 @@ no,word,pinyin,part_of_speech,translation
 20,出去,chūqù,verb,to go out
 21,床,chuáng,noun,bed
 22,词,cí,noun,"word, term"
-23,次,cì,classifier 、,（ adjective ） measure word of time or occasion; (next in order)
-24,从,cóng,preposition 、,（ adverb ） from; (ever)
+23,次,cì,"classifier, (adjective)",measure word of time or occasion; (next in order)
+24,从,cóng,"preposition, (adverb)",from; (ever)
 25,从⼩,cóngxiǎo,adverb,from childhood
 26,错,cuò,adjective,"wrong, mistaken"
 27,打,dǎ,verb,"to hit, to play, to make"
 28,打车,dǎchē,verb,to take a taxi
 29,打开,dǎkāi,verb,to open
-30,但,dàn,conjunction 、,"（ adverb ） but, however; (only, merely)"
+30,但,dàn,"conjunction, (adverb)","but, however; (only, merely)"
 31,但是,dànshì,conjunction,"but, however"
-32,得,de,auxiliary particle,indicating degree or manner
-33,地,de,auxiliary particle,modifying an adjective into an adverb
-34,等,děng,verb 、,"（ preposition ） to wait; (and so on, until)"
+32,得,de,auxiliary,particle indicating degree or manner
+33,地,de,auxiliary,particle modifying an adjective into an adverb
+34,等,děng,"verb, (preposition)","to wait; (and so on, until)"
 35,地铁,dìtiě,noun,"subway, metro"
-36,点,diǎn,verb,"、（ noun 、 classifier ） to light, to ignite; (point, dot; to order)"
+36,点,diǎn,"verb, (noun, classifier)","to light, to ignite; (point, dot; to order)"
 37,懂,dǒng,verb,to understand
 38,动,dòng,verb,"to move, to act"
 39,饭馆,fànguǎn,noun,restaurant
 40,飞,fēi,verb,to fly
-41,⾼,gāo,adjective 、 noun,"tall, high; height"
+41,⾼,gāo,"adjective, noun","tall, high; height"
 42,⾼中,gāozhōng,noun,high school
 43,告诉,gàosu,verb,to tell
 44,个⼦,gèzi,noun,"height, stature"
-45,跟,gēn,preposition 、 conjunction 、,"（ noun 、 verb ） with; and; (heel; to follow, to accompany)"
+45,跟,gēn,"preposition, conjunction, (noun, verb)","with; and; (heel; to follow, to accompany)"
 46,公交车,gōngjiāochē,noun,bus
 47,过,guò,verb,"to pass, to cross; excessive"
 48,过来,guòlái,verb,to come over
 49,过年,guònián,verb,to celebrate the New Year
 50,过去,guòqù,verb,to go over
-51,过,guo,auxiliary particle,indicating past experience
-52,还是,háishi,adverb 、 conjunction,still; or
+51,过,guo,auxiliary,particle indicating past experience
+52,还是,háishi,"adverb, conjunction",still; or
 53,⿊⾊,hēisè,noun,black
 54,红茶,hóngchá,noun,black tea
 55,红⾊,hóngsè,noun,red
 56,后⾯,hòumiàn,noun,"behind, back"
 57,花,huā,verb,to spend (money or time)
-58,花,2,huā,noun 、 （ adjective ） flower; (colorful)
-59,画,huà,verb 、 noun,"to draw, to paint; painting, picture"
+58,花,huā,"noun, (adjective)",flower; (colorful)
+59,画,huà,"verb, noun","to draw, to paint; painting, picture"
 60,坏,huài,adjective,"bad, broken"
 61,回来,huílái,verb,to come back
 62,回去,huíqù,verb,to go back
 63,机场,jīchǎng,noun,airport
 64,机票,jīpiào,noun,airplane ticket
 65,记得,jìde,verb,to remember
-66,间,jiān,classifier 、,（ noun ） measure word for rooms; between
+66,间,jiān,"classifier, (noun)",measure word for rooms; between
 67,教,jiāo,verb,to teach
 68,教室,jiàoshì,noun,classroom
 69,介绍,jièshào,verb,to introduce
@@ -74,19 +74,19 @@ no,word,pinyin,part_of_speech,translation
 73,进去,jìnqù,verb,to go in
 74,经常,jīngcháng,adverb,often
 75,酒店,jiǔdiàn,noun,hotel
-76,就,jiù,adverb 、,"（ preposition ） just, then; (as early as, only, as soon as)"
+76,就,jiù,"adverb, (preposition)","just, then; (as early as, only, as soon as)"
 77,咖啡,kāfēi,noun,coffee
-78,开始,kāishǐ,verb 、 noun,to start; beginning
+78,开始,kāishǐ,"verb, noun",to start; beginning
 79,开学,kāixué,verb,school starts
 80,考,kǎo,verb,"to test, to take an exam"
-81,考试,kǎoshì,verb 、 noun,to take an exam; exam
-82,可能,kěnéng,adjective 、 noun 、 verb,possible; possibility; may
+81,考试,kǎoshì,"verb, noun",to take an exam; exam
+82,可能,kěnéng,"adjective, noun, verb",possible; possibility; may
 83,裤⼦,kùzi,noun,pants
-84,快,kuài,adjective 、 adverb,"fast; soon, quickly"
+84,快,kuài,"adjective, adverb","fast; soon, quickly"
 85,快乐,kuàilè,adjective,"happy, joyful"
 86,快要,kuàiyào,adverb,"soon, almost"
 87,篮球,lánqiú,noun,basketball
-88,累,lèi,adjective 、 verb,tired; to tire
+88,累,lèi,"adjective, verb",tired; to tire
 89,离,lí,verb,"to leave, to be away from"
 90,⾥⾯,lǐmiàn,noun,inside
 91,楼,lóu,noun,"building, floor"
@@ -94,17 +94,17 @@ no,word,pinyin,part_of_speech,translation
 93,路上,lùshang,noun,on the road
 94,旅游,lǚyóu,verb,to travel
 95,绿茶,lǜchá,noun,green tea
-96,绿⾊,lǜsè,noun 、,（ adjective ） green color; (green)
+96,绿⾊,lǜsè,"noun, (adjective)",green color; (green)
 97,慢,màn,adjective,slow
-98,没意思,méi,yìsi,"boring, uninteresting"
-99,每,měi,pronoun 、,"（ adverb ） every, each; (per)"
+98,没意思,méiyìsi,,"boring, uninteresting"
+99,每,měi,"pronoun, (adverb)","every, each; (per)"
 100,门,mén,noun,"door, gate"
-101,门⼜,ménkǒu,noun,"doorway, entrance"
+101,门口,ménkǒu,noun,"doorway, entrance"
 102,门票,ménpiào,noun,ticket
-103,⾯,miàn,suffix,"、（ verb 、 noun 、 classifier ） suffix indicating a person with a certain characteristic; (to face; side, aspect; measure word for flat objects)"
-104,名,míng,noun 、 classifier,"name, reputation; measure word for people"
+103,⾯,miàn,"suffix, (verb, noun, classifier)","suffix indicating a person with a certain characteristic; (to face; side, aspect; measure word for flat objects)"
+104,名,míng,"noun, classifier","name, reputation; measure word for people"
 105,拿,ná,verb,"to take, to hold"
-106,那么,nàme,pronoun 、 conjunction,"so, like that; then"
+106,那么,nàme,"pronoun, conjunction","so, like that; then"
 107,那样,nàyàng,pronoun,like that
 108,奶茶,nǎichá,noun,milk tea
 109,奶奶,nǎinai,noun,grandmother
@@ -120,7 +120,7 @@ no,word,pinyin,part_of_speech,translation
 119,前⾯,qiánmiàn,noun,front
 120,晴,qíng,adjective,"sunny, clear"
 121,球,qiú,noun,"ball, sphere"
-122,让,ràng,verb 、,"（ preposition ） to let, to allow; (by)"
+122,让,ràng,"verb, (preposition)","to let, to allow; (by)"
 123,⾁,ròu,noun,meat
 124,商场,shāngchǎng,noun,shopping mall
 125,上来,shànglái,verb,to come up
@@ -129,7 +129,7 @@ no,word,pinyin,part_of_speech,translation
 128,上⽹,shàngwǎng,verb,"to go online, to surf the Internet"
 129,⾝体,shēntǐ,noun,body
 130,⽣⽇,shēngrì,noun,birthday
-131,时,shí,noun 、,"（ classifier ） time, moment; (season, period)"
+131,时,shí,"noun, (classifier)","time, moment; (season, period)"
 132,事情,shìqing,noun,"matter, affair"
 133,⼿,shǒu,noun,hand
 134,⼿表,shǒubiǎo,noun,"watch, wristwatch"
@@ -138,21 +138,21 @@ no,word,pinyin,part_of_speech,translation
 137,送,sòng,verb,"to give, to send, to see off"
 138,虽然,suīrán,conjunction,although
 139,所以,suǒyǐ,conjunction,"so, therefore"
-140,疼,téng,adjective 、,"（ verb ） painful, sore; (to hurt)"
+140,疼,téng,"adjective, (verb)","painful, sore; (to hurt)"
 141,踢,tī,verb,to kick
 142,题,tí,noun,"question, problem, topic"
-143,条,tiáo,classifier 、,"（ noun ） measure word for long, thin, or strip-like objects; (clause, item)"
+143,条,tiáo,"classifier, (noun)","measure word for long, thin, or strip-like objects; (clause, item)"
 144,跳舞,tiàowǔ,verb,to dance
-145,头,tóu,noun 、,（ classifier ）、 （ adjective ） head; (measure word for animals); (first)
+145,头,tóu,"noun, (classifier), (adjective)",head; (measure word for animals); (first)
 146,外国,wàiguó,noun,foreign country
 147,外⾯,wàimiàn,noun,outside
 148,完,wán,verb,to finish
 149,万,wàn,number,ten thousand
-150,往,wǎng,verb 、,prepositionto go; toward
+150,往,wǎng,"verb, preposition",to go; toward
 151,⽹上,wǎngshang,noun,online
 152,忘,wàng,verb,to forget
 153,位,wèi,classifier,measure word for people
-154,为什么,wèi,shénme,why
+154,为什么,wèishénme,,why
 155,希望,xīwàng,verb,to hope
 156,洗,xǐ,verb,to wash
 157,洗⼿间,xǐshǒujiān,noun,"restroom, toilet"
@@ -162,35 +162,35 @@ no,word,pinyin,part_of_speech,translation
 161,⼩孩⼉,xiǎoháir,noun,"child, little kid"
 162,⼩时候,xiǎoshíhou,noun,childhood
 163,笑,xiào,verb,"to laugh, to smile"
-164,姓,xìng,noun 、 verb,surname; to be surnamed
+164,姓,xìng,"noun, verb",surname; to be surnamed
 165,姓名,xìngmíng,noun,full name
 166,颜⾊,yánsè,noun,color
 167,眼睛,yǎnjing,noun,eye
 168,药,yào,noun,"medicine, drug"
 169,药店,yàodiàn,noun,pharmacy
 170,爷爷,yéye,noun,grandfather
-171,⼀会⼉,yíhuìr,numberclassifier,"、 （ adverb ） a while, a moment; (soon, in a little while)"
+171,⼀会⼉,yíhuìr,"numberclassifier, (adverb)","a while, a moment; (soon, in a little while)"
 172,已经,yǐjīng,adverb,already
 173,⼀起,yìqǐ,adverb,together
 174,意思,yìsi,noun,"meaning, idea"
 175,阴,yīn,adjective,cloudy
-176,因为,yīnwèi,preposition 、 conjunction,because; because of
+176,因为,yīnwèi,"preposition, conjunction",because; because of
 177,游,yóu,verb,to swim
 178,游泳,yóuyǒng,verb,to swim
-179,有意思,yǒu,yìsi,"interesting, enjoyable"
+179,有意思,yǒuyìsi,,"interesting, enjoyable"
 180,有时,yǒushí,adverb,sometimes
 181,右,yòu,noun,right
 182,右边,yòubian,noun,right side
 183,鱼,yú,noun,fish
 184,远,yuǎn,adjective,far
-185,运动,yùndòng,verb 、 noun,"to move, to exercise; sports, exercise"
+185,运动,yùndòng,"verb, noun","to move, to exercise; sports, exercise"
 186,站,zhàn,noun,"station, stop; to stand"
 187,丈夫,zhàngfu,noun,husband
 188,这么,zhème,pronoun,"so, such, like this"
 189,这样,zhèyàng,pronoun,"like this, so"
-190,着,zhe,auxiliary particle,indicating ongoing action or state
-191,正,zhèng,adverb 、,"（ adjective ） just, exactly, right; (straight)"
-192,周,zhōu,noun 、,"（ classifier ） week; (measure word for circumference, cycle)"
+190,着,zhe,auxiliary,particle indicating ongoing action or state
+191,正,zhèng,"adverb, (adjective)","just, exactly, right; (straight)"
+192,周,zhōu,"noun, (classifier)","week; (measure word for circumference, cycle)"
 193,准备,zhǔnbèi,verb,to prepare
 194,⾃⼰,zìjǐ,pronoun,oneself
 195,⾛,zǒu,verb,to walk

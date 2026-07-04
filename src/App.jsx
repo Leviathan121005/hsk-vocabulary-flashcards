@@ -36,10 +36,25 @@ const BUILTIN_DATASETS = [
 
 const PROGRESS_EXPORT_KIND = "flashcards-progress";
 const PROGRESS_EXPORT_VERSION = 1;
+const VOCABULARY_STORAGE_VERSION = 2;
+const VOCABULARY_VERSION_KEY = "flashcards.v1.vocabularyVersion";
 const UI_THEMES = [
   { value: "classic", label: "Classic" },
   { value: "paper", label: "Paper" },
   { value: "dark", label: "Dark" },
+];
+
+const VOCABULARY_STATUS_FILTER_OPTIONS = [
+  { value: "all", label: "All" },
+  { value: "mastered", label: "Mastered" },
+  { value: "not_mastered", label: "Not Mastered" },
+];
+
+const HANZI_LENGTH_FILTER_OPTIONS = [
+  { value: "all", label: "All Lengths" },
+  { value: "1", label: "1 Hanzi" },
+  { value: "2", label: "2 Hanzi" },
+  { value: "3_plus", label: "3+ Hanzi" },
 ];
 
 function getThemeTokens(theme) {
@@ -189,6 +204,95 @@ function resolvePublicCsvPath(fileName) {
   return `${baseUrl}${fileName}`;
 }
 
+function mergeLoadedWordsWithCachedStatus(loadedWords, cachedWords) {
+  const statusById = new Map();
+  const statusBySignature = new Map();
+
+  (cachedWords || []).forEach((word) => {
+    const normalizedId = Number(word?.id);
+    const masteryStatus = word?.masteryStatus;
+
+    if (["mastered", "not_mastered"].includes(masteryStatus) && Number.isFinite(normalizedId)) {
+      statusById.set(normalizedId, masteryStatus);
+    }
+
+    const signature = `${(word?.hanzi || "").trim()}|${(word?.pinyin || "").trim()}`;
+    if (["mastered", "not_mastered"].includes(masteryStatus) && signature !== "|") {
+      statusBySignature.set(signature, masteryStatus);
+    }
+  });
+
+  return (loadedWords || []).map((word) => {
+    const cachedStatusById = statusById.get(Number(word.id));
+    const signature = `${(word?.hanzi || "").trim()}|${(word?.pinyin || "").trim()}`;
+    const cachedStatusBySignature = statusBySignature.get(signature);
+    const cachedStatus = cachedStatusById || cachedStatusBySignature;
+    if (!cachedStatus) return word;
+
+    return {
+      ...word,
+      masteryStatus: cachedStatus,
+    };
+  });
+}
+
+function normalizeWordForStorage(word) {
+  const safeWord = word && typeof word === "object" ? word : {};
+  const { part_of_speech: _legacyPartOfSpeech, ...withoutLegacyPos } = safeWord;
+
+  const partOfSpeech =
+    typeof safeWord?.partOfSpeech === "string"
+      ? safeWord.partOfSpeech
+      : typeof safeWord?.part_of_speech === "string"
+      ? safeWord.part_of_speech
+      : "";
+
+  return {
+    ...withoutLegacyPos,
+    partOfSpeech,
+  };
+}
+
+function normalizeWordsForStorage(words) {
+  if (!Array.isArray(words)) {
+    return {
+      words: [],
+      changed: false,
+    };
+  }
+
+  let changed = false;
+  const normalized = words.map((word) => {
+    const nextWord = normalizeWordForStorage(word);
+    const hasLegacyPartOfSpeechKey = Object.prototype.hasOwnProperty.call(word || {}, "part_of_speech");
+
+    if ((word?.partOfSpeech || "") !== nextWord.partOfSpeech || hasLegacyPartOfSpeechKey) {
+      changed = true;
+    }
+    return nextWord;
+  });
+
+  return {
+    words: normalized,
+    changed,
+  };
+}
+
+function wordsNeedPartOfSpeechHydration(words) {
+  if (!Array.isArray(words) || words.length === 0) return true;
+
+  return words.some((word) => {
+    if (!word || typeof word !== "object") return true;
+
+    const hasModernKey = Object.prototype.hasOwnProperty.call(word, "partOfSpeech");
+    const hasLegacyKey = Object.prototype.hasOwnProperty.call(word, "part_of_speech");
+
+    // Reload only when the stored shape is missing both keys.
+    // Empty string is valid and should not trigger hydration loops.
+    return !hasModernKey && !hasLegacyKey;
+  });
+}
+
 export default function App() {
   const [selectedSet, setSelectedSet] = useLocalStorage("flashcards.v1.selectedSet", "hsk5");
   const [sessionSizeInput, setSessionSizeInput] = useLocalStorage("flashcards.v1.sessionSize", 10);
@@ -196,6 +300,7 @@ export default function App() {
   const [uiTheme, setUiTheme] = useLocalStorage("flashcards.v1.uiTheme", "classic");
   const [builtinWordSets, setBuiltinWordSets] = useLocalStorage("flashcards.v2.builtinWordSets", {});
   const [customSets, setCustomSets] = useLocalStorage("flashcards.v1.customSets", []);
+  const [vocabularyVersion, setVocabularyVersion] = useLocalStorage(VOCABULARY_VERSION_KEY, 0);
 
   const [view, setView] = useState("dashboard");
   const [sessionWords, setSessionWords] = useState([]);
@@ -212,6 +317,7 @@ export default function App() {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [vocabularyFilter, setVocabularyFilter] = useState("all");
+  const [hanziLengthFilter, setHanziLengthFilter] = useState("all");
   const [vocabularySearch, setVocabularySearch] = useState("");
   const [visibleRows, setVisibleRows] = useState(120);
   const progressImportRef = useRef(null);
@@ -221,6 +327,45 @@ export default function App() {
     if (UI_THEMES.some((theme) => theme.value === uiTheme)) return;
     setUiTheme("classic");
   }, [uiTheme, setUiTheme]);
+
+  useEffect(() => {
+    setBuiltinWordSets((previous) => {
+      if (!previous || typeof previous !== "object") return previous;
+
+      let changed = false;
+      const next = { ...previous };
+
+      Object.entries(previous).forEach(([setId, words]) => {
+        const normalized = normalizeWordsForStorage(words);
+        if (normalized.changed) {
+          next[setId] = normalized.words;
+          changed = true;
+        }
+      });
+
+      return changed ? next : previous;
+    });
+  }, [setBuiltinWordSets]);
+
+  useEffect(() => {
+    setCustomSets((previousSets) => {
+      if (!Array.isArray(previousSets)) return previousSets;
+
+      let changed = false;
+      const nextSets = previousSets.map((set) => {
+        const normalized = normalizeWordsForStorage(set?.words);
+        if (!normalized.changed) return set;
+
+        changed = true;
+        return {
+          ...set,
+          words: normalized.words,
+        };
+      });
+
+      return changed ? nextSets : previousSets;
+    });
+  }, [setCustomSets]);
 
   useEffect(() => {
     const basePath = window.location.pathname || "/";
@@ -255,12 +400,17 @@ export default function App() {
       if (vocabularyFilter === "mastered" && word.masteryStatus !== "mastered") return false;
       if (vocabularyFilter === "not_mastered" && word.masteryStatus !== "not_mastered") return false;
 
+      const hanziLength = (word.hanzi || "").replace(/\s+/g, "").length;
+      if (hanziLengthFilter === "1" && hanziLength !== 1) return false;
+      if (hanziLengthFilter === "2" && hanziLength !== 2) return false;
+      if (hanziLengthFilter === "3_plus" && hanziLength < 3) return false;
+
       if (!query) return true;
 
       const haystack = `${word.hanzi} ${word.pinyin} ${word.english}`.toLowerCase();
       return haystack.includes(query);
     });
-  }, [allWords, vocabularyFilter, vocabularySearch]);
+  }, [allWords, vocabularyFilter, hanziLengthFilter, vocabularySearch]);
 
   const visibleVocabularyRows = useMemo(
     () => filteredVocabulary.slice(0, visibleRows),
@@ -277,53 +427,89 @@ export default function App() {
 
   useEffect(() => {
     setVocabularyFilter("all");
+    setHanziLengthFilter("all");
     setVocabularySearch("");
     setVisibleRows(120);
   }, [selectedSet]);
 
   useEffect(() => {
     setVisibleRows(120);
-  }, [vocabularyFilter, vocabularySearch]);
+  }, [vocabularyFilter, hanziLengthFilter, vocabularySearch]);
 
   useEffect(() => {
     let isMounted = true;
 
-    async function bootstrapSelectedBuiltInDataset() {
+    async function bootstrapVocabularyStorage() {
+      const normalizedVersion = Number(vocabularyVersion) || 0;
+      const needsMigration = normalizedVersion < VOCABULARY_STORAGE_VERSION;
       const selectedBuiltin = BUILTIN_DATASETS.find((set) => set.value === selectedSet);
-      if (!selectedBuiltin) return;
+      const selectedSetWords = selectedBuiltin ? builtinWordSets[selectedSet] : null;
+      const needsSelectedSetLoad =
+        selectedBuiltin &&
+        (!Array.isArray(selectedSetWords) || wordsNeedPartOfSpeechHydration(selectedSetWords));
 
-      const cachedWords = builtinWordSets[selectedSet] || [];
-      const hasExpectedCount =
-        !selectedBuiltin.expectedCount || cachedWords.length === selectedBuiltin.expectedCount;
-
-      if (cachedWords.length > 0 && hasExpectedCount) return;
+      if (!needsMigration && !needsSelectedSetLoad) return;
 
       setIsLoading(true);
       setError("");
 
       try {
-        const loadedWords = await loadWordsFromCsv(resolvePublicCsvPath(selectedBuiltin.csvFile));
-        if (!isMounted) return;
+        if (needsMigration) {
+          const loadedBySet = await Promise.all(
+            BUILTIN_DATASETS.map(async (set) => {
+              const loadedWords = await loadWordsFromCsv(resolvePublicCsvPath(set.csvFile));
+              return {
+                setId: set.value,
+                loadedWords,
+              };
+            })
+          );
 
-        setBuiltinWordSets((previous) => ({
-          ...previous,
-          [selectedSet]: loadedWords,
-        }));
+          if (!isMounted) return;
+
+          setBuiltinWordSets((previous) => {
+            const next = { ...previous };
+
+            loadedBySet.forEach(({ setId, loadedWords }) => {
+              const cachedWords = previous[setId] || [];
+              next[setId] = normalizeWordsForStorage(
+                mergeLoadedWordsWithCachedStatus(loadedWords, cachedWords)
+              ).words;
+            });
+
+            return next;
+          });
+
+          setVocabularyVersion(VOCABULARY_STORAGE_VERSION);
+          return;
+        }
+
+        if (needsSelectedSetLoad && selectedBuiltin) {
+          const loadedWords = await loadWordsFromCsv(resolvePublicCsvPath(selectedBuiltin.csvFile));
+          if (!isMounted) return;
+
+          setBuiltinWordSets((previous) => ({
+            ...previous,
+            [selectedSet]: normalizeWordsForStorage(
+              mergeLoadedWordsWithCachedStatus(loadedWords, previous[selectedSet] || [])
+            ).words,
+          }));
+        }
       } catch (_error) {
         if (!isMounted) return;
-        setError(`Could not load ${selectedBuiltin.label}. Make sure public/${selectedBuiltin.csvFile} exists.`);
+        setError("Could not initialize built-in vocabulary data. Please refresh and try again.");
       } finally {
         if (!isMounted) return;
         setIsLoading(false);
       }
     }
 
-    bootstrapSelectedBuiltInDataset();
+    bootstrapVocabularyStorage();
 
     return () => {
       isMounted = false;
     };
-  }, [builtinWordSets, selectedSet, setBuiltinWordSets]);
+  }, [builtinWordSets, selectedSet, setBuiltinWordSets, setVocabularyVersion, vocabularyVersion]);
 
   useEffect(() => {
     if (BUILTIN_DATASETS.some((set) => set.value === selectedSet)) return;
@@ -551,6 +737,7 @@ export default function App() {
         selectedSet,
         sessionSizeInput,
         reviewPool,
+        vocabularyVersion,
         builtinWordSets,
         customSets,
       },
@@ -615,6 +802,12 @@ export default function App() {
         setSessionSizeInput(data.sessionSizeInput);
       }
 
+      if (typeof data.vocabularyVersion === "number" && Number.isFinite(data.vocabularyVersion)) {
+        setVocabularyVersion(data.vocabularyVersion);
+      } else {
+        setVocabularyVersion(0);
+      }
+
       if (["not_mastered", "mastered", "all"].includes(data.reviewPool)) {
         setReviewPool(data.reviewPool);
       }
@@ -642,7 +835,7 @@ export default function App() {
         <header className={`mb-8 rounded-3xl border p-6 backdrop-blur ${themeTokens.headerCard}`}>
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div className="pl-1 sm:pl-2">
-              <h1 className="text-3xl font-bold text-slate-900 sm:text-4xl">HSK Vocabulary Learning Flashcards</h1>
+              <h1 className="text-3xl font-bold text-slate-900 sm:text-4xl">HSK Vocabulary Flashcards</h1>
               <p className="mt-3 max-w-2xl text-slate-600">
                 Pick your vocabulary set, choose session size, and review one card at a time.
               </p>
@@ -873,7 +1066,7 @@ export default function App() {
               </button>
             </div>
 
-            <div className="mt-5 grid gap-3 lg:grid-cols-3">
+            <div className="mt-5 grid gap-3 lg:grid-cols-4">
               <label className="lg:col-span-2">
                 <span className="mb-2 block text-sm font-semibold text-slate-700">Search</span>
                 <input
@@ -886,15 +1079,31 @@ export default function App() {
               </label>
               <label>
                 <span className="mb-2 block text-sm font-semibold text-slate-700">Status Filter</span>
-                <select
+                <CompactDropdown
                   value={vocabularyFilter}
-                  onChange={(event) => setVocabularyFilter(event.target.value)}
-                  className="w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-slate-900 focus:outline-none focus-visible:ring-4 focus-visible:ring-sky-300"
-                >
-                  <option value="all">All</option>
-                  <option value="mastered">Mastered</option>
-                  <option value="not_mastered">Not Mastered</option>
-                </select>
+                  options={VOCABULARY_STATUS_FILTER_OPTIONS}
+                  onChange={setVocabularyFilter}
+                  buttonClassName={themeTokens.dropdownButton}
+                  panelClassName={themeTokens.dropdownPanel}
+                  itemClassName={themeTokens.dropdownItem}
+                  itemActiveClassName={themeTokens.dropdownItemActive}
+                  fullWidth
+                  compact={false}
+                />
+              </label>
+              <label>
+                <span className="mb-2 block text-sm font-semibold text-slate-700">Hanzi Length</span>
+                <CompactDropdown
+                  value={hanziLengthFilter}
+                  options={HANZI_LENGTH_FILTER_OPTIONS}
+                  onChange={setHanziLengthFilter}
+                  buttonClassName={themeTokens.dropdownButton}
+                  panelClassName={themeTokens.dropdownPanel}
+                  itemClassName={themeTokens.dropdownItem}
+                  itemActiveClassName={themeTokens.dropdownItemActive}
+                  fullWidth
+                  compact={false}
+                />
               </label>
             </div>
 

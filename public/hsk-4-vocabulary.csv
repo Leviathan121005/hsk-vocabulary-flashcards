@@ -4,16 +4,16 @@ no,word,pinyin,part_of_speech,translation
 3,爱⼼,àixīn,noun,"compassion, caring"
 4,安检,ānjiǎn,verb,"security check, to conduct security check"
 5,安排,ānpái,verb,to arrange
-6,按,àn,verb 、,"prepositionto press, to push; according to"
+6,按,àn,"verb, preposition","to press, to push; according to"
 7,按时,ànshí,adverb,"on time, on schedule"
 8,按照,ànzhào,preposition,"according to, in accordance with"
 9,⽩酒,báijiǔ,noun,"liquor, spirit"
 10,办公,bàngōng,verb,"to handle official business, to work"
 11,办理,bànlǐ,verb,"to handle, to process"
 12,办事,bànshì,verb,"to handle matters, to take care of things"
-13,棒,bàng,adjective 、,"（ noun ） great, excellent; (stick, club)"
+13,棒,bàng,"adjective, (noun)","great, excellent; (stick, club)"
 14,保护,bǎohù,verb,to protect
-15,保证,bǎozhèng,verb 、 noun,"to guarantee, to ensure; guarantee, assurance"
+15,保证,bǎozhèng,"verb, noun","to guarantee, to ensure; guarantee, assurance"
 16,抱,bào,verb,"to hold, to embrace, to hug"
 17,报考,bàokǎo,verb,"to apply for an exam, to register for a test"
 18,报名,bàomíng,verb,"to sign up, to register"
@@ -23,36 +23,36 @@ no,word,pinyin,part_of_speech,translation
 22,北部,běibù,noun,"northern part, north"
 23,倍,bèi,classifier,"measure word meaning times, -fold"
 24,本科,běnkē,noun,undergraduate program
-25,本来,běnlái,adjective 、 adverb,"original, former; originally, actually"
+25,本来,běnlái,"adjective, adverb","original, former; originally, actually"
 26,笨,bèn,adjective,"stupid, foolish"
 27,⿐⼦,bízi,noun,nose
 28,笔试,bǐshì,verb,"written test, to take a written exam"
 29,毕业,bìyè,verb,to graduate
 30,毕业⽣,bìyèshēng,noun,graduate
 31,便于,biànyú,verb,"to be convenient for, to facilitate"
-32,标准,biāozhǔn,noun 、 adjective,"standard; standard, typical"
-33,表,biǎo,noun,"、（ verb ） watch, meter, table, form; (to express)"
+32,标准,biāozhǔn,"noun, adjective","standard; standard, typical"
+33,表,biǎo,"noun, (verb)","watch, meter, table, form; (to express)"
 34,表格,biǎogé,noun,"form, table"
 35,表⽰,biǎoshì,verb,"to express, to indicate, to show"
 36,表现,biǎoxiàn,verb,"to show, to display, to perform"
 37,表扬,biǎoyáng,verb,"to praise, to commend"
 38,饼⼲,bǐnggān,noun,"biscuit, cracker"
-39,并,bìng,verb 、 adverb 、 conjunction,"to combine, to merge; actually, indeed; and, also"
-40,并且,bìngqiě,"conjunction and,","moreover, furthermore"
+39,并,bìng,"verb, adverb, conjunction","to combine, to merge; actually, indeed; and, also"
+40,并且,bìngqiě,conjunction,"and, moreover, furthermore"
 41,播放,bōfàng,verb,"to broadcast, to play"
 42,博⼠,bóshì,noun,doctor
 43,不必,búbì,adverb,"need not, not necessary"
-44,不便,búbiàn,adjective 、 verb,inconvenient; to be short of money
-45,不断,búduàn,verb 、 adverb,"continuous, unceasing; continuously, constantly"
-46,不够,búgòu,verb 、 adverb,"not enough, insufficient; not sufficiently"
-47,不过,búguò,conjunction 、,"（ adverb ） but, however; (only, merely)"
+44,不便,búbiàn,"adjective, verb",inconvenient; to be short of money
+45,不断,búduàn,"verb, adverb","continuous, unceasing; continuously, constantly"
+46,不够,búgòu,"verb, adverb","not enough, insufficient; not sufficiently"
+47,不过,búguò,"conjunction, (adverb)","but, however; (only, merely)"
 48,不论,búlùn,conjunction,"no matter, regardless"
 49,步,bù,noun,"step, pace"
-50,部,bù,noun 、 classifier,"department, part; measure word for books, machines, etc."
+50,部,bù,"noun, classifier","department, part; measure word for books, machines, etc."
 51,不得不,bùdébù,adverb,"have to, cannot but"
 52,部分,bùfen,noun,"part, portion"
 53,不管,bùguǎn,conjunction,"no matter, regardless of"
-54,不光,bùguāng,adverb 、 conjunction,not only; not only... (but also)
+54,不光,bùguāng,"adverb, conjunction",not only; not only... (but also)
 55,不仅,bùjǐn,conjunction,not only
 56,不满,bùmǎn,adjective,"dissatisfied, displeased"
 57,部门,bùmén,noun,"department, unit"
@@ -68,7 +68,7 @@ no,word,pinyin,part_of_speech,translation
 67,查看,chákàn,verb,"to check, to view"
 68,茶叶,cháyè,noun,tea leaf
 69,查找,cházhǎo,verb,"to search for, to look up"
-70,差点⼉,chàdiǎnr,adjective 、 adverb,"poor, not good enough; almost, nearly"
+70,差点⼉,chàdiǎnr,"adjective, adverb","poor, not good enough; almost, nearly"
 71,产⽣,chǎnshēng,verb,"to produce, to generate, to arise"
 72,⼚,chǎng,noun,"factory, plant"
 73,场,chǎng,classifier,"measure word for events, performances, etc."
@@ -77,17 +77,17 @@ no,word,pinyin,part_of_speech,translation
 76,车位,chēwèi,noun,parking space
 77,城,chéng,noun,"city, town"
 78,乘,chéng,verb,"to ride, to take, to multiply"
-79,成功,chénggōng,verb 、 adjective,to succeed; successful
+79,成功,chénggōng,"verb, adjective",to succeed; successful
 80,乘客,chéngkè,noun,passenger
 81,诚实,chéngshí,adjective,honest
 82,成为,chéngwéi,verb,to become
 83,乘坐,chéngzuò,verb,"to ride, to take transportation"
 84,吃惊,chījīng,verb,"to be startled, to be shocked"
 85,迟,chí,adjective,"late, delayed"
-86,重,chóng,adverb,"、（ verb ） again, once more; (to repeat)"
+86,重,chóng,"adverb, (verb)","again, once more; (to repeat)"
 87,重新,chóngxīn,adverb,"again, anew"
 88,出差,chūchāi,verb,to go on a business trip
-89,出⼜,chūkǒu,noun,、（ verb ） exit; (to export)
+89,出口,chūkǒu,"noun, (verb)",exit; (to export)
 90,出现,chūxiàn,verb,"to appear, to emerge"
 91,出⾏,chūxíng,verb,"to travel, to go out"
 92,出租,chūzū,verb,to rent out
@@ -98,7 +98,7 @@ no,word,pinyin,part_of_speech,translation
 97,吹,chuī,verb,to blow
 98,词语,cíyǔ,noun,"word, phrase"
 99,此,cǐ,pronoun,this
-100,此次,cǐ,cì,this time
+100,此次,cǐcì,,this time
 101,此外,cǐwài,conjunction,"besides, in addition, moreover"
 102,从此,cóngcǐ,adverb,"from then on, since then"
 103,从来,cónglái,adverb,"always, at all times"
@@ -108,12 +108,12 @@ no,word,pinyin,part_of_speech,translation
 107,村,cūn,noun,village
 108,存,cún,verb,"to store, to keep, to exist"
 109,错过,cuòguò,verb,"to miss, to let slip"
-110,错误,cuòwù,adjective 、 noun,"wrong, mistaken; mistake, error"
+110,错误,cuòwù,"adjective, noun","wrong, mistaken; mistake, error"
 111,答应,dāying,verb,"to agree, to promise, to reply"
 112,答,dá,verb,"to answer, to reply"
 113,答案,dá’àn,noun,"answer, solution"
 114,达到,dádào,verb,"to reach, to achieve"
-115,打招呼,dǎ,zhāohu,"to greet, to say hello"
+115,打招呼,dǎzhāohu,,"to greet, to say hello"
 116,打败,dǎbài,verb,"to defeat, to beat"
 117,打⼯,dǎgōng,verb,to work a temporary job
 118,打扰,dǎrǎo,verb,"to disturb, to bother"
@@ -133,21 +133,21 @@ no,word,pinyin,part_of_speech,translation
 132,戴,dài,verb,"to wear, to put on"
 133,袋⼦,dàizi,noun,"bag, sack"
 134,单位,dānwèi,noun,"unit, department"
-135,当,dāng,verb 、,"prepositionto serve as, to be; at the time of"
+135,当,dāng,"verb, preposition","to serve as, to be; at the time of"
 136,当时,dāngshí,noun,"at that time, then"
 137,⼑,dāo,noun,knife
-138,导游,dǎoyóu,verb 、 noun,tour guide; to guide
-139,倒,dào,verb,"、（ adverb ） to fall, to collapse; (however, but)"
-140,道,dào,noun 、 classifier,"path, way, method; measure word for long objects"
+138,导游,dǎoyóu,"verb, noun",tour guide; to guide
+139,倒,dào,"verb, (adverb)","to fall, to collapse; (however, but)"
+140,道,dào,"noun, classifier","path, way, method; measure word for long objects"
 141,到底,dàodǐ,adverb,"finally, after all, to the end"
 142,到来,dàolái,verb,to arrive
 143,道路,dàolù,noun,"road, path"
 144,道歉,dàoqiàn,verb,to apologize
 145,得意,déyì,adjective,"proud, complacent"
 146,登机,dēngjī,verb,to board a plane
-147,等,děng,auxiliary 、,"（ noun 、 classifier ） and so on, etc.; (class, grade; measure word)"
+147,等,děng,"auxiliary, (noun, classifier)","and so on, etc.; (class, grade; measure word)"
 148,等到,děngdào,preposition,"until, by the time"
-149,低,dī,adjective 、 verb,low; to lower
+149,低,dī,"adjective, verb",low; to lower
 150,低价,dījià,noun,low price
 151,低温,dīwēn,noun,low temperature
 152,低于,dīyú,verb,to be lower than
@@ -171,13 +171,13 @@ no,word,pinyin,part_of_speech,translation
 170,度假,dùjià,verb,to go on vacation
 171,肚⼦,dùzi,noun,"belly, stomach"
 172,短信,duǎnxìn,noun,text message
-173,队,duì,noun 、,"（ classifier ） team, squad; (measure word for teams)"
+173,队,duì,"noun, (classifier)","team, squad; (measure word for teams)"
 174,对⽅,duìfāng,noun,"the other party, counterpart"
 175,对⾯,duìmiàn,noun,opposite side
 176,对于,duìyú,preposition,"regarding, concerning"
 177,队员,duìyuán,noun,team member
 178,队长,duìzhǎng,noun,team leader
-179,顿,dùn,classifier 、,"（ verb ） measure word for meals, scolding; (to pause)"
+179,顿,dùn,"classifier, (verb)","measure word for meals, scolding; (to pause)"
 180,多么,duōme,adverb,"how, so, what"
 181,多数,duōshù,noun,majority
 182,多样,duōyàng,adjective,"diverse, varied"
@@ -187,8 +187,8 @@ no,word,pinyin,part_of_speech,translation
 186,发送,fāsòng,verb,to send
 187,法,fǎ,noun,law
 188,法律,fǎlǜ,noun,law
-189,翻译,fānyì,verb 、 noun,to translate; translation
-190,烦,fán,adjective 、 verb,"annoyed, vexed; to bother"
+189,翻译,fānyì,"verb, noun",to translate; translation
+190,烦,fán,"adjective, verb","annoyed, vexed; to bother"
 191,烦恼,fánnǎo,adjective,"worried, distressed"
 192,反对,fǎnduì,verb,"to oppose, to be against"
 193,⽅⾯,fāngmiàn,noun,"aspect, side"
@@ -197,7 +197,7 @@ no,word,pinyin,part_of_speech,translation
 196,房租,fángzū,noun,rent
 197,放弃,fàngqì,verb,to give up
 198,放松,fàngsōng,verb,to relax
-199,费,fèi,noun 、 verb,"fee, expense; to spend"
+199,费,fèi,"noun, verb","fee, expense; to spend"
 200,费⽤,fèiyong,noun,"cost, expense"
 201,分数,fēnshù,noun,"score, grade, fraction"
 202,分为,fēnwéi,verb,to be divided into
@@ -213,24 +213,24 @@ no,word,pinyin,part_of_speech,translation
 212,⽗亲,fùqīn,noun,father
 213,复印,fùyìn,verb,"to photocopy, to duplicate"
 214,复杂,fùzá,adjective,"complicated, complex"
-215,负责,fùzé,verb 、 adjective,to be responsible; responsible
+215,负责,fùzé,"verb, adjective",to be responsible; responsible
 216,负责⼈,fùzérén,noun,person in charge
 217,⽗⼦,fùzǐ,noun,father and son
 218,改,gǎi,verb,"to change, to alter"
 219,改变,gǎibiàn,verb,to change
-220,⼲,gān,adjective 、,（ noun ） dry; (dried food)
+220,⼲,gān,"adjective, (noun)",dry; (dried food)
 221,⼲杯,gānbēi,verb,"to toast, cheers"
 222,赶,gǎn,verb,"to hurry, to catch up"
 223,敢,gǎn,verb,to dare
 224,感,gǎn,suffix,"sense, feeling, as suffix"
-225,感动,gǎndòng,adjective 、 verb,"moved, touched; to move, to touch"
+225,感动,gǎndòng,"adjective, verb","moved, touched; to move, to touch"
 226,赶紧,gǎnjǐn,adverb,"quickly, promptly"
-227,感觉,gǎnjué,noun 、 verb,"feeling, sense; to feel"
+227,感觉,gǎnjué,"noun, verb","feeling, sense; to feel"
 228,赶快,gǎnkuài,adverb,"quickly, at once"
 229,感情,gǎnqíng,noun,"emotion, feeling"
 230,感⼈,gǎnrén,adjective,"touching, moving"
 231,赶上,gǎnshàng,verb,"to catch up, to keep up with"
-232,感受,gǎnshòu,verb 、 noun,"feeling, experience; to feel"
+232,感受,gǎnshòu,"verb, noun","feeling, experience; to feel"
 233,感谢,gǎnxiè,verb,to thank
 234,⼲活⼉,gànhuór,verb,to work
 235,钢琴,gāngqín,noun,piano
@@ -242,9 +242,9 @@ no,word,pinyin,part_of_speech,translation
 241,胳膊,gēbo,noun,arm
 242,歌声,gēshēng,noun,"sound of singing, song"
 243,歌⼿,gēshǒu,noun,singer
-244,各,gè,pronoun 、 adverb,"each, every; respectively"
+244,各,gè,"pronoun, adverb","each, every; respectively"
 245,各地,gèdì,noun,various places
-246,各个,gègè,pronoun 、 adverb,"each, every; one by one"
+246,各个,gègè,"pronoun, adverb","each, every; one by one"
 247,各位,gèwèi,pronoun,"everyone, all (respectful)"
 248,各种,gèzhǒng,pronoun,"various kinds, all kinds"
 249,更加,gèngjiā,adverb,"more, even more"
@@ -258,7 +258,7 @@ no,word,pinyin,part_of_speech,translation
 257,⼯资,gōngzī,noun,"wage, salary"
 258,共,gòng,adverb,"together, in total"
 259,共同,gòngtóng,adjective,"common, joint"
-260,够,gòu,verb 、 adverb,enough; sufficiently
+260,够,gòu,"verb, adverb",enough; sufficiently
 261,购买,gòumǎi,verb,to purchase
 262,购物,gòuwù,verb,to shop
 263,估计,gūjì,verb,"to estimate, to guess"
@@ -267,18 +267,18 @@ no,word,pinyin,part_of_speech,translation
 266,顾客,gùkè,noun,customer
 267,故意,gùyì,adverb,"deliberately, on purpose"
 268,挂,guà,verb,"to hang, to suspend"
-269,关键,guānjiàn,noun 、 adjective,"crux; key, crucial"
+269,关键,guānjiàn,"noun, adjective","crux; key, crucial"
 270,观看,guānkàn,verb,"to watch, to view"
 271,观众,guānzhòng,noun,audience
-272,管,guǎn,verb,"、（ noun 、 classifier ） control, manage, care about, bother with; (pipe, tube); (measure word for tubular objects)"
+272,管,guǎn,"verb, (noun, classifier)","control, manage, care about, bother with; (pipe, tube); (measure word for tubular objects)"
 273,管理,guǎnlǐ,verb,manage
-274,光,guāng,noun 、 adjective 、 verb 、 adverb,"light, rayl smooth, shiny, used up; bare, expose; only, merely, solely"
-275,⼴播,guǎngbō,verb 、 noun,"broadcast, air; radio broadcast, boradcasting"
+274,光,guāng,"noun, adjective, verb, adverb","light, rayl smooth, shiny, used up; bare, expose; only, merely, solely"
+275,⼴播,guǎngbō,"verb, noun","broadcast, air; radio broadcast, boradcasting"
 276,⼴告,guǎnggào,noun,advertisement
 277,逛,guàng,verb,"stroll, roam, browse, shop around"
-278,规定,guīdìng,verb 、 noun,"stipulate, prescribe, set rules; regulation, rule, stipulation"
+278,规定,guīdìng,"verb, noun","stipulate, prescribe, set rules; regulation, rule, stipulation"
 279,国籍,guójí,noun,nationality
-280,国际,guójì,adjective 、 noun,international; world
+280,国际,guójì,"adjective, noun",international; world
 281,果汁,guǒzhī,noun,fruit juice
 282,过程,guòchéng,noun,process
 283,海洋,hǎiyáng,noun,"ocean, sea"
@@ -289,7 +289,7 @@ no,word,pinyin,part_of_speech,translation
 288,汗,hàn,noun,sweat
 289,航班,hángbān,noun,flight
 290,好处,hǎochù,noun,benefit
-291,好好,hǎohǎo,adjective 、 adverb,"good, nice, proper; well, thoroughly, serious, all out"
+291,好好,hǎohǎo,"adjective, adverb","good, nice, proper; well, thoroughly, serious, all out"
 292,好笑,hǎoxiào,adjective,"funny, ridiculous"
 293,合格,hégé,adjective,qualified
 294,盒⼦,hézi,noun,box
@@ -303,31 +303,31 @@ no,word,pinyin,part_of_speech,translation
 302,话剧,huàjù,noun,drama
 303,怀疑,huáiyí,verb,doubt
 304,坏处,huàichù,noun,"disadvantage, harm"
-305,环保,huánbǎo,noun 、 adjective,"environmental protection; environmentally friendly, green"
+305,环保,huánbǎo,"noun, adjective","environmental protection; environmentally friendly, green"
 306,换乘,huànchéng,verb,"transfer, change"
 307,回复,huífù,verb,reply
-308,回信,huíxìn,verb 、 noun,"reply to a letter, write backl; reply letter, response"
+308,回信,huíxìn,"verb, noun","reply to a letter, write backl; reply letter, response"
 309,回忆,huíyì,verb,memory
 310,会员,huìyuán,noun,membership
-311,活,huó,verb 、 adjective 、 noun,"live; alive, living, flexible; work, job, livelihood"
-312,活动,huódòng,verb 、 noun,"move, exercise, beactive; activity, event, exercise"
+311,活,huó,"verb, adjective, noun","live; alive, living, flexible; work, job, livelihood"
+312,活动,huódòng,"verb, noun","move, exercise, beactive; activity, event, exercise"
 313,活泼,huópō,adjective,lively
-314,⽕,huǒ,noun 、 adjective,"fire; urgent, popular, hot"
+314,⽕,huǒ,"noun, adjective","fire; urgent, popular, hot"
 315,货,huò,noun,"goods, commodity, money"
 316,获得,huòdé,verb,get
 317,获奖,huòjiǎng,verb,"win a prize, receive an award"
 318,获取,huòqǔ,verb,"gain, obtain"
-319,基本,jīběn,adjective 、 adverb,"basic, fundamental, essential; basically, essentially, on the whole"
+319,基本,jīběn,"adjective, adverb","basic, fundamental, essential; basically, essentially, on the whole"
 320,基本上,jīběnshàng,adverb,basically
 321,基础,jīchǔ,noun,Basics
-322,激动,jīdòng,adjective 、 verb,"excited, agitated, emotionally moved; to excite, to agitate, to move (emotionally)"
+322,激动,jīdòng,"adjective, verb","excited, agitated, emotionally moved; to excite, to agitate, to move (emotionally)"
 323,积极,jījí,adjective,positive
 324,积累,jīlěi,verb,"to accumulate, to build up, to amass"
-325,及时,jíshí,adjective 、 adverb,"timely, prompt, in time; without delay, promptly, in a timely manner"
+325,及时,jíshí,"adjective, adverb","timely, prompt, in time; without delay, promptly, in a timely manner"
 326,即使,jíshǐ,conjunction,even if
-327,既,jì,adverb 、 conjunction,"already, since; both ... and ..., as well as (used in the pattern 既 ... 又 / 也 ...)"
+327,既,jì,"adverb, conjunction","already, since; both ... and ..., as well as (used in the pattern 既...又/ 也...)"
 328,寄,jì,verb,send
-329,计划,jìhuà,noun 、 verb,"plan, project, program, scheme; to plan, to map out, to intend"
+329,计划,jìhuà,"noun, verb","plan, project, program, scheme; to plan, to map out, to intend"
 330,既然,jìrán,conjunction,since
 331,技术,jìshù,noun,technology
 332,继续,jìxù,verb,continue
@@ -352,12 +352,12 @@ no,word,pinyin,part_of_speech,translation
 351,减少,jiǎnshǎo,verb,"to reduce, to decrease, to cut down, to diminish"
 352,健⾝,jiànshēn,verb,"to exercise, to work out, to keep fit, to engage in fitness activities"
 353,健⾝房,jiànshēnfáng,noun,gym
-354,建议,jiànyì,verb 、 noun,"to suggest, to propose, to recommend; suggestion, proposal, recommendation"
+354,建议,jiànyì,"verb, noun","to suggest, to propose, to recommend; suggestion, proposal, recommendation"
 355,江,jiāng,noun,river
-356,将,jiāng,preposition 、 adverb,"with, by (used to introduce the object of a verb, similar to 把 ); will, shall, be about to"
+356,将,jiāng,"preposition, adverb","with, by (used to introduce the object of a verb, similar to 把); will, shall, be about to"
 357,将来,jiānglái,noun,future
 358,将要,jiāngyào,adverb,"will, be going to, be about to"
-359,奖,jiǎng,noun,"、（ verb ） prize, award, reward; to award, to reward, to praise"
+359,奖,jiǎng,"noun, (verb)","prize, award, reward; to award, to reward, to praise"
 360,奖⾦,jiǎngjīn,noun,"bonus, prize money, cash award"
 361,奖学⾦,jiǎngxuéjīn,noun,"scholarship, fellowship"
 362,降,jiàng,verb,"to fall, to drop, to descend, to lower"
@@ -365,8 +365,8 @@ no,word,pinyin,part_of_speech,translation
 364,降价,jiàngjià,verb,"to descend, to land, to touch down"
 365,降落,jiàngluò,verb,"to descend, to land, to touch down"
 366,降温,jiàngwēn,verb,"to cool down, to lower the temperature"
-367,交,jiāo,verb,"、（ noun ） to hand in, to submit; to meet, to cross; to make friends with; friend, acquaintance, relationship"
-368,骄傲,jiāo’ào,adjective 、 noun,"proud, arrogant, conceited; pride, arrogance"
+367,交,jiāo,"verb, (noun)","to hand in, to submit; to meet, to cross; to make friends with; friend, acquaintance, relationship"
+368,骄傲,jiāo’ào,"adjective, noun","proud, arrogant, conceited; pride, arrogance"
 369,交警,jiāojǐng,noun,traffic police
 370,交流,jiāoliú,verb,communicate
 371,郊区,jiāoqū,noun,suburb
@@ -375,28 +375,28 @@ no,word,pinyin,part_of_speech,translation
 374,教师,jiàoshī,noun,teacher
 375,教授,jiàoshòu,noun,professor
 376,教学,jiàoxué,noun,teach
-377,教育,jiàoyù,noun 、 verb,education; to educate
+377,教育,jiàoyù,"noun, verb",education; to educate
 378,叫作,jiàozuò,verb,"be called, be known as"
 379,街道,jiēdào,noun,street
 380,接受,jiēshòu,verb,accept
-381,接着,jiēzhe,verb 、 adverb,"to continue, to follow, to catch; then, next, subsequently"
-382,结果,jiéguǒ,noun 、 conjunction,"result, outcome, consequence; as a result, consequently, in the end"
+381,接着,jiēzhe,"verb, adverb","to continue, to follow, to catch; then, next, subsequently"
+382,结果,jiéguǒ,"noun, conjunction","result, outcome, consequence; as a result, consequently, in the end"
 383,节假⽇,jiéjiàrì,noun,"festivals and holidays, holiday season"
 384,节约,jiéyuē,verb,"to save, to economize, to conserve"
 385,结账,jiézhàng,verb,"to pay the bill, to settle an account, to check out"
 386,解释,jiěshì,verb,"to explain, to interpret, to account for"
 387,今后,jīnhòu,noun,"from now on, in the future, henceforth"
 388,仅,jǐn,adverb,"only, merely, solely"
-389,尽管,jǐnguǎn,adverb 、 conjunction,"feel free to, not hesitate to (often in the pattern 尽管 + verb); although, even though, despite"
+389,尽管,jǐnguǎn,"adverb, conjunction","feel free to, not hesitate to (often in the pattern 尽管 + verb); although, even though, despite"
 390,仅仅,jǐnjǐn,adverb,"only, merely, barely, simply"
 391,紧张,jǐnzhāng,adjective,"nervous, tense, strained, in short supply"
 392,进⼊,jìnrù,verb,"to enter, to access, to be admitted to"
 393,进⾏,jìnxíng,verb,"to carry out, to conduct, to proceed with, to undertake"
 394,禁⽌,jìnzhǐ,verb,"to prohibit, to forbid, to ban"
 395,精彩,jīngcǎi,adjective,"brilliant, splendid, wonderful, exciting"
-396,经济,jīngjì,noun 、,"（ adjective ） economy, economics; economical, affordable"
+396,经济,jīngjì,"noun, (adjective)","economy, economics; economical, affordable"
 397,京剧,jīngjù,noun,Beijing opera
-398,经历,jīnglì,verb 、 noun,"to experience, to go through; experience, past, history"
+398,经历,jīnglì,"verb, noun","to experience, to go through; experience, past, history"
 399,经验,jīngyàn,noun,experience
 400,警察,jǐngchá,noun,police
 401,景点,jǐngdiǎn,noun,"scenic spot, tourist attraction, point of interest"
@@ -405,46 +405,46 @@ no,word,pinyin,part_of_speech,translation
 404,竟然,jìngrán,adverb,unexpectedly
 405,竞争,jìngzhēng,verb,compete
 406,镜⼦,jìngzi,noun,mirror
-407,究竟,jiūjìng,adverb 、,"（ noun ） actually, exactly, after all (used for emphasis in questions); the outcome, the details of a situation"
-408,就是,jiùshì,auxiliary 、 adverb 、 conjunction,"precisely, exactly (used for emphasis); only, merely, simply; even if, even (as in 就是 ... 也 ...)"
+407,究竟,jiūjìng,"adverb, (noun)","actually, exactly, after all (used for emphasis in questions); the outcome, the details of a situation"
+408,就是,jiùshì,"auxiliary, adverb, conjunction","precisely, exactly (used for emphasis); only, merely, simply; even if, even (as in 就是...也...)"
 409,举,jǔ,verb,"to raise, to lift; to hold (an event); to give (an example); to recommend"
 410,举办,jǔbàn,verb,"to hold, to host, to organize (an event, activity)"
 411,举例,jǔlì,verb,"to give an example, to illustrate with an example"
 412,举⾏,jǔxíng,verb,"to hold, to convene, to conduct (a ceremony, meeting, event)"
 413,聚,jù,verb,"to gather, to assemble, to get together"
 414,聚餐,jùcān,verb,"to have a dinner together, to dine together"
-415,聚会,jùhuì,verb 、 noun,"to get together, to meet, to gather; party, gathering, meeting"
+415,聚会,jùhuì,"verb, noun","to get together, to meet, to gather; party, gathering, meeting"
 416,拒绝,jùjué,verb,"to refuse, to reject, to decline"
-417,距离,jùlí,verb 、 noun,"to be away from, to be at a distance from; distance, gap"
+417,距离,jùlí,"verb, noun","to be away from, to be at a distance from; distance, gap"
 418,剧院,jùyuàn,noun,"theater, opera house, playhouse"
-419,开玩笑,kāi,wánxiào,make fun of
+419,开玩笑,kāiwánxiào,,make fun of
 420,看法,kànfǎ,noun,view
 421,烤,kǎo,verb,"to bake, to roast, to grill, to toast"
 422,考虑,kǎolǜ,verb,"to consider, to think over, to contemplate"
 423,考⽣,kǎoshēng,noun,examinee
 424,棵,kē,classifier,"measure word for trees, plants, and other similar objects"
 425,科技,kējì,noun,science and technology
-426,科学,kēxué,noun 、 adjective,science; scientific
+426,科学,kēxué,"noun, adjective",science; scientific
 427,咳,ké,verb,to cough
 428,咳嗽,késou,verb,to cough
 429,可惜,kěxī,adjective,"regrettable, unfortunate, a pity"
 430,克,kè,classifier,gram
 431,课程,kèchéng,noun,curriculum
-432,客⽓,kèqi,adjective 、 verb,"polite, courteous; to be polite, to say polite remarks"
+432,客⽓,kèqi,"adjective, verb","polite, courteous; to be polite, to say polite remarks"
 433,课堂,kètáng,noun,classroom
 434,客厅,kètīng,noun,"living room, parlor"
-435,肯定,kěndìng,verb 、 adjective 、 adverb,"to be certain, to be sure, to affirm; positive, affirmative, definite; surely, certainly, definitely"
-436,空,kōng,adjective 、,"（ adverb ） empty, vacant, hollow; （ in vain, for nothing ）"
+435,肯定,kěndìng,"verb, adjective, adverb","to be certain, to be sure, to affirm; positive, affirmative, definite; surely, certainly, definitely"
+436,空,kōng,"adjective, (adverb)","empty, vacant, hollow; (in vain, for nothing)"
 437,空⽓,kōngqì,noun,"atmosphere, air"
-438,恐怕,kǒngpà,verb 、 adverb,"to fear, to be afraid; I'm afraid, perhaps, maybe"
-439,空,kòng,verb 、 adjective 、 noun,"to leave empty, to make time, to free up; empty, free, unoccupied; free time, empty space"
-440,⼜语,kǒuyǔ,noun,spoken language
+438,恐怕,kǒngpà,"verb, adverb","to fear, to be afraid; I'm afraid, perhaps, maybe"
+439,空,kòng,"verb, adjective, noun","to leave empty, to make time, to free up; empty, free, unoccupied; free time, empty space"
+440,口语,kǒuyǔ,noun,spoken language
 441,苦,kǔ,adjective,bitter
 442,快餐,kuàicān,noun,fast food
 443,快递,kuàidì,noun,express delivery
 444,快速,kuàisù,adjective,"fast, high-speed"
-445,困,kùn,adjective 、,"（ verb ） sleepy, tired; （ to trap, to confine ）"
-446,困难,kùnnan,adjective 、 noun,"difficult, hard; difficulty, trouble"
+445,困,kùn,"adjective, (verb)","sleepy, tired; (to trap, to confine)"
+446,困难,kùnnan,"adjective, noun","difficult, hard; difficulty, trouble"
 447,拉,lā,verb,"to pull, to drag, to draw"
 448,垃圾,lājī,noun,"garbage, trash, rubbish"
 449,辣,là,adjective,"hot, spicy"
@@ -460,26 +460,26 @@ no,word,pinyin,part_of_speech,translation
 459,冷静,lěngjìng,adjective,"calm, cool-headed"
 460,理发,lǐfà,verb,"to have a haircut, to cut hair"
 461,理解,lǐjiě,verb,"to understand, to comprehend"
-462,礼貌,lǐmào,noun 、 adjective,"courtesy, politeness; polite"
-463,理想,lǐxiǎng,noun 、 adjective,"ideal, dream; ideal"
+462,礼貌,lǐmào,"noun, adjective","courtesy, politeness; polite"
+463,理想,lǐxiǎng,"noun, adjective","ideal, dream; ideal"
 464,厉害,lìhai,adjective,"severe, fierce, impressive, excellent"
 465,⼒⽓,lìqi,noun,"strength, physical power"
 466,例如,lìrú,verb,"for example, such as"
 467,例⼦,lìzi,noun,"example, instance"
-468,俩,liǎ,"number-classifiertwo,",both
-469,连,lián,preposition 、,"（ verb 、 adverb ） used to introduce the object of a verb, linking; (even, including); (to connect, to link)"
+468,俩,liǎ,number-classifier,"two, both"
+469,连,lián,"preposition, (verb, adverb)","used to introduce the object of a verb, linking; (even, including); (to connect, to link)"
 470,联系,liánxì,verb,"to contact, to connect"
 471,凉,liáng,adjective,"cool, cold"
 472,量,liáng,verb,"to measure, to weigh"
 473,两,liǎng,classifier,"measure word for vehicles, animals, etc."
-474,亮,liàng,adjective 、 verb,"bright, light; to shine, to show"
-475,列,liè,verb 、 classifier,"to arrange in a row, to list; measure word for rows or lines"
-476,零下,líng,xià,below zero
+474,亮,liàng,"adjective, verb","bright, light; to shine, to show"
+475,列,liè,"verb, classifier","to arrange in a row, to list; measure word for rows or lines"
+476,零下,língxià,,below zero
 477,零花钱,línghuāqián,noun,"pocket money, spending money"
 478,零钱,língqián,noun,"change, small denominations of money"
 479,零⾷,língshí,noun,"snacks, between-meal nibbles"
-480,另,lìng,pronoun 、,"（ adverb ） other, another; (separately, otherwise)"
-481,另外,lìngwài,pronoun 、 adverb 、 conjunction,"other, else; in addition, moreover; besides, furthermore"
+480,另,lìng,"pronoun, (adverb)","other, another; (separately, otherwise)"
+481,另外,lìngwài,"pronoun, adverb, conjunction","other, else; in addition, moreover; besides, furthermore"
 482,留,liú,verb,"to stay, to remain, to keep"
 483,流,liú,verb,"to flow, to circulate"
 484,流利,liúlì,adjective,"fluent, smooth"
@@ -490,11 +490,11 @@ no,word,pinyin,part_of_speech,translation
 489,旅客,lǚkè,noun,"traveler, passenger"
 490,旅⾏,lǚxíng,verb,to travel
 491,律师,lǜshī,noun,"lawyer, attorney"
-492,乱,luàn,adjective 、 adverb,"messy, disorderly; arbitrarily, recklessly"
+492,乱,luàn,"adjective, adverb","messy, disorderly; arbitrarily, recklessly"
 493,落,luò,verb,"to fall, to drop, to land"
-494,⿇烦,máfan,adjective 、 verb 、 noun,"troublesome, annoying; to trouble, to bother; trouble, inconvenience"
+494,⿇烦,máfan,"adjective, verb, noun","troublesome, annoying; to trouble, to bother; trouble, inconvenience"
 495,馒头,mántou,noun,"steamed bun, mantou"
-496,满,mǎn,adjective 、 verb,"full, filled; to fill"
+496,满,mǎn,"adjective, verb","full, filled; to fill"
 497,⽑⼱,máojīn,noun,towel
 498,⽑⾐,máoyī,noun,"sweater, woolen garment"
 499,帽⼦,màozi,noun,"hat, cap"
@@ -503,8 +503,8 @@ no,word,pinyin,part_of_speech,translation
 502,美景,měijǐng,noun,beautiful scenery
 503,美丽,měilì,adjective,"beautiful, lovely"
 504,美⾷,měishí,noun,"delicious food, cuisine"
-505,梦,mèng,noun 、 verb,dream; to dream
-506,梦想,mèngxiǎng,verb 、 noun,to dream; dream
+505,梦,mèng,"noun, verb",dream; to dream
+506,梦想,mèngxiǎng,"verb, noun",to dream; dream
 507,密码,mìmǎ,noun,"password, PIN code"
 508,免费,miǎnfèi,verb,"free of charge, to be free"
 509,⾯对,miànduì,verb,"to face, to confront"
@@ -519,7 +519,7 @@ no,word,pinyin,part_of_speech,translation
 518,⽬的,mùdì,noun,"purpose, aim, goal"
 519,⽬的地,mùdìdì,noun,destination
 520,⽬前,mùqián,noun,"currently, at present"
-521,耐⼼,nàixīn,adjective 、 noun,patient; patience
+521,耐⼼,nàixīn,"adjective, noun",patient; patience
 522,南部,nánbù,noun,"southern part, south"
 523,难道,nándào,adverb,could it be that...?
 524,男⼠,nánshì,noun,"man, gentleman"
@@ -529,7 +529,7 @@ no,word,pinyin,part_of_speech,translation
 528,内,nèi,noun,"inside, within"
 529,内容,nèiróng,noun,"content, substance"
 530,内⼼,nèixīn,noun,"heart, inner self"
-531,能否,néng,fǒu,"whether or not, can or cannot"
+531,能否,néngfǒu,,"whether or not, can or cannot"
 532,能够,nénggòu,verb,"can, be able to, be capable of"
 533,能⼒,nénglì,noun,"ability, capability, capacity"
 534,嗯,ǹg,interjection,"uh-huh, hmm"
@@ -538,10 +538,10 @@ no,word,pinyin,part_of_speech,translation
 537,农村,nóngcūn,noun,"rural area, countryside"
 538,弄,nòng,verb,"to do, to handle, to mess with"
 539,⼥性,nǚxìng,noun,"female, feminine"
-540,暖和,nuǎnhuo,adjective 、 verb,warm; to warm up
-541,偶尔,ǒu’ěr,adverb 、,"adjectiveoccasionally, sometimes; occasional"
-542,拍,pāi,verb 、 noun,"to pat, to clap, to take (a photo); beat, rhythm"
-543,排,pái,verb 、 noun 、 classifier,"to line up, to arrange; row, line; measure word for rows"
+540,暖和,nuǎnhuo,"adjective, verb",warm; to warm up
+541,偶尔,ǒu’ěr,"adverb, adjective","occasionally, sometimes; occasional"
+542,拍,pāi,"verb, noun","to pat, to clap, to take (a photo); beat, rhythm"
+543,排,pái,"verb, noun, classifier","to line up, to arrange; row, line; measure word for rows"
 544,牌,pái,noun,"card, brand, plaque, sign"
 545,排队,páiduì,verb,"to line up, to queue up"
 546,排球,páiqiú,noun,volleyball
@@ -552,11 +552,11 @@ no,word,pinyin,part_of_speech,translation
 551,⽪肤,pífū,noun,skin
 552,脾⽓,píqi,noun,"temperament, disposition, temper"
 553,⽪鞋,píxié,noun,leather shoes
-554,篇,piān,noun 、 classifier,"measure word for essays, articles, papers; piece, sheet"
-555,⽚,piàn,noun 、 classifier,"piece, slice, area; measure word for flat objects"
+554,篇,piān,"noun, classifier","measure word for essays, articles, papers; piece, sheet"
+555,⽚,piàn,"noun, classifier","piece, slice, area; measure word for flat objects"
 556,乒乓球,pīngpāngqiú,noun,"table tennis, ping-pong"
-557,平常,píngcháng,adjective 、 noun,"ordinary, usual; usually, ordinarily"
-558,破,pò,verb 、 adjective,"broken, damaged; to break, to ruin"
+557,平常,píngcháng,"adjective, noun","ordinary, usual; usually, ordinarily"
+558,破,pò,"verb, adjective","broken, damaged; to break, to ruin"
 559,葡萄,pútao,noun,grape
 560,葡萄酒,pútaojiǔ,noun,"wine, grape wine"
 561,普遍,pǔbiàn,adjective,"widespread, universal, common"
@@ -568,13 +568,13 @@ no,word,pinyin,part_of_speech,translation
 567,其次,qícì,pronoun,"next, secondly, then"
 568,其中,qízhōng,noun,"among them, inside"
 569,起到,qǐdào,verb,"to play the role of, to function as, to act as"
-570,⽓,qì,noun 、 verb,"air, gas, breath; to anger, to make angry"
+570,⽓,qì,"noun, verb","air, gas, breath; to anger, to make angry"
 571,⽓候,qìhòu,noun,climate
 572,汽⽔,qìshuǐ,noun,"soda, soft drink"
 573,⽓温,qìwēn,noun,air temperature
 574,千克,qiānkè,classifier,kilogram
 575,千万,qiānwàn,adverb,"ten million, by all means, absolutely"
-576,签证,qiānzhèng,verb 、 noun,visa; to issue a visa
+576,签证,qiānzhèng,"verb, noun",visa; to issue a visa
 577,前⽅,qiánfāng,noun,"ahead, front"
 578,前后,qiánhòu,noun,"front and back, around, about"
 579,强,qiáng,adjective,"strong, powerful"
@@ -592,11 +592,11 @@ no,word,pinyin,part_of_speech,translation
 591,球队,qiúduì,noun,"sports team, ball team"
 592,球迷,qiúmí,noun,"fan, sports enthusiast"
 593,区,qū,noun,"district, area, region"
-594,区别,qūbié,verb 、 noun,"difference; to distinguish, to differ"
+594,区别,qūbié,"verb, noun","difference; to distinguish, to differ"
 595,取,qǔ,verb,"to take, to get, to obtain"
 596,取得,qǔdé,verb,"to obtain, to gain"
 597,取消,qǔxiāo,verb,"to cancel, to call off"
-598,全,quán,adjective 、 adverb,"whole, entire; completely, entirely"
+598,全,quán,"adjective, adverb","whole, entire; completely, entirely"
 599,全部,quánbù,noun,"all, the whole thing"
 600,全都,quándōu,adverb,"all, entirely"
 601,全球,quánqiú,noun,"the whole world, global"
@@ -607,7 +607,7 @@ no,word,pinyin,part_of_speech,translation
 606,却,què,adverb,"but, yet, however"
 607,确实,quèshí,adverb,"indeed, really"
 608,然⽽,rán’ér,conjunction,"however, but"
-609,热闹,rènao,adjective 、 verb 、 noun,"lively, bustling; to liven up; lively atmosphere"
+609,热闹,rènao,"adjective, verb, noun","lively, bustling; to liven up; lively atmosphere"
 610,⼈⽣,rénshēng,noun,life
 611,⼈数,rénshù,noun,number of people
 612,⼈员,rényuán,noun,"personnel, staff"
@@ -621,7 +621,7 @@ no,word,pinyin,part_of_speech,translation
 620,⽇期,rìqī,noun,date
 621,⽇⼦,rìzi,noun,"day, life, time"
 622,⼊,rù,verb,"to enter, to go in"
-623,⼊⼜,rùkǒu,noun,entrance
+623,入口,rùkǒu,noun,entrance
 624,⼊学,rùxué,verb,"to enter school, to enroll"
 625,⼊住,rùzhù,verb,"to check in, to move in"
 626,散步,sànbù,verb,"to take a walk, to stroll"
@@ -639,31 +639,31 @@ no,word,pinyin,part_of_speech,translation
 638,少年,shàonián,noun,"juvenile, teenager, youth"
 639,社会,shèhuì,noun,"society, community"
 640,摄⽒度,shèshìdù,classifier,degrees Celsius
-641,⾝,shēn,noun 、 classifier,"body, oneself; measure word for clothes"
-642,深,shēn,adjective 、,"（ adverb ） deep, profound; (deeply, late)"
+641,⾝,shēn,"noun, classifier","body, oneself; measure word for clothes"
+642,深,shēn,"adjective, (adverb)","deep, profound; (deeply, late)"
 643,⾝份证,shēnfènzhèng,noun,"ID card, identification card"
 644,申请,shēnqǐng,verb,"to apply, to file an application"
 645,甚⾄,shènzhì,conjunction,"even, so much as that"
 646,⽣,shēng,verb,"to give birth, to produce, to grow"
-647,⽣,shēng,adjective 、,"（ adverb ） raw, uncooked, unripe; （ very, extremely, terribly ）"
+647,⽣,shēng,"adjective, (adverb)","raw, uncooked, unripe; (very, extremely, terribly)"
 648,⽣命,shēngmìng,noun,life
 649,⽣意,shēngyi,noun,"business, trade"
 650,省,shěng,noun,province
 651,剩,shèng,verb,"to be left over, to remain"
-652,失败,shībài,verb 、 adjective,"to fail; failed, unsuccessful"
+652,失败,shībài,"verb, adjective","to fail; failed, unsuccessful"
 653,师傅,shīfu,noun,"master, skilled worker, respectful address for a tradesperson"
 654,失去,shīqù,verb,"to lose, to be lost"
 655,师⽣,shīshēng,noun,"teacher and student, teachers and students"
-656,失望,shīwàng,verb 、 adjective,"to be disappointed, to lose hope; disappointed"
+656,失望,shīwàng,"verb, adjective","to be disappointed, to lose hope; disappointed"
 657,⼗分,shífēn,adverb,"very, extremely, fully"
-658,实际,shíjì,noun 、 adjective,"reality, actuality; actual, practical"
+658,实际,shíjì,"noun, adjective","reality, actuality; actual, practical"
 659,时间表,shíjiānbiǎo,noun,"schedule, timetable"
 660,实际上,shíjìshàng,adverb,"actually, in fact"
 661,⾷品,shípǐn,noun,"food, provisions"
 662,⾷堂,shítáng,noun,"cafeteria, dining hall"
 663,⾷物,shíwù,noun,food
-664,实在,shízài,adjective 、 adverb,"honest, reliable; really, indeed"
-665,⼗字路⼜,shízì,lùkǒu,"intersection, crossroads"
+664,实在,shízài,"adjective, adverb","honest, reliable; really, indeed"
+665,十字路口,shízìlùkǒu,,"intersection, crossroads"
 666,使,shǐ,verb,"to make, to cause, to use"
 667,使馆,shǐguǎn,noun,embassy
 668,使⽤,shǐyòng,verb,"to use, to employ"
@@ -676,12 +676,12 @@ no,word,pinyin,part_of_speech,translation
 675,试题,shìtí,noun,"test questions, exam paper"
 676,适应,shìyìng,verb,"to adapt, to fit, to suit"
 677,收费,shōufèi,verb,"to charge a fee, to collect payment"
-678,收⼊,shōurù,verb 、 noun,"to receive, to take in; income, revenue"
+678,收⼊,shōurù,"verb, noun","to receive, to take in; income, revenue"
 679,收拾,shōushi,verb,"to put in order, to tidy up, to pack"
 680,收听,shōutīng,verb,"to listen in, to tune in"
 681,⾸,shǒu,classifier,"measure word for songs, poems, etc."
 682,⾸都,shǒudū,noun,capital
-683,⾸先,shǒuxiān,adverb 、 pronoun,"first, firstly; first of all"
+683,⾸先,shǒuxiān,"adverb, pronoun","first, firstly; first of all"
 684,受不了,shòubuliǎo,verb,"to be unable to bear, to be unable to stand"
 685,售票员,shòupiàoyuán,noun,"ticket seller, conductor"
 686,受伤,shòushāng,verb,"to be injured, to get hurt"
@@ -689,7 +689,7 @@ no,word,pinyin,part_of_speech,translation
 688,熟,shú/shóu,adjective,"ripe, cooked, mature"
 689,熟悉,shúxi,verb,"to be familiar with, to know well"
 690,暑假,shǔjià,noun,summer vacation
-691,数,shù,noun 、,"number number, figure; several, a few"
+691,数,shù,"noun, number","number, figure; several, a few"
 692,数量,shùliàng,noun,"quantity, amount"
 693,树林,shùlín,noun,"woods, forest"
 694,数字,shùzì,noun,"digit, figure, number"
@@ -698,31 +698,31 @@ no,word,pinyin,part_of_speech,translation
 697,顺利,shùnlì,adjective,"smooth, successful, going well"
 698,顺序,shùnxù,noun,"order, sequence"
 699,说法,shuōfǎ,noun,"way of saying something, version, statement"
-700,说明,shuōmíng,verb 、 noun,"to explain, to clarify; explanation, instructions"
+700,说明,shuōmíng,"verb, noun","to explain, to clarify; explanation, instructions"
 701,说明书,shuōmíngshū,noun,"instruction manual, user guide, explanatory booklet"
 702,硕⼠,shuòshì,noun,master
-703,死,sǐ,verb 、 adjective 、,"（ adverb ） to die, to be dead; dead, extreme; extremely, to death"
+703,死,sǐ,"verb, adjective, (adverb)","to die, to be dead; dead, extreme; extremely, to death"
 704,速度,sùdù,noun,speed
 705,塑料,sùliào,noun,plastic
 706,酸,suān,adjective,"sour, tart"
 707,酸奶,suānnǎi,noun,yogurt
-708,算,suàn,verb 、 adverb,"to calculate, to count; considered, at last"
-709,随便,suíbiàn,verb 、 adjective 、 conjunction,"to do as one pleases, casual; casual, informal; anyway, whatever"
+708,算,suàn,"verb, adverb","to calculate, to count; considered, at last"
+709,随便,suíbiàn,"verb, adjective, conjunction","to do as one pleases, casual; casual, informal; anyway, whatever"
 710,随着,suízhe,preposition,"along with, following"
 711,孙⼥,sūnnǚ,noun,granddaughter
 712,孙⼦,sūnzi,noun,grandson
-713,所有,suǒyǒu,adjective 、,"（ verb 、 noun ） all, every; (to possess, to own; possessions, belongings)"
-714,台,tái,classifier 、,"（ noun ） measure word for machines, vehicles, etc.; (platform, stage)"
+713,所有,suǒyǒu,"adjective, (verb, noun)","all, every; (to possess, to own; possessions, belongings)"
+714,台,tái,"classifier, (noun)","measure word for machines, vehicles, etc.; (platform, stage)"
 715,抬,tái,verb,"to lift, to raise"
 716,抬头,táitóu,verb,"to raise one's head, to look up"
 717,态度,tàidù,noun,"attitude, manner"
-718,弹,tán,verb,"to play , to spring"
+718,弹,tán,verb,"to play, to spring"
 719,谈,tán,verb,"to talk, to discuss"
 720,汤,tāng,noun,soup
 721,躺,tǎng,verb,to lie down
 722,趟,tàng,classifier,"measure word for trips, journeys"
 723,讨论,tǎolùn,verb,"to discuss, to talk over"
-724,讨厌,tǎoyàn,adjective 、 verb,"disgusting, annoying; to dislike, to loathe"
+724,讨厌,tǎoyàn,"adjective, verb","disgusting, annoying; to dislike, to loathe"
 725,特点,tèdiǎn,noun,"characteristic, feature"
 726,提,tí,verb,"to carry, to lift, to mention, to bring up"
 727,提出,tíchū,verb,"to put forward, to propose, to raise"
@@ -741,18 +741,18 @@ no,word,pinyin,part_of_speech,translation
 740,停车,tíngchē,verb,"to park, to stop a vehicle"
 741,停车场,tíngchēchǎng,noun,parking lot
 742,停⽌,tíngzhǐ,verb,"to stop, to cease"
-743,通,tōng,verb 、 adjective 、,"（ classifier ） to go through, to be open; to lead to, to connect; (measure word for whole sets)"
-744,通过,tōngguò,verb 、,"prepositionto pass through, to go through; by means of"
-745,通知,tōngzhī,verb 、 noun,"to notify, to inform; notice, notification"
+743,通,tōng,"verb, adjective, (classifier)","to go through, to be open; to lead to, to connect; (measure word for whole sets)"
+744,通过,tōngguò,"verb, preposition","to pass through, to go through; by means of"
+745,通知,tōngzhī,"verb, noun","to notify, to inform; notice, notification"
 746,童年,tóngnián,noun,childhood
-747,同时,tóngshí,noun 、 conjunction,"at the same time; meanwhile, moreover"
+747,同时,tóngshí,"noun, conjunction","at the same time; meanwhile, moreover"
 748,同样,tóngyàng,adjective,"same, similar"
 749,桶,tǒng,noun,"bucket, barrel"
-750,痛,tòng,adjective 、,"（ adverb ） painful, sore; (extremely, bitterly)"
+750,痛,tòng,"adjective, (adverb)","painful, sore; (extremely, bitterly)"
 751,头痛,tóutòng,adjective,headache
-752,图,tú,noun,"、（ verb ） picture, drawing, diagram; (to plan, to scheme)"
+752,图,tú,"noun, (verb)","picture, drawing, diagram; (to plan, to scheme)"
 753,图⽚,túpiàn,noun,"picture, image, photograph"
-754,⼟,tǔ,noun 、,"（ adjective ） earth, soil, land; (rustic, unrefined)"
+754,⼟,tǔ,"noun, (adjective)","earth, soil, land; (rustic, unrefined)"
 755,推,tuī,verb,"to push, to shove"
 756,推迟,tuīchí,verb,"to postpone, to delay"
 757,推出,tuīchū,verb,"to launch, to push out, to introduce"
@@ -760,7 +760,7 @@ no,word,pinyin,part_of_speech,translation
 759,袜⼦,wàzi,noun,socks
 760,外出,wàichū,verb,"to go out, to leave home"
 761,外套,wàitào,noun,"coat, jacket"
-762,完全,wánquán,adjective 、 adverb,"complete, total; completely, absolutely"
+762,完全,wánquán,"adjective, adverb","complete, total; completely, absolutely"
 763,晚安,wǎn’ān,verb,good night
 764,晚餐,wǎncān,noun,"dinner, supper"
 765,⽹购,wǎnggòu,verb,to shop online
@@ -768,11 +768,11 @@ no,word,pinyin,part_of_speech,translation
 767,⽹页,wǎngyè,noun,webpage
 768,⽹友,wǎngyǒu,noun,"netizen, internet user"
 769,⽹址,wǎngzhǐ,noun,"website URL, web address"
-770,危险,wēixiǎn,adjective 、 noun,dangerous; danger
+770,危险,wēixiǎn,"adjective, noun",dangerous; danger
 771,为,wéi,verb,"to do, to act, to serve as"
 772,味,wèi,noun,"taste, flavor"
 773,味道,wèidào,noun,"taste, flavor"
-774,卫⽣,wèishēng,adjective 、 noun,"hygiene, sanitation; clean, hygienic"
+774,卫⽣,wèishēng,"adjective, noun","hygiene, sanitation; clean, hygienic"
 775,温度,wēndù,noun,temperature
 776,闻,wén,verb,"to smell, to sniff"
 777,⽂件,wénjiàn,noun,"document, file"
@@ -784,7 +784,7 @@ no,word,pinyin,part_of_speech,translation
 783,⽆聊,wúliáo,adjective,"boring, dull"
 784,⽆论,wúlùn,conjunction,"no matter what, regardless"
 785,午餐,wǔcān,noun,lunch
-786,误会,wùhuì,verb 、 noun,to misunderstand; misunderstanding
+786,误会,wùhuì,"verb, noun",to misunderstand; misunderstanding
 787,吸,xī,verb,"to suck, to inhale, to absorb"
 788,西部,xībù,noun,"western region, west part"
 789,西红柿,xīhóngshì,noun,tomato
@@ -799,14 +799,14 @@ no,word,pinyin,part_of_speech,translation
 798,羡慕,xiànmù,verb,"to envy, to admire"
 799,线上,xiànshàng,noun,"online, on the internet"
 800,线下,xiànxià,noun,offline
-801,现有,xiànyǒu,verb 、 adjective,"existing, currently available; to have currently"
+801,现有,xiànyǒu,"verb, adjective","existing, currently available; to have currently"
 802,⾹,xiāng,adjective,fragrant
 803,相⽐,xiāngbǐ,verb,"to compare with, to contrast"
-804,相反,xiāngfǎn,adjective 、 conjunction,"opposite, contrary; on the contrary"
+804,相反,xiāngfǎn,"adjective, conjunction","opposite, contrary; on the contrary"
 805,相互,xiānghù,adverb,"mutual, each other"
 806,相同,xiāngtóng,adjective,"same, identical"
 807,详细,xiángxì,adjective,"detailed, thorough"
-808,响,xiǎng,verb 、 adjective,"to make a sound, to ring; loud"
+808,响,xiǎng,"verb, adjective","to make a sound, to ring; loud"
 809,想法,xiǎngfǎ,noun,"thought, idea, opinion"
 810,项,xiàng,classifier,"measure word for projects, items"
 811,消息,xiāoxi,noun,"news, message, information"
@@ -815,20 +815,20 @@ no,word,pinyin,part_of_speech,translation
 814,⼩说,xiǎoshuō,noun,"novel, fiction"
 815,⼩组,xiǎozǔ,noun,"small group, team"
 816,效果,xiàoguǒ,noun,"effect, result"
-817,笑话,xiàohua,noun 、 verb,"joke, laughter; to joke, to laugh at"
+817,笑话,xiàohua,"noun, verb","joke, laughter; to joke, to laugh at"
 818,⾎,xiě,noun,blood
 819,⼼,xīn,noun,heart
-820,⾟苦,xīnkǔ,adjective 、 verb,"hard, laborious; to work hard, to toil"
+820,⾟苦,xīnkǔ,"adjective, verb","hard, laborious; to work hard, to toil"
 821,⼼情,xīnqíng,noun,"mood, feeling"
 822,信号,xìnhào,noun,signal
 823,信息,xìnxī,noun,"information, message"
 824,信⼼,xìnxīn,noun,"confidence, faith"
-825,兴奋,xīngfèn,adjective 、 verb,"excited, thrilled; to excite, to get excited"
+825,兴奋,xīngfèn,"adjective, verb","excited, thrilled; to excite, to get excited"
 826,星星,xīngxing,noun,star
 827,醒,xǐng,verb,"to wake up, to sober up"
 828,性,xìng,suffix,"suffix meaning nature, character, quality"
 829,性别,xìngbié,noun,"gender, sex"
-830,幸福,xìngfú,noun 、 adjective,"happiness; happy, blissful"
+830,幸福,xìngfú,"noun, adjective","happiness; happy, blissful"
 831,性格,xìnggé,noun,character
 832,兄弟,xiōngdì,noun,brothers
 833,熊,xióng,noun,bear
@@ -843,7 +843,7 @@ no,word,pinyin,part_of_speech,translation
 842,亚洲,Yàzhōu,noun,Asia
 843,烟,yān,noun,"cigarette, smoke, mist"
 844,盐,yán,noun,salt
-845,严格,yángé,adjective 、 verb,"strict, stringent; to restrict strictly"
+845,严格,yángé,"adjective, verb","strict, stringent; to restrict strictly"
 846,研究,yánjiū,verb,"to research, to study"
 847,研究⽣,yánjiūshēng,noun,"graduate student, postgraduate"
 848,严重,yánzhòng,adjective,"serious, severe, grave"
@@ -860,7 +860,7 @@ no,word,pinyin,part_of_speech,translation
 859,要是,yàoshi,conjunction,"if, suppose"
 860,钥匙,yàoshi,noun,key
 861,也许,yěxǔ,adverb,"maybe, perhaps"
-862,夜,yè,noun 、 classifier,night; measure word for segments of the night
+862,夜,yè,"noun, classifier",night; measure word for segments of the night
 863,夜晚,yèwǎn,noun,"night, evening"
 864,叶⼦,yèzi,noun,Leaf
 865,⼀切,yíqiè,pronoun,everything
@@ -876,7 +876,7 @@ no,word,pinyin,part_of_speech,translation
 875,赢得,yíngdé,verb,"gain, win"
 876,应聘,yìngpìn,verb,"to apply for a job, to respond to a job advertisement"
 877,勇敢,yǒnggǎn,adjective,"brave, courageous"
-878,永远,yǒngyuǎn,adverb 、 noun,"forever, always; eternity, forever"
+878,永远,yǒngyuǎn,"adverb, noun","forever, always; eternity, forever"
 879,⽤来,yònglái,verb,"to be used for, to serve as"
 880,⽤于,yòngyú,verb,"to be used for, to be applied to"
 881,优点,yōudiǎn,noun,"advantage, merit, strong point"
@@ -886,7 +886,7 @@ no,word,pinyin,part_of_speech,translation
 885,油,yóu,noun,"oil, fat, grease"
 886,尤其,yóuqí,adverb,"especially, particularly"
 887,游玩,yóuwán,verb,"to play, to have fun, to go sightseeing"
-888,由于,yóuyú,preposition 、 conjunction,"because of, due to; owing to"
+888,由于,yóuyú,"preposition, conjunction","because of, due to; owing to"
 889,友好,yǒuhǎo,adjective,friendly
 890,友情,yǒuqíng,noun,friendship
 891,有趣,yǒuqù,adjective,"interesting, enjoyable, fun"
@@ -895,17 +895,17 @@ no,word,pinyin,part_of_speech,translation
 894,有着,yǒuzhe,verb,"to have, to possess"
 895,愉快,yúkuài,adjective,"pleasant, cheerful"
 896,于是,yúshì,conjunction,"therefore, hence, so"
-897,与,yǔ,preposition 、 conjunction,"with, and"
+897,与,yǔ,"preposition, conjunction","with, and"
 898,语法,yǔfǎ,noun,grammar
 899,预习,yùxí,verb,"to preview, to prepare"
-900,原来,yuánlái,noun 、 adjective 、 adverb,"original, former; originally, actually"
+900,原来,yuánlái,"noun, adjective, adverb","original, former; originally, actually"
 901,原谅,yuánliàng,verb,"to forgive, to excuse, to pardon"
 902,原因,yuányīn,noun,"cause, reason"
 903,远离,yuǎnlí,verb,"to stay away from, to keep away from"
 904,院长,yuànzhǎng,noun,"dean, head of a college or institute"
 905,院⼦,yuànzi,noun,"courtyard, yard"
-906,约,yuē,verb 、 adverb,"to make an appointment, to arrange; about, approximately"
-907,约会,yuēhuì,verb 、 noun,"to date, to meet up; date, appointment"
+906,约,yuē,"verb, adverb","to make an appointment, to arrange; about, approximately"
+907,约会,yuēhuì,"verb, noun","to date, to meet up; date, appointment"
 908,⽉饼,yuèbing,noun,mooncake
 909,阅读,yuèdú,verb,"to read, to read aloud"
 910,⽉份,yuèfèn,noun,month
@@ -913,7 +913,7 @@ no,word,pinyin,part_of_speech,translation
 912,允许,yǔnxǔ,verb,"to permit, to allow, to give permission"
 913,杂志,zázhì,noun,magazine
 914,再次,zàicì,adverb,"once again, once more"
-915,再说,zàishuō,verb 、,"conjunctionto put off, to postpone; besides, moreover"
+915,再说,zàishuō,"verb, conjunction","to put off, to postpone; besides, moreover"
 916,暂时,zànshí,adjective,"temporary, for the time being"
 917,暂停,zàntíng,verb,"to suspend, to pause"
 918,早餐,zǎocān,noun,breakfast
@@ -925,18 +925,18 @@ no,word,pinyin,part_of_speech,translation
 924,着,zháo,verb,"to touch, to get to, to catch (fire)"
 925,着⽕,zháohuǒ,verb,"to catch fire, to ignite"
 926,者,zhě,auxiliary,"suffix meaning person, one who"
-927,真正,zhēnzhèng,adjective 、 adverb,"true, genuine; truly, indeed"
+927,真正,zhēnzhèng,"adjective, adverb","true, genuine; truly, indeed"
 928,整,zhěng,adjective,"whole, complete, entire"
 929,整个,zhěnggè,adjective,"whole, entire, all"
 930,整理,zhěnglǐ,verb,"to arrange, to put in order, to tidy up"
 931,证,zhèng,noun,"certificate, proof, evidence"
 932,正常,zhèngcháng,adjective,"normal, regular, proper"
-933,正好,zhènghǎo,adjective 、 adverb,"exactly right, just in time; coincidentally"
+933,正好,zhènghǎo,"adjective, adverb","exactly right, just in time; coincidentally"
 934,证件,zhèngjiàn,noun,"ID card, credentials, identification papers"
-935,证明,zhèngmíng,verb 、 noun,"to prove, to demonstrate; proof, certificate"
+935,证明,zhèngmíng,"verb, noun","to prove, to demonstrate; proof, certificate"
 936,正确,zhèngquè,adjective,"correct, right, accurate"
 937,正式,zhèngshì,adjective,"formal, official"
-938,之,zhī,auxiliary auxiliary,word (classical)
+938,之,zhī,auxiliary,auxiliary word (classical)
 939,⽀持,zhīchí,verb,"to support, to back"
 940,⽀付,zhīfù,verb,to pay (money)
 941,之后,zhīhòu,noun,"after, later, behind"
@@ -944,7 +944,7 @@ no,word,pinyin,part_of_speech,translation
 943,之前,zhīqián,noun,"before, prior to"
 944,知识,zhīshi,noun,knowledge
 945,之中,zhīzhōng,noun,"among, inside"
-946,值,zhí,verb 、 adjective,"to be worth, to be equal in value; valuable, worthwhile"
+946,值,zhí,"verb, adjective","to be worth, to be equal in value; valuable, worthwhile"
 947,值得,zhídé,verb,"to be worth, to deserve"
 948,直接,zhíjiē,adjective,"direct, straightforward"
 949,植物,zhíwù,noun,"plant, vegetation"
@@ -958,44 +958,44 @@ no,word,pinyin,part_of_speech,translation
 957,中餐,zhōngcān,noun,"Chinese food, Chinese meal"
 958,中年,zhōngnián,noun,middle age
 959,种,zhòng,verb,"to plant, to grow"
-960,重,zhòng,noun 、 adjective,"weight, importance; heavy, important"
-961,重点,zhòngdiǎn,noun 、 adverb,"key point, emphasis; mainly, emphatically"
+960,重,zhòng,"noun, adjective","weight, importance; heavy, important"
+961,重点,zhòngdiǎn,"noun, adverb","key point, emphasis; mainly, emphatically"
 962,重视,zhòngshì,verb,"to pay attention to, to value"
 963,周围,zhōuwéi,noun,"around, surrounding"
 964,主意,zhǔyi,noun,"idea, thought, plan"
 965,祝,zhù,verb,"to wish, to express good wishes"
 966,祝贺,zhùhè,verb,"to congratulate, to offer congratulations"
 967,著名,zhùmíng,adjective,"famous, well-known"
-968,专门,zhuānmén,adverb 、,"adjectivespecially, specifically; special"
-969,专业,zhuānyè,noun 、 adjective,"specialty, major; professional, specialized"
+968,专门,zhuānmén,"adverb, adjective","specially, specifically; special"
+969,专业,zhuānyè,"noun, adjective","specialty, major; professional, specialized"
 970,转,zhuǎn,verb,"to turn, to shift, to transfer"
 971,转发,zhuǎnfā,verb,"to forward (a message), to retweet"
 972,转机,zhuǎnjī,verb,"to transfer (flight), to change planes"
 973,赚,zhuàn,verb,"to earn, to make a profit"
 974,装,zhuāng,verb,"to load, to pack, to pretend, to install"
-975,准,zhǔn,adjective 、,"（ adverb ） accurate, exact, standard; (definitely, certainly)"
+975,准,zhǔn,"adjective, (adverb)","accurate, exact, standard; (definitely, certainly)"
 976,准确,zhǔnquè,adjective,"accurate, precise"
 977,准时,zhǔnshí,adjective,"on time, punctual"
 978,资料,zīliào,noun,"materials, data, information"
 979,仔细,zǐxì,adjective,"careful, attentive, meticulous"
 980,⾃,zì,preposition,"from, since, oneself"
-981,⾃然,zìrán,noun 、 adjective 、 adverb,"nature; natural; naturally, of course"
+981,⾃然,zìrán,"noun, adjective, adverb","nature; natural; naturally, of course"
 982,⾃习,zìxí,verb,to study on one's own
-983,⾃信,zìxìn,verb 、 noun 、 adjective,"to believe in oneself; self- confidence, confidence; confident"
+983,⾃信,zìxìn,"verb, noun, adjective","to believe in oneself; self- confidence, confidence; confident"
 984,⾃学,zìxué,verb,"to teach oneself, to self-study"
-985,总结,zǒngjié,verb 、 noun,"to summarize, to sum up; summary"
+985,总结,zǒngjié,"verb, noun","to summarize, to sum up; summary"
 986,租,zū,verb,"to rent, to hire"
-987,组,zǔ,noun,"、（ verb 、 classifier ） group, team; (to organize; measure word for groups)"
+987,组,zǔ,"noun, (verb, classifier)","group, team; (to organize; measure word for groups)"
 988,最终,zuìzhōng,noun,"final, ultimate"
-989,尊重,zūnzhòng,verb 、 adjective,"to respect, to value; respected"
-990,左右,zuǒyòu,noun,"、（ verb ） about, around, left and right; (to control)"
-991,座,zuò,noun 、 classifier,"seat, place; measure word for seats"
+989,尊重,zūnzhòng,"verb, adjective","to respect, to value; respected"
+990,左右,zuǒyòu,"noun, (verb)","about, around, left and right; (to control)"
+991,座,zuò,"noun, classifier","seat, place; measure word for seats"
 992,做法,zuòfǎ,noun,"way of doing things, practice"
 993,作家,zuòjiā,noun,"writer, author"
 994,做梦,zuòmèng,verb,"to dream, to have a dream"
 995,作品,zuòpǐn,noun,"work, composition, creation"
-996,作为,zuòwéi,verb 、,"prepositionto act as, to serve as; as, being"
+996,作为,zuòwéi,"verb, preposition","to act as, to serve as; as, being"
 997,座位,zuòwèi,noun,seat
-998,作⽂,zuòwén,verb 、 noun,composition; to write a composition
-999,作⽤,zuòyòng,noun,"、（ verb ） function, role; (to serve as, to play a role)"
+998,作⽂,zuòwén,"verb, noun",composition; to write a composition
+999,作⽤,zuòyòng,"noun, (verb)","function, role; (to serve as, to play a role)"
 1000,作者,zuòzhě,noun,"author, writer"

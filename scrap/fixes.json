@@ -1,0 +1,65 @@
+{
+  "builtinFixesVersion": 1,
+  "changes": [
+    {
+      "dataset": "hsk-1",
+      "no": 218,
+      "translation": "hello (used when answering the phone)"
+    },
+    {
+      "dataset": "hsk-1",
+      "no": 104,
+      "word": "口"
+    },
+    {
+      "dataset": "hsk-2",
+      "no": 101,
+      "word": "门口"
+    },
+    {
+      "dataset": "hsk-3",
+      "no": 263,
+      "word": "路口"
+    },
+    {
+      "dataset": "hsk-4",
+      "no": 89,
+      "word": "出口"
+    },
+    {
+      "dataset": "hsk-4",
+      "no": 440,
+      "word": "口语"
+    },
+    {
+      "dataset": "hsk-4",
+      "no": 623,
+      "word": "入口"
+    },
+    {
+      "dataset": "hsk-4",
+      "no": 665,
+      "word": "十字路口"
+    },
+    {
+      "dataset": "hsk-5",
+      "no": 615,
+      "word": "进口"
+    },
+    {
+      "dataset": "hsk-5",
+      "no": 674,
+      "word": "口袋"
+    },
+    {
+      "dataset": "hsk-5",
+      "no": 675,
+      "word": "口味"
+    },
+    {
+      "dataset": "hsk-5",
+      "no": 920,
+      "word": "人口"
+    }
+  ]
+}

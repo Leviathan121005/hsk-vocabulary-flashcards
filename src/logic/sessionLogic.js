@@ -1,4 +1,4 @@
-import { MASTERY_STATUS } from "../data/mockHsk5Words";
+import { MASTERY_STATUS } from "../data/masteryStatus";
 
 /**
  * Returns only words that are still NOT_MASTERED.
