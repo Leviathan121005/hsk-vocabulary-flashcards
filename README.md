@@ -1,6 +1,6 @@
 # HSK Vocabulary Flashcards
 
-A simple browser-based HSK vocabulary flashcard app built with React and Vite.
+A simple browser-based flashcard app for tracking and reviewing HSK vocabulary, built with React and Vite.
 
 <div>
   <img src="./main_preview.png" alt="App Preview" width="600" />
