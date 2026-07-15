@@ -1,14 +1,18 @@
-# Chinese Vocabulary Flash Cards
+# HSK Vocabulary Flashcards
 
-A simple browser-based HSK flashcard app built with React and Vite.
+A simple browser-based HSK vocabulary flashcard app built with React and Vite.
 
-## 1. Clone the repository
+<div>
+  <img src="./main_preview.png" alt="App Preview" width="600" />
+</div>
+
+## 1. Clone the Repository
 
 ```bash
 git clone https://github.com/Leviathan121005/hsk-vocabulary-learning-flashcards.git
 ```
 
-## 2. Install and run locally
+## 2. Install and Run Locally
 
 ```bash
 npm install
@@ -17,27 +21,46 @@ npm run dev
 
 Open the local URL shown in terminal (usually http://localhost:5173).
 
-## 3. Build for production
+## 3. Build for Production
 
 ```bash
 npm run build
 npm run preview
 ```
 
-## 4. How to use the app
+## 4. How to Use
 
-1. Choose an HSK vocabulary set.
-2. Set your session size.
-3. Press Start.
-4. Use controls during study:
-- Space: flip card
-- Left / Right: previous / next card
-- N / M: mark Not Mastered / Mastered
-5. Press End Session when done.
-6. Use Progress Backup to export / import your learning data.
+### Session Setup
+
+1. Choose an HSK vocabulary set
+2. Set your session size
+3. Click **Start** to begin
+
+### Session Controls
+
+<div style="margin-bottom: 10px;">
+  <img src="./session_preview.png" alt="App Preview" width="600" />
+</div>
+
+| Keyboard | Action |
+|----------|--------|
+| <kbd>Space</kbd> | Flip card |
+| <kbd>←</kbd> / <kbd>→</kbd> | Previous / next card |
+| <kbd>N</kbd> | Mark as `Not Mastered` |
+| <kbd>M</kbd> | Mark as `Mastered` |
+> Or use the buttons on the screen
+
+End session by marking the last word or by clicking **End Session**.
+
+</div>
+
+### Other Features
+
+- Click **View Vocabulary** to search, review, and manually mark vocabularies.
+- Use **Progress Backup** to export / import your progress data.
 
 ## 5. Notes
 
-1. This app is frontend-only.
-2. Progress is stored in your browser localStorage.
-3. No account login and no cloud sync by default.
+- This app is frontend-only.
+- Progress is stored in your browser localStorage.
+- No account login nor cloud sync.

@@ -607,7 +607,7 @@ export default function App() {
     const digitsOnly = rawValue.replace(/\D+/g, "");
 
     if (!digitsOnly) {
-      setSessionSizeInput(1);
+      setSessionSizeInput('');
       return;
     }
 
@@ -616,6 +616,12 @@ export default function App() {
     const maxAllowed = Math.max(1, reviewPoolWords.length || 1);
     const clamped = Number.isFinite(parsed) ? Math.min(Math.max(1, parsed), maxAllowed) : 1;
     setSessionSizeInput(clamped);
+  }
+
+  function handleSessionSizeBlur() {
+    if (sessionSizeInput === '') {
+      setSessionSizeInput(10);
+    }
   }
 
   function handleSessionAnswer(wordId, decision) {
@@ -912,6 +918,7 @@ export default function App() {
                   step={1}
                   value={sessionSizeInput}
                   onChange={handleSessionSizeChange}
+                  onBlur={handleSessionSizeBlur}
                   className="w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-slate-900 focus:outline-none focus-visible:ring-4 focus-visible:ring-sky-300"
                 />
               </label>
