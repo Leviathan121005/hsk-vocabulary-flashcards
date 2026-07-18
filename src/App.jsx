@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { FlashcardSession } from "./components/FlashcardSession";
 import { useLocalStorage } from "./hooks/useLocalStorage";
+import { useSpeech } from "./hooks/useSpeech";
 import { countByMastery, getReviewPoolWords, markWordMastered, markWordNotMastered, pickSessionWords } from "./logic/sessionLogic";
 import { loadWordsFromCsv } from "./logic/csvWordLoader";
 import { trackEvent, trackPageView } from "./logic/analytics";
@@ -294,6 +295,7 @@ function wordsNeedPartOfSpeechHydration(words) {
 }
 
 export default function App() {
+  const { speak, stop, isSpeaking } = useSpeech();
   const [selectedSet, setSelectedSet] = useLocalStorage("flashcards.v1.selectedSet", "hsk5");
   const [sessionSizeInput, setSessionSizeInput] = useLocalStorage("flashcards.v1.sessionSize", 10);
   const [reviewPool, setReviewPool] = useLocalStorage("flashcards.v1.reviewPool", "not_mastered");
@@ -1023,6 +1025,9 @@ export default function App() {
             onGoNext={handleSessionNext}
             onFinishSession={handleFinishSession}
             currentDecision={sessionDecisions[sessionWords[sessionIndex]?.id] || null}
+            speak={speak}
+            stop={stop}
+            isSpeaking={isSpeaking}
           />
         )}
 

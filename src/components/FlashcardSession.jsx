@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { PronounceButton } from "./PronounceButton";
 
 /**
  * FlashcardSession
@@ -17,6 +18,9 @@ export function FlashcardSession({
   onGoNext,
   onFinishSession,
   currentDecision,
+  speak,
+  stop,
+  isSpeaking = false,
 }) {
   const [isFlipped, setIsFlipped] = useState(false);
 
@@ -33,6 +37,10 @@ export function FlashcardSession({
   const canGoNext = currentIndex < safeTotalCount - 1;
 
   function navigateWithFlip(action) {
+    if (isSpeaking) {
+      stop();
+    }
+
     if (isFlipped) {
       setIsFlipped(false);
       setTimeout(() => {
@@ -46,6 +54,10 @@ export function FlashcardSession({
 
   function handleMarkMastered() {
     if (!currentWord) return;
+
+    if (isSpeaking) {
+      stop();
+    }
 
     if (!canGoNext) {
       navigateWithFlip(() =>
@@ -63,6 +75,10 @@ export function FlashcardSession({
 
   function handleMarkNotMastered() {
     if (!currentWord) return;
+
+    if (isSpeaking) {
+      stop();
+    }
 
     if (!canGoNext) {
       navigateWithFlip(() =>
@@ -84,6 +100,7 @@ export function FlashcardSession({
 
       if (event.key === " ") {
         event.preventDefault();
+        if (isSpeaking) stop();
         setIsFlipped((previous) => !previous);
         return;
       }
@@ -114,7 +131,7 @@ export function FlashcardSession({
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [currentWord, handleMarkMastered, handleMarkNotMastered, navigateWithFlip, onGoNext, onGoPrevious]);
+  }, [currentWord, handleMarkMastered, handleMarkNotMastered, isSpeaking, navigateWithFlip, onGoNext, onGoPrevious, stop]);
 
   if (!currentWord) {
     return (
@@ -158,9 +175,21 @@ export function FlashcardSession({
           &lt;
         </button>
 
-        <button
-          type="button"
-          onClick={() => setIsFlipped((previous) => !previous)}
+        <div
+          role="button"
+          tabIndex={0}
+          onClick={() => {
+            if (isSpeaking) stop();
+            setIsFlipped((previous) => !previous);
+          }}
+          onKeyDown={(event) => {
+            if (event.key === " " || event.key === "Enter") {
+              event.preventDefault();
+              event.stopPropagation();
+              if (isSpeaking) stop();
+              setIsFlipped((previous) => !previous);
+            }
+          }}
           className="session-flip-button group w-full rounded-3xl text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-400"
           aria-label="Flip flashcard"
         >
@@ -172,19 +201,25 @@ export function FlashcardSession({
             >
               <div className="session-card-face absolute inset-0 flex flex-col items-center justify-center rounded-3xl border border-slate-200 bg-[linear-gradient(135deg,#ffffff,#f8fafc)] p-6 text-center shadow-md [backface-visibility:hidden]">
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#64748b]">Chinese</p>
+                <div className="absolute right-4 top-4">
+                  <PronounceButton text={currentWord.hanzi} onSpeak={speak} onStop={stop} isSpeaking={isSpeaking} disabled />
+                </div>
                 <p className="mt-4 text-5xl font-bold text-[#0f172a] sm:text-6xl">{currentWord.hanzi}</p>
                 <p className="mt-4 text-sm text-[#64748b]">Click card or press Space to reveal answer</p>
               </div>
 
               <div className="session-card-face absolute inset-0 flex flex-col items-center justify-center rounded-3xl border border-slate-200 bg-[linear-gradient(135deg,#ffffff,#f8fafc)] p-6 text-center shadow-md [backface-visibility:hidden] [transform:rotateY(180deg)]">
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#64748b]">Answer</p>
+                <div className="absolute right-4 top-4">
+                  <PronounceButton text={currentWord.hanzi} onSpeak={speak} onStop={stop} isSpeaking={isSpeaking} />
+                </div>
                 <p className="mt-3 text-4xl font-bold text-[#0f172a] sm:text-5xl">{currentWord.hanzi}</p>
                 <p className="mt-2 text-xl font-medium text-[#1e293b] sm:text-2xl">{currentWord.pinyin}</p>
                 <p className="mt-4 max-w-lg text-base text-[#0f172a] sm:text-lg">{currentWord.english}</p>
               </div>
             </div>
           </div>
-        </button>
+        </div>
 
         <button
           type="button"
@@ -215,7 +250,10 @@ export function FlashcardSession({
 
       <button
         type="button"
-        onClick={() => onFinishSession?.()}
+        onClick={() => {
+          if (isSpeaking) stop();
+          onFinishSession?.();
+        }}
         className="mt-4 inline-flex w-full items-center justify-center rounded-2xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold uppercase tracking-wide text-slate-700 hover:bg-slate-50 focus:outline-none focus-visible:ring-4 focus-visible:ring-slate-300"
       >
         End Session
