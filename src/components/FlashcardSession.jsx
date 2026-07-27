@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { CharacterInfoModal } from "./CharacterInfoModal";
 import { PronounceButton } from "./PronounceButton";
 
 /**
@@ -21,8 +22,11 @@ export function FlashcardSession({
   speak,
   stop,
   isSpeaking = false,
+  uiTheme = "classic",
 }) {
   const [isFlipped, setIsFlipped] = useState(false);
+  const [isActionMenuOpen, setIsActionMenuOpen] = useState(false);
+  const [isCharacterInfoOpen, setIsCharacterInfoOpen] = useState(false);
 
   const currentWord = sessionWords[currentIndex] ?? null;
   const safeTotalCount = Math.max(totalCount || sessionWords.length, sessionWords.length);
@@ -35,6 +39,15 @@ export function FlashcardSession({
 
   const canGoPrevious = currentIndex > 0;
   const canGoNext = currentIndex < safeTotalCount - 1;
+
+  useEffect(() => {
+    setIsActionMenuOpen(false);
+    setIsCharacterInfoOpen(false);
+  }, [currentWord?.id]);
+
+  useEffect(() => {
+    if (!isFlipped) setIsActionMenuOpen(false);
+  }, [isFlipped]);
 
   function navigateWithFlip(action) {
     if (isSpeaking) {
@@ -92,6 +105,55 @@ export function FlashcardSession({
 
     onMarkWord?.(currentWord.id, "not_mastered");
     navigateWithFlip(onGoNext);
+  }
+
+  function handleOpenCharacterInfo(event) {
+    event.stopPropagation();
+    if (isSpeaking) stop();
+    setIsActionMenuOpen(false);
+    setIsCharacterInfoOpen(true);
+  }
+
+  function renderCardActions() {
+    return (
+      <div className="absolute right-4 top-4" onClick={(event) => event.stopPropagation()}>
+        <div className="relative flex flex-col items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setIsActionMenuOpen((value) => !value)}
+            aria-label={isActionMenuOpen ? "Close card actions" : "Open card actions"}
+            aria-expanded={isActionMenuOpen}
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:border-sky-300 hover:bg-sky-50 hover:text-sky-700 focus:outline-none focus-visible:ring-4 focus-visible:ring-sky-300"
+          >
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className={`h-5 w-5 transition-transform ${isActionMenuOpen ? "rotate-180" : ""}`}
+            >
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          </button>
+          {isActionMenuOpen && (
+            <div className="flex flex-col items-center gap-2">
+              <PronounceButton text={currentWord.hanzi} onSpeak={speak} onStop={stop} isSpeaking={isSpeaking} />
+              <button
+                type="button"
+                onClick={handleOpenCharacterInfo}
+                aria-label={`Open information for ${currentWord.hanzi}`}
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:border-sky-300 hover:bg-sky-50 hover:text-sky-700 focus:outline-none focus-visible:ring-4 focus-visible:ring-sky-300"
+              >
+                <span aria-hidden="true" className="text-lg font-bold">i</span>
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    );
   }
 
   useEffect(() => {
@@ -201,18 +263,14 @@ export function FlashcardSession({
             >
               <div className="session-card-face absolute inset-0 flex flex-col items-center justify-center rounded-3xl border border-slate-200 bg-[linear-gradient(135deg,#ffffff,#f8fafc)] p-6 text-center shadow-md [backface-visibility:hidden]">
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#64748b]">Chinese</p>
-                <div className="absolute right-4 top-4">
-                  <PronounceButton text={currentWord.hanzi} onSpeak={speak} onStop={stop} isSpeaking={isSpeaking} disabled />
-                </div>
+                {renderCardActions()}
                 <p className="mt-4 text-5xl font-bold text-[#0f172a] sm:text-6xl">{currentWord.hanzi}</p>
                 <p className="mt-4 text-sm text-[#64748b]">Click card or press Space to reveal answer</p>
               </div>
 
               <div className="session-card-face absolute inset-0 flex flex-col items-center justify-center rounded-3xl border border-slate-200 bg-[linear-gradient(135deg,#ffffff,#f8fafc)] p-6 text-center shadow-md [backface-visibility:hidden] [transform:rotateY(180deg)]">
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#64748b]">Answer</p>
-                <div className="absolute right-4 top-4">
-                  <PronounceButton text={currentWord.hanzi} onSpeak={speak} onStop={stop} isSpeaking={isSpeaking} />
-                </div>
+                {renderCardActions()}
                 <p className="mt-3 text-4xl font-bold text-[#0f172a] sm:text-5xl">{currentWord.hanzi}</p>
                 <p className="mt-2 text-xl font-medium text-[#1e293b] sm:text-2xl">{currentWord.pinyin}</p>
                 <p className="mt-4 max-w-lg text-base text-[#0f172a] sm:text-lg">{currentWord.english}</p>
@@ -258,6 +316,12 @@ export function FlashcardSession({
       >
         End Session
       </button>
+      <CharacterInfoModal
+        isOpen={isCharacterInfoOpen}
+        onClose={() => setIsCharacterInfoOpen(false)}
+        word={currentWord.hanzi}
+        theme={uiTheme}
+      />
     </section>
   );
 }

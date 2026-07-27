@@ -66,8 +66,9 @@ function getThemeTokens(theme) {
       surfaceCard: "bg-stone-50 border-stone-300 shadow-sm",
       mutedCard: "bg-stone-100 border-stone-300",
       noticeCard: "bg-amber-50 border-amber-200 text-amber-900",
-      primaryButton: "bg-stone-900 hover:bg-stone-800 text-white focus-visible:ring-stone-300",
+      primaryButton: "border-stone-900 bg-stone-900 text-white hover:bg-stone-800 focus-visible:ring-stone-300",
       secondaryButton: "border-stone-400 bg-stone-50 text-stone-900 hover:bg-stone-100 focus-visible:ring-stone-300",
+      returnButton: "border-stone-900 bg-stone-900 text-white hover:bg-stone-800 focus-visible:ring-stone-300",
       themeActive: "border-stone-700 bg-stone-200 text-stone-900",
       themeInactive: "border-stone-300 bg-white text-stone-700 hover:bg-stone-100",
       headingTag: "text-stone-700",
@@ -86,8 +87,9 @@ function getThemeTokens(theme) {
       surfaceCard: "bg-slate-900 border-slate-700 shadow-md",
       mutedCard: "bg-slate-800 border-slate-700",
       noticeCard: "bg-slate-800 border-sky-800 text-sky-100",
-      primaryButton: "bg-blue-600 hover:bg-blue-500 text-white focus-visible:ring-blue-400",
+      primaryButton: "border-[#e2e8f0] bg-[#ffffff] text-[#0f172a] hover:bg-[#f1f5f9] focus-visible:ring-slate-300",
       secondaryButton: "border-slate-600 bg-slate-800 text-slate-100 hover:bg-slate-700 focus-visible:ring-slate-500",
+      returnButton: "border-[#e2e8f0] bg-[#ffffff] text-[#0f172a] hover:bg-[#f1f5f9] focus-visible:ring-slate-300",
       themeActive: "border-sky-500 bg-sky-900 text-sky-100",
       themeInactive: "border-slate-600 bg-slate-800 text-slate-300 hover:bg-slate-700",
       headingTag: "text-sky-300",
@@ -105,8 +107,9 @@ function getThemeTokens(theme) {
     surfaceCard: "bg-white border-slate-200 shadow-xl",
     mutedCard: "bg-slate-50 border-slate-200",
     noticeCard: "bg-sky-50 border-sky-100 text-sky-900",
-    primaryButton: "bg-sky-600 hover:bg-sky-700 text-white focus-visible:ring-sky-300",
+    primaryButton: "border-slate-900 bg-slate-900 text-white hover:bg-slate-800 focus-visible:ring-slate-300",
     secondaryButton: "border-slate-300 bg-white text-slate-800 hover:bg-slate-50 focus-visible:ring-slate-300",
+    returnButton: "border-slate-900 bg-slate-900 text-white hover:bg-slate-800 focus-visible:ring-slate-300",
     themeActive: "border-sky-300 bg-sky-100 text-sky-900",
     themeInactive: "border-slate-300 bg-white text-slate-700 hover:bg-slate-100",
     headingTag: "text-sky-700",
@@ -993,7 +996,7 @@ export default function App() {
               <button
                 type="button"
                 onClick={handleStartSession}
-                className={`inline-flex items-center justify-center rounded-2xl px-8 py-3 text-base font-semibold shadow-md transition focus:outline-none focus-visible:ring-4 ${themeTokens.primaryButton}`}
+                className={`inline-flex items-center justify-center rounded-2xl border px-8 py-3 text-base font-semibold shadow-md transition focus:outline-none focus-visible:ring-4 ${themeTokens.primaryButton}`}
               >
                 Start
               </button>
@@ -1028,6 +1031,7 @@ export default function App() {
             speak={speak}
             stop={stop}
             isSpeaking={isSpeaking}
+            uiTheme={uiTheme}
           />
         )}
 
@@ -1038,7 +1042,7 @@ export default function App() {
             <p className="mt-2 text-slate-600">You finished this review session. Here is your result snapshot.</p>
 
             <div className="mt-6 grid gap-3 sm:grid-cols-3">
-              <div className="rounded-2xl bg-slate-50 p-4">
+              <div className="rounded-2xl p-4">
                 <p className="text-sm font-medium text-slate-500">Reviewed</p>
                 <p className="mt-1 text-2xl font-bold text-slate-900">{sessionStats.reviewed}</p>
               </div>
@@ -1055,7 +1059,7 @@ export default function App() {
             <button
               type="button"
               onClick={handleReturnToDashboard}
-              className="mt-8 inline-flex items-center justify-center rounded-2xl bg-slate-900 px-8 py-3 text-base font-semibold text-white shadow-md transition hover:bg-slate-800 focus:outline-none focus-visible:ring-4 focus-visible:ring-slate-300"
+              className={`mt-8 inline-flex items-center justify-center rounded-2xl border px-8 py-3 text-base font-semibold shadow-md transition focus:outline-none focus-visible:ring-4 ${themeTokens.returnButton}`}
             >
               Back To Dashboard
             </button>
@@ -1072,7 +1076,7 @@ export default function App() {
               <button
                 type="button"
                 onClick={handleReturnToDashboard}
-                className={`inline-flex items-center justify-center rounded-xl border px-4 py-2 text-sm font-semibold ${themeTokens.secondaryButton}`}
+                className={`inline-flex items-center justify-center rounded-xl border px-4 py-2 text-sm font-semibold ${themeTokens.returnButton}`}
               >
                 Back To Dashboard
               </button>
@@ -1219,7 +1223,7 @@ export default function App() {
               <button
                 type="button"
                 onClick={handleReturnToDashboard}
-                className={`inline-flex items-center justify-center rounded-xl border px-4 py-2 text-sm font-semibold ${themeTokens.secondaryButton}`}
+                className={`inline-flex items-center justify-center rounded-xl border px-4 py-2 text-sm font-semibold ${themeTokens.returnButton}`}
               >
                 Back To Dashboard
               </button>

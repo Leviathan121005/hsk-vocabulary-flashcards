@@ -3,13 +3,13 @@
   "changes": [
     {
       "dataset": "hsk-1",
-      "no": 218,
-      "translation": "hello (used when answering the phone)"
+      "no": 104,
+      "word": "口"
     },
     {
       "dataset": "hsk-1",
-      "no": 104,
-      "word": "口"
+      "no": 218,
+      "translation": "hello (used when answering the phone)"
     },
     {
       "dataset": "hsk-2",
@@ -40,6 +40,11 @@
       "dataset": "hsk-4",
       "no": 665,
       "word": "十字路口"
+    },
+    {
+      "dataset": "hsk-5",
+      "no": 683,
+      "word": "劳动"
     },
     {
       "dataset": "hsk-5",
