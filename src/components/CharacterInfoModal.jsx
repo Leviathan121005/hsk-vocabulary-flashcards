@@ -1,9 +1,10 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 const INITIAL_ITEM_LIMIT = 12;
 const LOAD_MORE_COUNT = 12;
 const TOOLTIP_MAX_WIDTH = 220;
-const TOOLTIP_VIEWPORT_MARGIN = 12;
+const TOOLTIP_VIEWPORT_MARGIN = 20;
+const TOOLTIP_EDGE_GAP = 10;
 
 function resolveCharacterInfoPath() {
   const baseUrl = import.meta.env.BASE_URL || "/";
@@ -95,6 +96,11 @@ export function CharacterInfoModal({ isOpen, onClose, word, pinyin, meaning, the
   const [usecaseLimit, setUsecaseLimit] = useState(INITIAL_ITEM_LIMIT);
   const [openSections, setOpenSections] = useState({ visual: true, pinyin: true, usecases: true });
   const [hoverTooltip, setHoverTooltip] = useState(null);
+  const [supportsHover, setSupportsHover] = useState(true);
+  const scrollContainerRef = useRef(null);
+  const tooltipAnchorRef = useRef(null);
+  const tooltipMetaRef = useRef({ text: "", key: "" });
+  const tooltipWidthCacheRef = useRef(new Map());
 
   const themeClasses = useMemo(() => {
     if (theme === "dark") {
@@ -117,10 +123,10 @@ export function CharacterInfoModal({ isOpen, onClose, word, pinyin, meaning, the
         sectionTitle: "font-bold text-slate-100",
         sectionCount: "flex items-center gap-3 text-sm text-slate-400",
         sectionBody: "border-t border-slate-700 px-4 py-4 sm:px-5",
-        tile: "inline-flex min-w-0 flex-col items-center rounded-lg border border-sky-800 bg-slate-800 px-2 py-3 text-center text-2xl font-semibold text-sky-100",
-        tileSub: "mt-1 text-[12px] leading-tight font-medium text-sky-200 whitespace-nowrap",
+        tile: "inline-flex min-w-[64px] flex-col items-center rounded-lg border border-sky-800 bg-slate-800 px-2 py-3 text-center text-2xl font-semibold text-sky-100",
+        tileSub: "mt-1 max-w-[8rem] text-center text-[12px] leading-tight font-medium text-sky-200 whitespace-normal break-words",
         tileBubble:
-          "relative w-max max-w-[220px] rounded-md border border-slate-600 bg-slate-800 px-3 py-2 text-left text-xs font-medium leading-snug text-slate-100 shadow-xl",
+            "relative w-max rounded-md border border-slate-600 bg-slate-800 px-3 py-2 text-left text-xs font-medium leading-snug text-slate-100 shadow-xl",
         tileBubbleTail: "absolute -top-1 left-1/2 h-2.5 w-2.5 -translate-x-1/2 rotate-45 border-l border-t border-slate-600 bg-slate-800",
         emptyHint: "text-sm text-slate-400",
         lessButton:
@@ -156,10 +162,10 @@ export function CharacterInfoModal({ isOpen, onClose, word, pinyin, meaning, the
         sectionTitle: "font-bold text-stone-900",
         sectionCount: "flex items-center gap-3 text-sm text-stone-500",
         sectionBody: "border-t border-stone-200 px-4 py-4 sm:px-5",
-        tile: "inline-flex min-w-0 flex-col items-center rounded-lg border border-amber-200 bg-amber-50 px-2 py-3 text-center text-2xl font-semibold text-amber-900",
-        tileSub: "mt-1 text-[12px] leading-tight font-medium text-amber-800 whitespace-nowrap",
+        tile: "inline-flex min-w-[64px] flex-col items-center rounded-lg border border-amber-200 bg-amber-50 px-2 py-3 text-center text-2xl font-semibold text-amber-900",
+        tileSub: "mt-1 max-w-[8rem] text-center text-[12px] leading-tight font-medium text-amber-800 whitespace-normal break-words",
         tileBubble:
-          "relative w-max max-w-[220px] rounded-md border border-stone-300 bg-stone-50 px-3 py-2 text-left text-xs font-medium leading-snug text-stone-800 shadow-lg",
+            "relative w-max rounded-md border border-stone-300 bg-stone-50 px-3 py-2 text-left text-xs font-medium leading-snug text-stone-800 shadow-lg",
         tileBubbleTail: "absolute -top-1 left-1/2 h-2.5 w-2.5 -translate-x-1/2 rotate-45 border-l border-t border-stone-300 bg-stone-50",
         emptyHint: "text-sm text-stone-500",
         lessButton:
@@ -194,10 +200,10 @@ export function CharacterInfoModal({ isOpen, onClose, word, pinyin, meaning, the
       sectionTitle: "font-bold text-slate-900",
       sectionCount: "flex items-center gap-3 text-sm text-slate-500",
       sectionBody: "border-t border-slate-100 px-4 py-4 sm:px-5",
-      tile: "inline-flex min-w-0 flex-col items-center rounded-lg border border-sky-100 bg-sky-50 px-2 py-3 text-center text-2xl font-semibold text-sky-900",
-      tileSub: "mt-1 text-[12px] leading-tight font-medium text-sky-700 whitespace-nowrap",
+      tile: "inline-flex min-w-[64px] flex-col items-center rounded-lg border border-sky-100 bg-sky-50 px-2 py-3 text-center text-2xl font-semibold text-sky-900",
+      tileSub: "mt-1 max-w-[8rem] text-center text-[12px] leading-tight font-medium text-sky-700 whitespace-normal break-words",
       tileBubble:
-        "relative w-max max-w-[220px] rounded-md border border-slate-200 bg-white px-3 py-2 text-left text-xs font-medium leading-snug text-slate-700 shadow-lg",
+        "relative w-max rounded-md border border-slate-200 bg-white px-3 py-2 text-left text-xs font-medium leading-snug text-slate-700 shadow-lg",
       tileBubbleTail: "absolute -top-1 left-1/2 h-2.5 w-2.5 -translate-x-1/2 rotate-45 border-l border-t border-slate-200 bg-white",
       emptyHint: "text-sm text-slate-500",
       lessButton:
@@ -219,7 +225,31 @@ export function CharacterInfoModal({ isOpen, onClose, word, pinyin, meaning, the
     setPinyinLimit(INITIAL_ITEM_LIMIT);
     setUsecaseLimit(INITIAL_ITEM_LIMIT);
     setOpenSections({ visual: true, pinyin: true, usecases: true });
+    setHoverTooltip(null);
   }, [characters]);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.matchMedia) return undefined;
+
+    const query = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const update = () => setSupportsHover(Boolean(query.matches));
+
+    update();
+
+    // Safari on some iOS versions still exposes addListener/removeListener
+    // instead of addEventListener/removeEventListener for MediaQueryList.
+    if (typeof query.addEventListener === "function") {
+      query.addEventListener("change", update);
+      return () => query.removeEventListener("change", update);
+    }
+
+    if (typeof query.addListener === "function") {
+      query.addListener(update);
+      return () => query.removeListener(update);
+    }
+
+    return undefined;
+  }, []);
 
   useEffect(() => {
     if (!isOpen || characterInfo) return undefined;
@@ -312,8 +342,6 @@ export function CharacterInfoModal({ isOpen, onClose, word, pinyin, meaning, the
     };
   }, [isOpen]);
 
-  if (!isOpen) return null;
-
   const selectedInfo = characterInfo?.[selectedCharacter];
   const visualGroups = selectedInfo?.similar_visual_chars || [];
   const visualMatches = visualGroups.flatMap((group) =>
@@ -358,26 +386,167 @@ export function CharacterInfoModal({ isOpen, onClose, word, pinyin, meaning, the
     setOpenSections((previous) => ({ ...previous, [section]: !previous[section] }));
   }
 
-  function showMeaningTooltip(event, tooltipText) {
+  const getNaturalTooltipWidth = useCallback((text, widthCap) => {
+    const normalizedText = (text || "").trim();
+    if (!normalizedText) return 0;
+
+    const cacheKey = `${theme}:${normalizedText}`;
+    const cachedWidth = tooltipWidthCacheRef.current.get(cacheKey);
+    if (typeof cachedWidth === "number") {
+      return Math.min(widthCap, cachedWidth);
+    }
+
+    let measuredWidth = 0;
+    if (typeof document !== "undefined") {
+      const measureNode = document.createElement("span");
+      measureNode.textContent = normalizedText;
+      measureNode.style.position = "fixed";
+      measureNode.style.visibility = "hidden";
+      measureNode.style.pointerEvents = "none";
+      measureNode.style.whiteSpace = "nowrap";
+      measureNode.style.fontSize = "12px";
+      measureNode.style.fontWeight = "500";
+      measureNode.style.lineHeight = "1.25";
+      measureNode.style.fontFamily = "ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif";
+      measureNode.style.padding = "8px 12px";
+      measureNode.style.border = "1px solid transparent";
+
+      document.body.appendChild(measureNode);
+      measuredWidth = Math.ceil(measureNode.getBoundingClientRect().width);
+      document.body.removeChild(measureNode);
+    }
+
+    tooltipWidthCacheRef.current.set(cacheKey, measuredWidth);
+    return Math.min(widthCap, measuredWidth);
+  }, [theme]);
+
+  const getTooltipPosition = useCallback((anchorElement, key, text = "") => {
+    const rect = anchorElement.getBoundingClientRect();
+    const isTileTooltip = key?.startsWith("visual-") || key?.startsWith("pinyin-");
+    const isTabTooltip = key?.startsWith("tab-");
+    const margin = TOOLTIP_VIEWPORT_MARGIN;
+
+    const tileSafeLeft = margin + TOOLTIP_EDGE_GAP;
+    const tileSafeRight = window.innerWidth - margin - TOOLTIP_EDGE_GAP;
+    const tabSafeLeft = margin;
+    const tabSafeRight = window.innerWidth - margin;
+    const anchorX = rect.left + rect.width / 2;
+    const safeLeft = isTabTooltip ? tabSafeLeft : tileSafeLeft;
+    const safeRight = isTabTooltip ? tabSafeRight : tileSafeRight;
+    const maxAllowedWidth = Math.max(0, safeRight - safeLeft);
+    const widthCap = Math.min(TOOLTIP_MAX_WIDTH, maxAllowedWidth);
+
+    const bubbleWidth = getNaturalTooltipWidth(text, widthCap);
+
+    let maxWidth = isTileTooltip || isTabTooltip ? bubbleWidth : widthCap;
+    const centeredLeft = anchorX - maxWidth / 2;
+    const minLeft = safeLeft;
+    const maxLeft = safeRight - maxWidth;
+    let left = Math.min(maxLeft, Math.max(minLeft, centeredLeft));
+
+    if (isTabTooltip) {
+      const tabMinLeft = tabSafeLeft;
+      const tabMaxLeft = tabSafeRight - maxWidth;
+      const tabCenteredLeft = anchorX - maxWidth / 2;
+      const centeredOverflowsLeft = tabCenteredLeft < tabMinLeft;
+      const centeredOverflowsRight = tabCenteredLeft > tabMaxLeft;
+
+      if (centeredOverflowsLeft && !centeredOverflowsRight) {
+        left = Math.min(tabMaxLeft, Math.max(tabMinLeft, rect.left));
+      } else if (centeredOverflowsRight && !centeredOverflowsLeft) {
+        left = Math.min(tabMaxLeft, Math.max(tabMinLeft, rect.right - maxWidth));
+      } else {
+        left = Math.min(tabMaxLeft, Math.max(tabMinLeft, tabCenteredLeft));
+      }
+    } else if (isTileTooltip) {
+      if (centeredLeft < safeLeft) {
+        left = Math.min(safeRight - maxWidth, Math.max(minLeft, rect.left));
+      } else if (centeredLeft + maxWidth > safeRight) {
+        left = Math.min(safeRight - maxWidth, Math.max(minLeft, rect.right - maxWidth));
+      }
+    }
+
+    const tailInset = Math.min(rect.width / 2, maxWidth / 2);
+    const tailX = Math.min(maxWidth - tailInset, Math.max(tailInset, anchorX - left));
+    const y = rect.bottom + 10;
+
+    return {
+      left,
+      y,
+      bubbleWidth: maxWidth,
+      maxWidth: widthCap,
+      tailX,
+      fixedWidth: isTileTooltip || isTabTooltip,
+    };
+  }, [getNaturalTooltipWidth]);
+
+  const refreshTooltipPosition = useCallback(() => {
+    const anchorElement = tooltipAnchorRef.current;
+    const { text, key } = tooltipMetaRef.current;
+    if (!anchorElement || !document.body.contains(anchorElement) || !text || !key) {
+      setHoverTooltip(null);
+      return;
+    }
+
+    const nextPosition = getTooltipPosition(anchorElement, key, text);
+    setHoverTooltip((previous) => (previous ? { text, key, ...nextPosition } : previous));
+  }, [getTooltipPosition]);
+
+  function showMeaningTooltip(event, tooltipText, key) {
     const text = (tooltipText || "").trim();
     if (!text) return;
 
-    const rect = event.currentTarget.getBoundingClientRect();
-    const margin = TOOLTIP_VIEWPORT_MARGIN;
-    const halfTooltipWidth = TOOLTIP_MAX_WIDTH / 2;
-    const centerX = rect.left + rect.width / 2;
-    const clampedX = Math.min(
-      window.innerWidth - margin - halfTooltipWidth,
-      Math.max(margin + halfTooltipWidth, centerX)
-    );
-    const y = rect.bottom + 10;
-
-    setHoverTooltip({ text, x: clampedX, y });
+    tooltipAnchorRef.current = event.currentTarget;
+    tooltipMetaRef.current = { text, key };
+    setHoverTooltip({ text, key, ...getTooltipPosition(event.currentTarget, key, text) });
   }
 
   function hideMeaningTooltip() {
+    if (!supportsHover) return;
+    tooltipAnchorRef.current = null;
+    tooltipMetaRef.current = { text: "", key: "" };
     setHoverTooltip(null);
   }
+
+  function toggleMeaningTooltip(event, tooltipText, key) {
+    const text = (tooltipText || "").trim();
+    if (!text) return;
+
+    if (hoverTooltip?.key === key) {
+      tooltipAnchorRef.current = null;
+      tooltipMetaRef.current = { text: "", key: "" };
+      setHoverTooltip(null);
+      return;
+    }
+
+    showMeaningTooltip(event, text, key);
+  }
+
+  useEffect(() => {
+    if (!isOpen || !hoverTooltip) return undefined;
+
+    const handleViewportChange = () => refreshTooltipPosition();
+
+    window.addEventListener("resize", handleViewportChange);
+    window.addEventListener("orientationchange", handleViewportChange);
+
+    return () => {
+      window.removeEventListener("resize", handleViewportChange);
+      window.removeEventListener("orientationchange", handleViewportChange);
+    };
+  }, [hoverTooltip, isOpen, refreshTooltipPosition]);
+
+  useEffect(() => {
+    if (!isOpen || !hoverTooltip?.key?.startsWith("tab-")) return undefined;
+
+    const frame = window.requestAnimationFrame(() => {
+      refreshTooltipPosition();
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [selectedCharacter, isLoading, loadError, isOpen, hoverTooltip?.key, refreshTooltipPosition]);
+
+  if (!isOpen) return null;
 
   return (
     <div
@@ -412,7 +581,7 @@ export function CharacterInfoModal({ isOpen, onClose, word, pinyin, meaning, the
           </button>
         </header>
 
-        <div className={`min-h-0 flex-1 touch-pan-y overflow-y-auto overscroll-contain px-5 pb-7 pt-5 sm:px-6 ${themeClasses.body}`}>
+        <div ref={scrollContainerRef} className={`min-h-0 flex-1 touch-pan-y overflow-y-auto overscroll-contain px-5 pb-7 pt-5 sm:px-6 ${themeClasses.body}`}>
           <div className={`flex gap-2 overflow-x-auto pb-3 ${themeClasses.tabStrip}`} role="tablist" aria-label="Characters in word">
             {characters.map((character, index) => (
               <button
@@ -420,7 +589,14 @@ export function CharacterInfoModal({ isOpen, onClose, word, pinyin, meaning, the
                 type="button"
                 role="tab"
                 aria-selected={selectedCharacter === character}
-                onClick={() => selectCharacter(character)}
+                  onMouseEnter={supportsHover ? (event) => showMeaningTooltip(event, characterInfo?.[character]?.meaning || "", `tab-${character}-${index}`) : undefined}
+                  onMouseLeave={supportsHover ? hideMeaningTooltip : undefined}
+                  onClick={(event) => {
+                    selectCharacter(character);
+                    if (!supportsHover) {
+                      toggleMeaningTooltip(event, characterInfo?.[character]?.meaning || "", `tab-${character}-${index}`);
+                    }
+                  }}
                 className={`min-w-12 rounded-lg border px-4 py-2 text-lg font-bold transition focus:outline-none focus-visible:ring-4 focus-visible:ring-sky-200 ${
                   selectedCharacter === character
                     ? themeClasses.tabActive
@@ -457,12 +633,14 @@ export function CharacterInfoModal({ isOpen, onClose, word, pinyin, meaning, the
                   <div className="grid gap-2" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(64px, max-content))" }}>
                     {visualMatches.slice(0, visualLimit).map(({ character, pinyins, score, meaning: entryMeaning }, index) => {
                       const tileMeaning = (entryMeaning || characterInfo?.[character]?.meaning || "").trim();
+                      const tooltipKey = `visual-${character}-${index}`;
                       return (
                       <span
                         key={`${character}-${index}`}
                         className={`group relative ${themeClasses.tile}`}
-                        onMouseEnter={(event) => showMeaningTooltip(event, tileMeaning)}
+                        onMouseEnter={supportsHover ? (event) => showMeaningTooltip(event, tileMeaning, tooltipKey) : undefined}
                         onMouseLeave={hideMeaningTooltip}
+                        onClick={!supportsHover ? (event) => toggleMeaningTooltip(event, tileMeaning, tooltipKey) : undefined}
                       >
                         {character}
                         <span className={themeClasses.tileSub}>{pinyins.join(" / ")}</span>
@@ -495,14 +673,16 @@ export function CharacterInfoModal({ isOpen, onClose, word, pinyin, meaning, the
               >
                 {similarPinyinCharacters.length > 0 ? (
                   <div className="grid gap-2" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(64px, max-content))" }}>
-                    {similarPinyinCharacters.slice(0, pinyinLimit).map(({ character, pinyins, matchingPinyin }) => {
+                    {similarPinyinCharacters.slice(0, pinyinLimit).map(({ character, pinyins, matchingPinyin }, index) => {
                       const tileMeaning = (characterInfo?.[character]?.meaning || "").trim();
+                      const tooltipKey = `pinyin-${character}-${index}`;
                       return (
                       <span
-                        key={character}
+                        key={`${character}-${index}`}
                         className={`group relative ${themeClasses.tile}`}
-                        onMouseEnter={(event) => showMeaningTooltip(event, tileMeaning)}
+                        onMouseEnter={supportsHover ? (event) => showMeaningTooltip(event, tileMeaning, tooltipKey) : undefined}
                         onMouseLeave={hideMeaningTooltip}
+                        onClick={!supportsHover ? (event) => toggleMeaningTooltip(event, tileMeaning, tooltipKey) : undefined}
                       >
                         {character}
                         <span className={themeClasses.tileSub}>{pinyins.join(" / ") || matchingPinyin}</span>
@@ -572,11 +752,25 @@ export function CharacterInfoModal({ isOpen, onClose, word, pinyin, meaning, the
       </section>
       {hoverTooltip && (
         <div
-          className="pointer-events-none fixed z-[80] -translate-x-1/2"
-          style={{ left: `${hoverTooltip.x}px`, top: `${hoverTooltip.y}px` }}
+          className="pointer-events-none fixed z-[80]"
+          style={{ left: `${hoverTooltip.left}px`, top: `${hoverTooltip.y}px` }}
         >
-          <div className={themeClasses.tileBubble} style={{ opacity: 1, transform: "none" }}>
-            <span className={themeClasses.tileBubbleTail} aria-hidden="true" />
+          <div
+            className={themeClasses.tileBubble}
+            style={{
+              opacity: 1,
+              transform: "none",
+              width: hoverTooltip.fixedWidth ? `${hoverTooltip.bubbleWidth}px` : undefined,
+              maxWidth: `${hoverTooltip.maxWidth}px`,
+              whiteSpace: "normal",
+              overflowWrap: "anywhere",
+            }}
+          >
+            <span
+              className={themeClasses.tileBubbleTail}
+              aria-hidden="true"
+              style={{ left: `${hoverTooltip.tailX}px` }}
+            />
             {hoverTooltip.text}
           </div>
         </div>

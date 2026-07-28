@@ -275,16 +275,16 @@ export function FlashcardSession({
                 isFlipped ? "[transform:rotateY(180deg)]" : ""
               }`}
             >
-              <div className="session-card-face absolute inset-0 flex flex-col items-center justify-center rounded-3xl border border-slate-200 bg-[linear-gradient(135deg,#ffffff,#f8fafc)] p-6 text-center shadow-md [backface-visibility:hidden]">
+              <div className="session-card-face absolute inset-0 flex flex-col items-center justify-center rounded-3xl border border-slate-200 bg-[linear-gradient(135deg,#ffffff,#f8fafc)] p-6 text-center shadow-md [backface-visibility:hidden] [-webkit-backface-visibility:hidden]">
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#64748b]">Chinese</p>
-                {renderCardActions()}
+                {!isFlipped && renderCardActions()}
                 <p className="mt-4 text-5xl font-bold text-[#0f172a] sm:text-6xl">{currentWord.hanzi}</p>
                 <p className="mt-4 text-sm text-[#64748b]">Click card or press Space to reveal answer</p>
               </div>
 
-              <div className="session-card-face absolute inset-0 flex flex-col items-center justify-center rounded-3xl border border-slate-200 bg-[linear-gradient(135deg,#ffffff,#f8fafc)] p-6 text-center shadow-md [backface-visibility:hidden] [transform:rotateY(180deg)]">
+              <div className="session-card-face absolute inset-0 flex flex-col items-center justify-center rounded-3xl border border-slate-200 bg-[linear-gradient(135deg,#ffffff,#f8fafc)] p-6 text-center shadow-md [backface-visibility:hidden] [-webkit-backface-visibility:hidden] [transform:rotateY(180deg)]">
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#64748b]">Answer</p>
-                {renderCardActions()}
+                {isFlipped && renderCardActions()}
                 <p className="mt-3 text-4xl font-bold text-[#0f172a] sm:text-5xl">{currentWord.hanzi}</p>
                 <p className="mt-2 text-xl font-medium text-[#1e293b] sm:text-2xl">{currentWord.pinyin}</p>
                 <p className="mt-4 max-w-lg text-base text-[#0f172a] sm:text-lg">{currentWord.english}</p>
