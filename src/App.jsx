@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { FlashcardSession } from "./components/FlashcardSession";
+import { CharacterInfoModal } from "./components/CharacterInfoModal";
+import { PronounceButton } from "./components/PronounceButton";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import { useSpeech } from "./hooks/useSpeech";
 import { countByMastery, getReviewPoolWords, markWordMastered, markWordNotMastered, pickSessionWords } from "./logic/sessionLogic";
@@ -37,7 +39,7 @@ const BUILTIN_DATASETS = [
 
 const PROGRESS_EXPORT_KIND = "flashcards-progress";
 const PROGRESS_EXPORT_VERSION = 1;
-const VOCABULARY_STORAGE_VERSION = 2;
+const VOCABULARY_STORAGE_VERSION = 3;
 const VOCABULARY_VERSION_KEY = "flashcards.v1.vocabularyVersion";
 const UI_THEMES = [
   { value: "classic", label: "Classic" },
@@ -298,7 +300,7 @@ function wordsNeedPartOfSpeechHydration(words) {
 }
 
 export default function App() {
-  const { speak, stop, isSpeaking } = useSpeech();
+  const { speak, stop, isSpeaking, speakingText } = useSpeech();
   const [selectedSet, setSelectedSet] = useLocalStorage("flashcards.v1.selectedSet", "hsk5");
   const [sessionSizeInput, setSessionSizeInput] = useLocalStorage("flashcards.v1.sessionSize", 10);
   const [reviewPool, setReviewPool] = useLocalStorage("flashcards.v1.reviewPool", "not_mastered");
@@ -318,6 +320,7 @@ export default function App() {
     reviewed: 0,
   });
   const [showSessionComplete, setShowSessionComplete] = useState(false);
+  const [vocabularyInfoWord, setVocabularyInfoWord] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
@@ -423,6 +426,7 @@ export default function App() {
   );
 
   const remainingVocabularyRows = Math.max(0, filteredVocabulary.length - visibleVocabularyRows.length);
+  const isVocabularyInfoOpen = Boolean(vocabularyInfoWord);
 
   const reviewPoolLabel = useMemo(() => {
     if (reviewPool === "mastered") return "Mastered";
@@ -717,6 +721,16 @@ export default function App() {
 
       return markWordNotMastered(previousWords, wordId);
     });
+  }
+
+  function handleOpenVocabularyWordInfo(word) {
+    if (!word) return;
+    if (isSpeaking && speakingText) stop();
+    setVocabularyInfoWord(word);
+  }
+
+  function handleCloseVocabularyWordInfo() {
+    setVocabularyInfoWord(null);
   }
 
   function handleResetCurrentSetStatus() {
@@ -1031,6 +1045,7 @@ export default function App() {
             speak={speak}
             stop={stop}
             isSpeaking={isSpeaking}
+            speakingText={speakingText}
             uiTheme={uiTheme}
           />
         )}
@@ -1147,6 +1162,7 @@ export default function App() {
                       <th className="w-28 px-4 py-3 font-semibold">Hanzi</th>
                       <th className="w-36 px-4 py-3 font-semibold">Pinyin</th>
                       <th className="px-4 py-3 font-semibold">Meaning</th>
+                      <th className="w-28 px-4 py-3 font-semibold">Tools</th>
                       <th className="w-40 px-4 py-3 font-semibold">Status</th>
                     </tr>
                   </thead>
@@ -1157,6 +1173,26 @@ export default function App() {
                         <td className="px-4 py-3 text-lg font-semibold text-slate-900">{word.hanzi}</td>
                         <td className="px-4 py-3 text-slate-700">{word.pinyin}</td>
                         <td className="px-4 py-3 text-slate-700">{word.english}</td>
+                        <td className="px-4 py-3">
+                          <div className="flex items-center gap-2">
+                            <PronounceButton
+                              text={word.hanzi}
+                              onSpeak={speak}
+                              onStop={stop}
+                              isSpeaking={isSpeaking}
+                              speakingText={speakingText}
+                              compact
+                            />
+                            <button
+                              type="button"
+                              onClick={() => handleOpenVocabularyWordInfo(word)}
+                              aria-label={`Open information for ${word.hanzi}`}
+                              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:border-sky-300 hover:bg-sky-50 hover:text-sky-700 focus:outline-none focus-visible:ring-4 focus-visible:ring-sky-300"
+                            >
+                              <span aria-hidden="true" className="text-lg font-bold">i</span>
+                            </button>
+                          </div>
+                        </td>
                         <td className="px-4 py-3">
                           <div className="inline-flex w-full overflow-hidden rounded-lg border border-slate-300">
                             <button
@@ -1259,6 +1295,15 @@ export default function App() {
             </div>
           </section>
         )}
+
+        <CharacterInfoModal
+          isOpen={isVocabularyInfoOpen}
+          onClose={handleCloseVocabularyWordInfo}
+          word={vocabularyInfoWord?.hanzi || ""}
+          pinyin={vocabularyInfoWord?.pinyin || ""}
+          meaning={vocabularyInfoWord?.english || ""}
+          theme={uiTheme}
+        />
       </div>
     </main>
   );

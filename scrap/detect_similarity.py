@@ -6,11 +6,46 @@ with results from exactly one method per run:
 - glyph: MobileNet embedding similarity
 - ssim: structural similarity over rendered glyph images
 - fusion: combined score from glyph + weighted ssim
-- intersect: strict agreement mode across provided expert thresholds
+- intersect: strict agreement mode across both expert thresholds
 
-All methods apply:
-1) score threshold filter
-2) stroke-count gap filter
+Examples:
+```bash
+# Format
+python3 scrap/detect_similarity.py --method <glyph|ssim|fusion|intersect> --threshold <float> --max-stroke-gap <int>
+
+# Glyph (MobileNet)
+python3 scrap/detect_similarity.py --method glyph --threshold 0.9 --max-stroke-gap 2
+
+# SSIM
+python3 scrap/detect_similarity.py --method ssim --threshold 0.6 --max-stroke-gap 3
+
+# Fusion (combined Glyph + weighted SSIM)
+python3 scrap/detect_similarity.py --method fusion --threshold 1.75 --max-stroke-gap 4
+
+# Intersect (strict threshold agreement)
+python3 scrap/detect_similarity.py --method intersect --glyph-threshold 0.90 --ssim-threshold 0.60 --max-stroke-gap 4
+
+# Single character dry-run
+python3 scrap/detect_similarity.py --method glyph --threshold 0.90 --max-stroke-gap 2 --character 好 --dry-run
+```
+
+Every method applies:
+
+1. Score threshold filter
+2. Stroke-count difference filter
+
+Each output candidate includes:
+
+- `score`
+- `stroke_count_difference`
+- Method-specific score field (`glyph_score`, `ssim_score`, `fusion_score`):
+
+Optional method-specific settings:
+
+- Glyph: `--glyph-metric cosine|euclidean|tanh`, `--glyph-font`, `--glyph-device`
+- SSIM: `--ssim-size`, `--ssim-cache`, `--refresh-ssim-cache`
+- Fusion: uses combined score and supports `--threshold` in `[-2.5, 2.5]`
+- Intersect: threshold flags `--glyph-threshold` and `--ssim-threshold`
 """
 
 from __future__ import annotations

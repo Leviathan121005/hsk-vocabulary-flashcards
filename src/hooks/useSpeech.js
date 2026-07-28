@@ -38,6 +38,7 @@ function findChineseVoice(voices) {
 export function useSpeech() {
   const [voice, setVoice] = useState(null);
   const [isSpeaking, setIsSpeaking] = useState(false);
+  const [speakingText, setSpeakingText] = useState("");
   const selectedVoiceRef = useRef(null);
   const speechRequestRef = useRef(0);
 
@@ -64,6 +65,7 @@ export function useSpeech() {
       window.speechSynthesis.removeEventListener("voiceschanged", loadVoice);
       speechRequestRef.current += 1;
       window.speechSynthesis.cancel();
+      setSpeakingText("");
     };
   }, []);
 
@@ -79,6 +81,7 @@ export function useSpeech() {
       window.speechSynthesis.cancel();
 
       setIsSpeaking(true);
+      setSpeakingText(text.trim());
 
       window.setTimeout(() => {
         if (speechRequestRef.current !== requestId) return;
@@ -89,16 +92,18 @@ export function useSpeech() {
         utterance.lang = voice?.lang || getPreferredChineseLocale();
         utterance.voice = voice;
         utterance.volume = 1;
-        utterance.rate = 0.67;
+        utterance.rate = 0.75;
         utterance.pitch = 1;
         utterance.onend = () => {
           if (speechRequestRef.current !== requestId) return;
           setIsSpeaking(false);
+          setSpeakingText("");
           onEnd?.();
         };
         utterance.onerror = () => {
           if (speechRequestRef.current !== requestId) return;
           setIsSpeaking(false);
+          setSpeakingText("");
           onEnd?.();
         };
 
@@ -114,9 +119,10 @@ export function useSpeech() {
     speechRequestRef.current += 1;
     window.speechSynthesis.cancel();
     setIsSpeaking(false);
+    setSpeakingText("");
   }, []);
 
-  return { speak, stop, isSpeaking };
+  return { speak, stop, isSpeaking, speakingText };
 }
 
 export default useSpeech;

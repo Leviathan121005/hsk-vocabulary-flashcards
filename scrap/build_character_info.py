@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build character metadata from the bundled HSK 1-5 vocabulary CSV files.
+"""Build character metadata from bundled HSK CSV files.
 
 Run from the repository root with:
     python3 scrap/build_character_info.py
@@ -7,7 +7,6 @@ Run from the repository root with:
 
 from __future__ import annotations
 
-import argparse
 import csv
 import json
 import re
@@ -23,6 +22,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 CSV_FILES = [REPO_ROOT / "public" / f"hsk-{level}-vocabulary.csv" for level in range(1, 6)]
 OUTPUT_FILE = REPO_ROOT / "public" / "character_info.json"
 PINYIN_INDEX_FILE = REPO_ROOT / "public" / "pinyin_to_characters.json"
+OTHER_USE_CASES_FILE = REPO_ROOT / "public" / "other_use_cases.json"
 DICTIONARY_FILE = REPO_ROOT / "scrap" / "dictionary.json"
 DICTIONARY_URLS = (
     "https://raw.githubusercontent.com/skritter/make-me-a-hanzi/master/dictionary.json",
@@ -102,20 +102,6 @@ FINALS = (
 VALID_SYLLABLES = {initial + final for initial in INITIALS for final in FINALS}
 VALID_SYLLABLES.update({"a", "ai", "an", "ang", "ao", "e", "ei", "en", "eng", "er", "o", "ou", "m", "n", "ng", "hm", "r"})
 PINYIN_LETTER_RE = re.compile(r"[a-züv]", re.IGNORECASE)
-IDS_OPERATOR_ARITY = {
-    "⿰": 2,
-    "⿱": 2,
-    "⿲": 3,
-    "⿳": 3,
-    "⿴": 2,
-    "⿵": 2,
-    "⿶": 2,
-    "⿷": 2,
-    "⿸": 2,
-    "⿹": 2,
-    "⿺": 2,
-    "⿻": 2,
-}
 
 
 def log(message: str) -> None:
@@ -198,13 +184,13 @@ def first_syllable(pinyin: str) -> str:
     return pinyin.strip()
 
 
-def new_character_info(character: str, pinyin: str) -> Dict[str, Any]:
+def new_character_info(character: str, pinyin: str, meaning: str = "") -> Dict[str, Any]:
     return {
         "character": character,
+        "meaning": meaning,
         "sample_pinyin": pinyin,
         "other_pinyins": [],
         "similar_visual_chars": [],
-        "other_usecases": [],
     }
 
 
@@ -213,14 +199,41 @@ def add_pronunciation(info: Dict[str, Any], pinyin: str) -> None:
         info["other_pinyins"].append(pinyin)
 
 
-def add_usecase(info: Dict[str, Any], word: str, pinyin: str, meaning: str) -> None:
-    usecase = {"word": word, "pinyin": pinyin, "meaning": meaning}
-    if usecase not in info["other_usecases"]:
-        info["other_usecases"].append(usecase)
+def add_usecase(
+    character: str,
+    word: str,
+    pinyin: str,
+    meaning: str,
+    entries: List[Dict[str, str]],
+    index_by_key: Dict[Tuple[str, str, str], int],
+    by_character: Dict[str, set[int]],
+) -> None:
+    key = (word, pinyin, meaning)
+    usecase_index = index_by_key.get(key)
+    if usecase_index is None:
+        usecase_index = len(entries)
+        entries.append({"word": word, "pinyin": pinyin, "meaning": meaning})
+        index_by_key[key] = usecase_index
+
+    by_character.setdefault(character, set()).add(usecase_index)
 
 
-def build_character_info(csv_files: Sequence[Path]) -> Tuple[Dict[str, Dict[str, Any]], List[str]]:
+def lookup_character_meaning(character: str, character_meanings: Dict[str, str]) -> str:
+    for variant in (character, unicodedata.normalize("NFKC", character), unicodedata.normalize("NFKD", character)):
+        definition = (character_meanings.get(variant) or "").strip()
+        if definition:
+            return definition
+    return ""
+
+
+def build_character_info(
+    csv_files: Sequence[Path],
+    character_meanings: Dict[str, str],
+) -> Tuple[Dict[str, Dict[str, Any]], Dict[str, Any], List[str]]:
     character_info: Dict[str, Dict[str, Any]] = {}
+    usecase_entries: List[Dict[str, str]] = []
+    usecase_index_by_key: Dict[Tuple[str, str, str], int] = {}
+    usecases_by_character: Dict[str, set[int]] = {}
     alignment_warnings: List[str] = []
 
     for csv_file in csv_files:
@@ -243,18 +256,39 @@ def build_character_info(csv_files: Sequence[Path]) -> Tuple[Dict[str, Dict[str,
                     syllables = [fallback] * len(characters)
 
                 for character, character_pinyin in zip(characters, syllables):
-                    info = character_info.setdefault(character, new_character_info(character, character_pinyin))
+                    character_meaning = lookup_character_meaning(character, character_meanings)
+                    info = character_info.setdefault(
+                        character,
+                        new_character_info(character, character_pinyin, character_meaning),
+                    )
+                    if not info.get("meaning") and character_meaning:
+                        info["meaning"] = character_meaning
                     add_pronunciation(info, character_pinyin)
                     if len(characters) == 1:
                         for alternate_reading in alternate_readings[1:]:
                             add_pronunciation(info, alternate_reading)
-                    add_usecase(info, word, word_pinyin, meaning)
+                    add_usecase(
+                        character,
+                        word,
+                        word_pinyin,
+                        meaning,
+                        usecase_entries,
+                        usecase_index_by_key,
+                        usecases_by_character,
+                    )
 
-    return dict(sorted(character_info.items())), alignment_warnings
+    other_use_cases = {
+        "version": 1,
+        "entries": usecase_entries,
+        "by_character": {
+            character: sorted(indices) for character, indices in sorted(usecases_by_character.items())
+        },
+    }
+    return dict(sorted(character_info.items())), other_use_cases, alignment_warnings
 
 
 def download_dictionary() -> None:
-    """Download and cache the upstream character component dictionary."""
+    """Download and cache the dictionary data used for meanings."""
 
     errors = []
     for url in DICTIONARY_URLS:
@@ -291,63 +325,32 @@ def load_dictionary_records(path: Path) -> List[Dict[str, Any]]:
     return [record for record in records if isinstance(record, dict)]
 
 
-def parse_ids_node(decomposition: str, start: int = 0) -> Tuple[Optional[Tuple[str, List[Any]]], int]:
-    """Parse one IDS node, preserving but never comparing nested child nodes."""
+def ensure_dictionary_records() -> List[Dict[str, Any]]:
+    """Return dictionary records, downloading dictionary.json when needed."""
 
-    if start >= len(decomposition):
-        return None, start
+    if DICTIONARY_FILE.exists():
+        return load_dictionary_records(DICTIONARY_FILE)
 
-    symbol = decomposition[start]
-    arity = IDS_OPERATOR_ARITY.get(symbol)
-    if arity is None:
-        return (symbol, []), start + 1
-
-    children = []
-    index = start + 1
-    for _ in range(arity):
-        child, index = parse_ids_node(decomposition, index)
-        if child is None:
-            return None, index
-        children.append(child)
-    return (symbol, children), index
+    log(f"{DICTIONARY_FILE.relative_to(REPO_ROOT)} not found; attempting download...")
+    download_dictionary()
+    return load_dictionary_records(DICTIONARY_FILE)
 
 
-def top_level_slots(record: Dict[str, Any]) -> Optional[Tuple[str, List[str]]]:
-    """Return direct IDS operands only, keeping their structural slots intact."""
-
-    decomposition = record.get("decomposition")
-    if not isinstance(decomposition, str) or not decomposition:
-        return None
-
-    root, end = parse_ids_node(decomposition)
-    if root is None or end != len(decomposition):
-        return None
-
-    operator, children = root
-    if operator not in IDS_OPERATOR_ARITY:
-        return None
-
-    slots = [child[0] if not child[1] else "" for child in children]
-    return operator, slots
-
-
-def slot_map(records: Sequence[Dict[str, Any]], hsk_characters: set[str]) -> Dict[str, Tuple[str, List[str]]]:
-    """Map HSK characters to their depth-one IDS layout and direct slot values."""
-
-    result = {}
+def build_character_meanings(records: Sequence[Dict[str, Any]]) -> Dict[str, str]:
+    meanings: Dict[str, str] = {}
     for record in records:
         character = record.get("character")
-        if not isinstance(character, str) or character not in hsk_characters:
-            continue
-        slots = top_level_slots(record)
-        if slots is not None:
-            result[character] = slots
-    return result
-
-
-def pinyin_keys(info: Dict[str, Any]) -> set[str]:
-    readings = [info.get("sample_pinyin", ""), *info.get("other_pinyins", [])]
-    return {pinyin_base(reading) for reading in readings if pinyin_base(reading)}
+        definition = str(record.get("definition") or "").strip()
+        if isinstance(character, str) and len(character) == 1 and definition:
+            variants = {
+                character,
+                unicodedata.normalize("NFKC", character),
+                unicodedata.normalize("NFKD", character),
+            }
+            for variant in variants:
+                if variant and variant not in meanings:
+                    meanings[variant] = definition
+    return meanings
 
 
 def build_pinyin_index(character_info: Dict[str, Dict[str, Any]]) -> Dict[str, Dict[str, List[str]]]:
@@ -366,45 +369,6 @@ def build_pinyin_index(character_info: Dict[str, Dict[str, Any]]) -> Dict[str, D
         for key, readings in sorted(index.items())
     }
 
-
-def character_reference(character: str, info: Dict[str, Any]) -> Dict[str, Any]:
-    """Create a similarity entry with every known reading of the character."""
-
-    pinyins = [info.get("sample_pinyin", ""), *info.get("other_pinyins", [])]
-    return {"character": character, "pinyins": [pinyin for pinyin in pinyins if pinyin]}
-
-
-def build_similarities(character_info: Dict[str, Dict[str, Any]], records: Sequence[Dict[str, Any]]) -> None:
-    """Populate depth-one, position-aligned visual and tone-insensitive pinyin matches."""
-
-    characters = set(character_info)
-    slots_by_character = slot_map(records, characters)
-    characters_by_slot: Dict[Tuple[str, int, str], set[str]] = {}
-    for character, (layout, slots) in slots_by_character.items():
-        for slot_index, component in enumerate(slots):
-            if component:
-                characters_by_slot.setdefault((layout, slot_index, component), set()).add(character)
-
-    for character, info in character_info.items():
-        visual_groups = []
-        layout_and_slots = slots_by_character.get(character)
-        if layout_and_slots:
-            layout, slots = layout_and_slots
-            for slot_index, component in enumerate(slots):
-                if not component:
-                    continue
-                matches = sorted(characters_by_slot[(layout, slot_index, component)] - {character})
-                if matches:
-                    visual_groups.append(
-                        {
-                            "layout": layout,
-                            "slot": slot_index,
-                            "components": [component],
-                            "characters": [character_reference(match, character_info[match]) for match in matches],
-                        }
-                    )
-        info["similar_visual_chars"] = visual_groups
-
 def write_character_info(character_info: Dict[str, Dict[str, Any]]) -> None:
     with OUTPUT_FILE.open("w", encoding="utf-8") as file:
         json.dump(character_info, file, ensure_ascii=False, indent=2)
@@ -417,44 +381,34 @@ def write_pinyin_index(character_info: Dict[str, Dict[str, Any]]) -> None:
         file.write("\n")
 
 
-def main() -> int:
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument(
-        "--mode",
-        choices=("basics", "similarities"),
-        default="basics",
-        help="Build base character data or enrich existing data with similarities (default: basics).",
-    )
-    parser.add_argument(
-        "--refresh-dictionary",
-        action="store_true",
-        help="Download the component dictionary again before building similarities.",
-    )
-    args = parser.parse_args()
+def write_other_use_cases(other_use_cases: Dict[str, Any]) -> None:
+    with OTHER_USE_CASES_FILE.open("w", encoding="utf-8") as file:
+        json.dump(other_use_cases, file, ensure_ascii=False, indent=2)
+        file.write("\n")
 
-    if args.mode == "similarities":
-        try:
-            if args.refresh_dictionary or not DICTIONARY_FILE.exists():
-                download_dictionary()
-            character_info = json.loads(OUTPUT_FILE.read_text(encoding="utf-8"))
-            build_similarities(character_info, load_dictionary_records(DICTIONARY_FILE))
-            write_character_info(character_info)
-        except (OSError, ValueError, json.JSONDecodeError) as error:
-            log(f"ERROR: {error}")
-            return 1
-        log(f"Updated similarities for {len(character_info)} characters")
-        return 0
+
+def main() -> int:
+    character_meanings: Dict[str, str] = {}
+    try:
+        dictionary_records = ensure_dictionary_records()
+        character_meanings = build_character_meanings(dictionary_records)
+    except (OSError, ValueError, json.JSONDecodeError) as error:
+        log(f"WARNING: Could not prepare {DICTIONARY_FILE.relative_to(REPO_ROOT)}: {error}")
+        log("Need to add methods/resources to utilize dictionary-dependent meanings; continuing with empty meanings.")
 
     try:
-        character_info, warnings = build_character_info(CSV_FILES)
+        character_info, other_use_cases, warnings = build_character_info(CSV_FILES, character_meanings)
     except (OSError, csv.Error) as error:
         log(f"ERROR: {error}")
         return 1
 
     write_character_info(character_info)
     write_pinyin_index(character_info)
+    write_other_use_cases(other_use_cases)
 
     log(f"Wrote {len(character_info)} unique characters to {OUTPUT_FILE.relative_to(REPO_ROOT)}")
+    log(f"Loaded meanings for {sum(1 for info in character_info.values() if info.get('meaning'))} characters")
+    log(f"Wrote {len(other_use_cases['entries'])} unique use cases to {OTHER_USE_CASES_FILE.relative_to(REPO_ROOT)}")
     for warning in warnings:
         log(f"WARNING: {warning}")
     log(f"Pinyin alignment warnings: {len(warnings)}")

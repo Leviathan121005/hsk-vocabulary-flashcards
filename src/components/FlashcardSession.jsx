@@ -22,6 +22,7 @@ export function FlashcardSession({
   speak,
   stop,
   isSpeaking = false,
+  speakingText = "",
   uiTheme = "classic",
 }) {
   const [isFlipped, setIsFlipped] = useState(false);
@@ -46,11 +47,17 @@ export function FlashcardSession({
   }, [currentWord?.id]);
 
   useEffect(() => {
-    if (!isFlipped) setIsActionMenuOpen(false);
+    if (!isFlipped) {
+      setIsActionMenuOpen(false);
+    }
   }, [isFlipped]);
 
+  function toggleActionMenu() {
+    setIsActionMenuOpen((value) => !value);
+  }
+
   function navigateWithFlip(action) {
-    if (isSpeaking) {
+    if (isSpeaking && speakingText) {
       stop();
     }
 
@@ -68,7 +75,7 @@ export function FlashcardSession({
   function handleMarkMastered() {
     if (!currentWord) return;
 
-    if (isSpeaking) {
+    if (isSpeaking && speakingText) {
       stop();
     }
 
@@ -89,7 +96,7 @@ export function FlashcardSession({
   function handleMarkNotMastered() {
     if (!currentWord) return;
 
-    if (isSpeaking) {
+    if (isSpeaking && speakingText) {
       stop();
     }
 
@@ -109,21 +116,21 @@ export function FlashcardSession({
 
   function handleOpenCharacterInfo(event) {
     event.stopPropagation();
-    if (isSpeaking) stop();
+    if (isSpeaking && speakingText) stop();
     setIsActionMenuOpen(false);
     setIsCharacterInfoOpen(true);
   }
 
   function renderCardActions() {
     return (
-      <div className="absolute right-4 top-4" onClick={(event) => event.stopPropagation()}>
-        <div className="relative flex flex-col items-center gap-2">
+      <div className="absolute right-3 top-3 sm:right-4 sm:top-4" onClick={(event) => event.stopPropagation()}>
+        <div className="relative flex flex-col items-end gap-2">
           <button
             type="button"
-            onClick={() => setIsActionMenuOpen((value) => !value)}
+            onClick={toggleActionMenu}
             aria-label={isActionMenuOpen ? "Close card actions" : "Open card actions"}
             aria-expanded={isActionMenuOpen}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:border-sky-300 hover:bg-sky-50 hover:text-sky-700 focus:outline-none focus-visible:ring-4 focus-visible:ring-sky-300"
+            className="relative z-30 inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:border-sky-300 hover:bg-sky-50 hover:text-sky-700 focus:outline-none focus-visible:ring-4 focus-visible:ring-sky-300 sm:h-11 sm:w-11"
           >
             <svg
               aria-hidden="true"
@@ -133,24 +140,31 @@ export function FlashcardSession({
               strokeWidth="2.5"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className={`h-5 w-5 transition-transform ${isActionMenuOpen ? "rotate-180" : ""}`}
+              className={`card-action-trigger-icon h-5 w-5 transition-transform ${isActionMenuOpen ? "rotate-180" : ""}`}
             >
               <path d="m6 9 6 6 6-6" />
             </svg>
           </button>
-          {isActionMenuOpen && (
-            <div className="flex flex-col items-center gap-2">
-              <PronounceButton text={currentWord.hanzi} onSpeak={speak} onStop={stop} isSpeaking={isSpeaking} />
-              <button
-                type="button"
-                onClick={handleOpenCharacterInfo}
-                aria-label={`Open information for ${currentWord.hanzi}`}
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:border-sky-300 hover:bg-sky-50 hover:text-sky-700 focus:outline-none focus-visible:ring-4 focus-visible:ring-sky-300"
-              >
-                <span aria-hidden="true" className="text-lg font-bold">i</span>
-              </button>
+          <div className={`card-action-menu ${isActionMenuOpen ? "is-open" : "is-closed"}`} aria-hidden={!isActionMenuOpen}>
+            <div className="card-action-item card-action-item-sound">
+              <PronounceButton
+                text={currentWord.hanzi}
+                onSpeak={speak}
+                onStop={stop}
+                isSpeaking={isSpeaking}
+                speakingText={speakingText}
+                compact
+              />
             </div>
-          )}
+            <button
+              type="button"
+              onClick={handleOpenCharacterInfo}
+              aria-label={`Open information for ${currentWord.hanzi}`}
+              className="card-action-item card-action-item-info inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:border-sky-300 hover:bg-sky-50 hover:text-sky-700 focus:outline-none focus-visible:ring-4 focus-visible:ring-sky-300 sm:h-11 sm:w-11"
+            >
+              <span aria-hidden="true" className="text-lg font-bold">i</span>
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -162,7 +176,7 @@ export function FlashcardSession({
 
       if (event.key === " ") {
         event.preventDefault();
-        if (isSpeaking) stop();
+        if (isSpeaking && speakingText) stop();
         setIsFlipped((previous) => !previous);
         return;
       }
@@ -193,7 +207,7 @@ export function FlashcardSession({
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [currentWord, handleMarkMastered, handleMarkNotMastered, isSpeaking, navigateWithFlip, onGoNext, onGoPrevious, stop]);
+  }, [currentWord, handleMarkMastered, handleMarkNotMastered, isSpeaking, speakingText, navigateWithFlip, onGoNext, onGoPrevious, stop]);
 
   if (!currentWord) {
     return (
@@ -241,14 +255,14 @@ export function FlashcardSession({
           role="button"
           tabIndex={0}
           onClick={() => {
-            if (isSpeaking) stop();
+            if (isSpeaking && speakingText) stop();
             setIsFlipped((previous) => !previous);
           }}
           onKeyDown={(event) => {
             if (event.key === " " || event.key === "Enter") {
               event.preventDefault();
               event.stopPropagation();
-              if (isSpeaking) stop();
+              if (isSpeaking && speakingText) stop();
               setIsFlipped((previous) => !previous);
             }
           }}
@@ -309,7 +323,7 @@ export function FlashcardSession({
       <button
         type="button"
         onClick={() => {
-          if (isSpeaking) stop();
+          if (isSpeaking && speakingText) stop();
           onFinishSession?.();
         }}
         className="mt-4 inline-flex w-full items-center justify-center rounded-2xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold uppercase tracking-wide text-slate-700 hover:bg-slate-50 focus:outline-none focus-visible:ring-4 focus-visible:ring-slate-300"
@@ -320,6 +334,8 @@ export function FlashcardSession({
         isOpen={isCharacterInfoOpen}
         onClose={() => setIsCharacterInfoOpen(false)}
         word={currentWord.hanzi}
+        pinyin={currentWord.pinyin}
+        meaning={currentWord.english}
         theme={uiTheme}
       />
     </section>

@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 
 const INITIAL_ITEM_LIMIT = 12;
 const LOAD_MORE_COUNT = 12;
+const TOOLTIP_MAX_WIDTH = 220;
+const TOOLTIP_VIEWPORT_MARGIN = 12;
 
 function resolveCharacterInfoPath() {
   const baseUrl = import.meta.env.BASE_URL || "/";
@@ -11,6 +13,11 @@ function resolveCharacterInfoPath() {
 function resolvePinyinIndexPath() {
   const baseUrl = import.meta.env.BASE_URL || "/";
   return `${baseUrl}pinyin_to_characters.json`;
+}
+
+function resolveOtherUseCasesPath() {
+  const baseUrl = import.meta.env.BASE_URL || "/";
+  return `${baseUrl}other_use_cases.json`;
 }
 
 function pinyinBase(reading) {
@@ -75,9 +82,10 @@ function CollapsibleSection({ title, count, isOpen, onToggle, children, sectionC
   );
 }
 
-export function CharacterInfoModal({ isOpen, onClose, word, theme = "classic" }) {
+export function CharacterInfoModal({ isOpen, onClose, word, pinyin, meaning, theme = "classic" }) {
   const [characterInfo, setCharacterInfo] = useState(null);
   const [pinyinIndex, setPinyinIndex] = useState(null);
+  const [otherUseCasesIndex, setOtherUseCasesIndex] = useState(null);
   const [loadError, setLoadError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const characters = useMemo(() => Array.from(word || ""), [word]);
@@ -86,6 +94,7 @@ export function CharacterInfoModal({ isOpen, onClose, word, theme = "classic" })
   const [pinyinLimit, setPinyinLimit] = useState(INITIAL_ITEM_LIMIT);
   const [usecaseLimit, setUsecaseLimit] = useState(INITIAL_ITEM_LIMIT);
   const [openSections, setOpenSections] = useState({ visual: true, pinyin: true, usecases: true });
+  const [hoverTooltip, setHoverTooltip] = useState(null);
 
   const themeClasses = useMemo(() => {
     if (theme === "dark") {
@@ -102,7 +111,7 @@ export function CharacterInfoModal({ isOpen, onClose, word, theme = "classic" })
         tabInactive: "border-slate-700 bg-slate-900 text-slate-300 hover:bg-slate-800",
         loading: "py-10 text-center text-sm text-slate-300",
         noInfo: "mt-5 rounded-lg border border-slate-700 bg-slate-900 p-4 text-sm text-slate-300",
-        section: "overflow-hidden rounded-lg border border-slate-700 bg-slate-900",
+        section: "rounded-lg border border-slate-700 bg-slate-900",
         sectionTrigger:
           "flex w-full items-center justify-between gap-3 px-4 py-4 text-left transition hover:bg-slate-800 focus:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-slate-500 sm:px-5",
         sectionTitle: "font-bold text-slate-100",
@@ -110,6 +119,9 @@ export function CharacterInfoModal({ isOpen, onClose, word, theme = "classic" })
         sectionBody: "border-t border-slate-700 px-4 py-4 sm:px-5",
         tile: "inline-flex min-w-0 flex-col items-center rounded-lg border border-sky-800 bg-slate-800 px-2 py-3 text-center text-2xl font-semibold text-sky-100",
         tileSub: "mt-1 text-[12px] leading-tight font-medium text-sky-200 whitespace-nowrap",
+        tileBubble:
+          "relative w-max max-w-[220px] rounded-md border border-slate-600 bg-slate-800 px-3 py-2 text-left text-xs font-medium leading-snug text-slate-100 shadow-xl",
+        tileBubbleTail: "absolute -top-1 left-1/2 h-2.5 w-2.5 -translate-x-1/2 rotate-45 border-l border-t border-slate-600 bg-slate-800",
         emptyHint: "text-sm text-slate-400",
         lessButton:
           "rounded-lg border border-slate-600 bg-slate-800 px-3 py-2 text-sm font-semibold text-slate-200 transition hover:bg-slate-700 focus:outline-none focus-visible:ring-4 focus-visible:ring-slate-500",
@@ -138,7 +150,7 @@ export function CharacterInfoModal({ isOpen, onClose, word, theme = "classic" })
         tabInactive: "border-stone-300 bg-stone-50 text-stone-700 hover:bg-stone-100",
         loading: "py-10 text-center text-sm text-stone-600",
         noInfo: "mt-5 rounded-lg border border-stone-300 bg-stone-50 p-4 text-sm text-stone-700",
-        section: "overflow-hidden rounded-lg border border-stone-300 bg-stone-50",
+        section: "rounded-lg border border-stone-300 bg-stone-50",
         sectionTrigger:
           "flex w-full items-center justify-between gap-3 px-4 py-4 text-left transition hover:bg-stone-100 focus:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-stone-300 sm:px-5",
         sectionTitle: "font-bold text-stone-900",
@@ -146,6 +158,9 @@ export function CharacterInfoModal({ isOpen, onClose, word, theme = "classic" })
         sectionBody: "border-t border-stone-200 px-4 py-4 sm:px-5",
         tile: "inline-flex min-w-0 flex-col items-center rounded-lg border border-amber-200 bg-amber-50 px-2 py-3 text-center text-2xl font-semibold text-amber-900",
         tileSub: "mt-1 text-[12px] leading-tight font-medium text-amber-800 whitespace-nowrap",
+        tileBubble:
+          "relative w-max max-w-[220px] rounded-md border border-stone-300 bg-stone-50 px-3 py-2 text-left text-xs font-medium leading-snug text-stone-800 shadow-lg",
+        tileBubbleTail: "absolute -top-1 left-1/2 h-2.5 w-2.5 -translate-x-1/2 rotate-45 border-l border-t border-stone-300 bg-stone-50",
         emptyHint: "text-sm text-stone-500",
         lessButton:
           "rounded-lg border border-stone-300 bg-stone-50 px-3 py-2 text-sm font-semibold text-stone-700 transition hover:bg-stone-100 focus:outline-none focus-visible:ring-4 focus-visible:ring-stone-300",
@@ -173,7 +188,7 @@ export function CharacterInfoModal({ isOpen, onClose, word, theme = "classic" })
       tabInactive: "border-slate-200 bg-white text-slate-600 hover:bg-slate-100",
       loading: "py-10 text-center text-sm text-slate-600",
       noInfo: "mt-5 rounded-lg border border-slate-200 bg-white p-4 text-sm text-slate-600",
-      section: "overflow-hidden rounded-lg border border-slate-200 bg-white",
+      section: "rounded-lg border border-slate-200 bg-white",
       sectionTrigger:
         "flex w-full items-center justify-between gap-3 px-4 py-4 text-left transition hover:bg-slate-50 focus:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-sky-200 sm:px-5",
       sectionTitle: "font-bold text-slate-900",
@@ -181,6 +196,9 @@ export function CharacterInfoModal({ isOpen, onClose, word, theme = "classic" })
       sectionBody: "border-t border-slate-100 px-4 py-4 sm:px-5",
       tile: "inline-flex min-w-0 flex-col items-center rounded-lg border border-sky-100 bg-sky-50 px-2 py-3 text-center text-2xl font-semibold text-sky-900",
       tileSub: "mt-1 text-[12px] leading-tight font-medium text-sky-700 whitespace-nowrap",
+      tileBubble:
+        "relative w-max max-w-[220px] rounded-md border border-slate-200 bg-white px-3 py-2 text-left text-xs font-medium leading-snug text-slate-700 shadow-lg",
+      tileBubbleTail: "absolute -top-1 left-1/2 h-2.5 w-2.5 -translate-x-1/2 rotate-45 border-l border-t border-slate-200 bg-white",
       emptyHint: "text-sm text-slate-500",
       lessButton:
         "rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus-visible:ring-4 focus-visible:ring-sky-200",
@@ -254,6 +272,27 @@ export function CharacterInfoModal({ isOpen, onClose, word, theme = "classic" })
   useEffect(() => {
     if (!isOpen) return undefined;
 
+    let isCurrent = true;
+    fetch(resolveOtherUseCasesPath())
+      .then((response) => {
+        if (!response.ok) throw new Error("Other use cases index is unavailable.");
+        return response.json();
+      })
+      .then((data) => {
+        if (isCurrent) setOtherUseCasesIndex(data);
+      })
+      .catch(() => {
+        if (isCurrent) setLoadError("Character information could not be loaded.");
+      });
+
+    return () => {
+      isCurrent = false;
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return undefined;
+
     function handleKeyDown(event) {
       if (event.key === "Escape") onClose?.();
     }
@@ -300,7 +339,13 @@ export function CharacterInfoModal({ isOpen, onClose, word, theme = "classic" })
   const similarPinyinCharacters = Array.from(similarPinyinMatches.values()).sort((left, right) =>
     left.character.localeCompare(right.character, "zh-Hans")
   );
-  const usecases = (selectedInfo?.other_usecases || []).filter((usecase) => usecase.word !== word);
+  const selectedUsecaseIndexes = otherUseCasesIndex?.by_character?.[selectedCharacter] || [];
+  const allUseCaseEntries = otherUseCasesIndex?.entries || [];
+
+  const usecases = selectedUsecaseIndexes
+    .map((index) => allUseCaseEntries[index])
+    .filter(Boolean)
+    .filter((usecase) => usecase.word !== word);
 
   function selectCharacter(character) {
     setSelectedCharacter(character);
@@ -311,6 +356,27 @@ export function CharacterInfoModal({ isOpen, onClose, word, theme = "classic" })
 
   function toggleSection(section) {
     setOpenSections((previous) => ({ ...previous, [section]: !previous[section] }));
+  }
+
+  function showMeaningTooltip(event, tooltipText) {
+    const text = (tooltipText || "").trim();
+    if (!text) return;
+
+    const rect = event.currentTarget.getBoundingClientRect();
+    const margin = TOOLTIP_VIEWPORT_MARGIN;
+    const halfTooltipWidth = TOOLTIP_MAX_WIDTH / 2;
+    const centerX = rect.left + rect.width / 2;
+    const clampedX = Math.min(
+      window.innerWidth - margin - halfTooltipWidth,
+      Math.max(margin + halfTooltipWidth, centerX)
+    );
+    const y = rect.bottom + 10;
+
+    setHoverTooltip({ text, x: clampedX, y });
+  }
+
+  function hideMeaningTooltip() {
+    setHoverTooltip(null);
   }
 
   return (
@@ -330,9 +396,11 @@ export function CharacterInfoModal({ isOpen, onClose, word, theme = "classic" })
         <header className={`flex items-start justify-between gap-4 px-5 py-4 sm:px-6 ${themeClasses.header}`}>
           <div>
             <p className={`text-xs font-semibold uppercase tracking-[0.16em] ${themeClasses.titleTag}`}>Character Notes</p>
-            <h2 id="character-info-title" className={`mt-1 text-xl font-bold ${themeClasses.title}`}>
+            <h2 id="character-info-title" className={`mt-2 text-xl font-bold ${themeClasses.title}`}>
               {word || "Character information"}
+              {pinyin && <span className="ml-2 text-base font-medium text-slate-500">{pinyin}</span>}
             </h2>
+            {meaning && <p className="mt-1 max-w-[30ch] truncate text-sm text-slate-600">{meaning}</p>}
           </div>
           <button
             type="button"
@@ -386,17 +454,20 @@ export function CharacterInfoModal({ isOpen, onClose, word, theme = "classic" })
                 bodyClassName={themeClasses.sectionBody}
               >
                 {visualMatches.length > 0 ? (
-                  <div className="grid gap-2" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(64px, max-content))' }}>
-                    {visualMatches.slice(0, visualLimit).map(({ character, pinyins, score }, index) => (
+                  <div className="grid gap-2" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(64px, max-content))" }}>
+                    {visualMatches.slice(0, visualLimit).map(({ character, pinyins, score, meaning: entryMeaning }, index) => {
+                      const tileMeaning = (entryMeaning || characterInfo?.[character]?.meaning || "").trim();
+                      return (
                       <span
                         key={`${character}-${index}`}
-                        title={typeof score === "number" ? `Visual similarity: ${score.toFixed(4)}` : "Visual similarity match"}
-                        className={themeClasses.tile}
+                        className={`group relative ${themeClasses.tile}`}
+                        onMouseEnter={(event) => showMeaningTooltip(event, tileMeaning)}
+                        onMouseLeave={hideMeaningTooltip}
                       >
                         {character}
                         <span className={themeClasses.tileSub}>{pinyins.join(" / ")}</span>
                       </span>
-                    ))}
+                    )})}
                   </div>
                 ) : (
                   <p className={themeClasses.emptyHint}>No shared structural components were found in this HSK set.</p>
@@ -423,17 +494,20 @@ export function CharacterInfoModal({ isOpen, onClose, word, theme = "classic" })
                 bodyClassName={themeClasses.sectionBody}
               >
                 {similarPinyinCharacters.length > 0 ? (
-                  <div className="grid gap-2" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(64px, max-content))' }}>
-                    {similarPinyinCharacters.slice(0, pinyinLimit).map(({ character, pinyins, matchingPinyin }) => (
+                  <div className="grid gap-2" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(64px, max-content))" }}>
+                    {similarPinyinCharacters.slice(0, pinyinLimit).map(({ character, pinyins, matchingPinyin }) => {
+                      const tileMeaning = (characterInfo?.[character]?.meaning || "").trim();
+                      return (
                       <span
                         key={character}
-                        title={`Matching pinyin: ${matchingPinyin}`}
-                        className={themeClasses.tile}
+                        className={`group relative ${themeClasses.tile}`}
+                        onMouseEnter={(event) => showMeaningTooltip(event, tileMeaning)}
+                        onMouseLeave={hideMeaningTooltip}
                       >
                         {character}
                         <span className={themeClasses.tileSub}>{pinyins.join(" / ") || matchingPinyin}</span>
                       </span>
-                    ))}
+                    )})}
                   </div>
                 ) : (
                   <p className={themeClasses.emptyHint}>No same-sound HSK characters were found.</p>
@@ -464,7 +538,7 @@ export function CharacterInfoModal({ isOpen, onClose, word, theme = "classic" })
                     <table className="min-w-full divide-y divide-slate-200 text-left text-sm">
                       <thead className={themeClasses.tableHead}>
                         <tr>
-                          <th className="px-3 py-2.5 font-semibold">Hanzi</th>
+                          <th className="w-20 px-3 py-2.5 font-semibold">Hanzi</th>
                           <th className="px-3 py-2.5 font-semibold">Pinyin</th>
                           <th className="px-3 py-2.5 font-semibold">Meaning</th>
                         </tr>
@@ -472,7 +546,7 @@ export function CharacterInfoModal({ isOpen, onClose, word, theme = "classic" })
                       <tbody className={themeClasses.tableBody}>
                         {usecases.slice(0, usecaseLimit).map((usecase, index) => (
                           <tr key={`${usecase.word}-${usecase.pinyin}-${index}`}>
-                            <td className={themeClasses.usecaseWord}>{usecase.word}</td>
+                            <td className={`${themeClasses.usecaseWord} w-20 whitespace-nowrap`}>{usecase.word}</td>
                             <td className={themeClasses.usecasePinyin}>{usecase.pinyin}</td>
                             <td className={themeClasses.usecaseMeaning}>{usecase.meaning}</td>
                           </tr>
@@ -496,6 +570,17 @@ export function CharacterInfoModal({ isOpen, onClose, word, theme = "classic" })
           )}
         </div>
       </section>
+      {hoverTooltip && (
+        <div
+          className="pointer-events-none fixed z-[80] -translate-x-1/2"
+          style={{ left: `${hoverTooltip.x}px`, top: `${hoverTooltip.y}px` }}
+        >
+          <div className={themeClasses.tileBubble} style={{ opacity: 1, transform: "none" }}>
+            <span className={themeClasses.tileBubbleTail} aria-hidden="true" />
+            {hoverTooltip.text}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
