@@ -590,7 +590,7 @@ export function CharacterInfoModal({ isOpen, onClose, word, pinyin, meaning, the
         aria-labelledby="character-info-title"
         className={`flex max-h-[95vh] w-full max-w-3xl flex-col overflow-hidden rounded-t-2xl shadow-2xl sm:rounded-2xl ${themeClasses.shell}`}
         style={{
-          maxHeight: "calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 0.5rem)",
+          maxHeight: "calc(95dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 0.5rem)",
         }}
       >
         <header className={`flex items-start justify-between gap-4 px-5 py-4 sm:px-6 ${themeClasses.header}`}>
