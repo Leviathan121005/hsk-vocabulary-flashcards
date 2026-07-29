@@ -537,6 +537,30 @@ export function CharacterInfoModal({ isOpen, onClose, word, pinyin, meaning, the
   }, [hoverTooltip, isOpen, refreshTooltipPosition]);
 
   useEffect(() => {
+    if (!isOpen || !hoverTooltip) return undefined;
+
+    const hideTooltip = () => {
+      tooltipAnchorRef.current = null;
+      tooltipMetaRef.current = { text: "", key: "" };
+      setHoverTooltip(null);
+    };
+
+    const handlePointerDown = (event) => {
+      if (event.target !== tooltipAnchorRef.current) hideTooltip();
+    };
+
+    document.addEventListener("scroll", hideTooltip, true);
+    document.addEventListener("pointerdown", handlePointerDown, true);
+    document.addEventListener("keydown", hideTooltip, true);
+
+    return () => {
+      document.removeEventListener("scroll", hideTooltip, true);
+      document.removeEventListener("pointerdown", handlePointerDown, true);
+      document.removeEventListener("keydown", hideTooltip, true);
+    };
+  }, [hoverTooltip, isOpen]);
+
+  useEffect(() => {
     if (!isOpen || !hoverTooltip?.key?.startsWith("tab-")) return undefined;
 
     const frame = window.requestAnimationFrame(() => {

@@ -124,6 +124,28 @@ body {
   box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.7) !important;
 }
 
+/*
+ * Mobile WebKit 3D-flip fix:
+ * The EC button and its menu items live inside the rotating card face and
+ * each build their own stacking context (z-index / transform). On real
+ * mobile WebKit these nested contexts can desync from the face's own
+ * backface-visibility timing during the rotation, making them appear to
+ * "follow" the flip or flash on the wrong side before disappearing.
+ * Flattening the face's transform-style and forcing backface-visibility on
+ * every nested layer keeps them hidden/shown in lockstep with the face.
+ */
+.session-card-face {
+  transform-style: flat;
+  -webkit-transform-style: flat;
+}
+
+.card-action-trigger,
+.card-action-menu,
+.card-action-item {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
 @media (max-width: 639px) and (orientation: portrait) {
   .card-action-menu {
     position: absolute;
