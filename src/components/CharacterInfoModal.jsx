@@ -5,6 +5,7 @@ const LOAD_MORE_COUNT = 12;
 const TOOLTIP_MAX_WIDTH = 220;
 const TOOLTIP_VIEWPORT_MARGIN = 20;
 const TOOLTIP_EDGE_GAP = 10;
+const jsonResourcePromises = new Map();
 
 function resolveCharacterInfoPath() {
   const baseUrl = import.meta.env.BASE_URL || "/";
@@ -19,6 +20,21 @@ function resolvePinyinIndexPath() {
 function resolveOtherUseCasesPath() {
   const baseUrl = import.meta.env.BASE_URL || "/";
   return `${baseUrl}other_use_cases.json`;
+}
+
+function loadJsonForSession(path) {
+  const existingPromise = jsonResourcePromises.get(path);
+  if (existingPromise) return existingPromise;
+
+  const loadPromise = (async () => {
+    const response = await fetch(path, { cache: "no-store" });
+    if (!response.ok) throw new Error("Character information is unavailable.");
+    return response.json();
+  })();
+
+  jsonResourcePromises.set(path, loadPromise);
+  loadPromise.catch(() => jsonResourcePromises.delete(path));
+  return loadPromise;
 }
 
 function pinyinBase(reading) {
@@ -252,17 +268,13 @@ export function CharacterInfoModal({ isOpen, onClose, word, pinyin, meaning, the
   }, []);
 
   useEffect(() => {
-    if (!isOpen || characterInfo) return undefined;
+    if (characterInfo) return undefined;
 
     let isCurrent = true;
     setIsLoading(true);
     setLoadError("");
 
-    fetch(resolveCharacterInfoPath())
-      .then((response) => {
-        if (!response.ok) throw new Error("Character information is unavailable.");
-        return response.json();
-      })
+    loadJsonForSession(resolveCharacterInfoPath())
       .then((data) => {
         if (isCurrent) setCharacterInfo(data);
       })
@@ -279,14 +291,10 @@ export function CharacterInfoModal({ isOpen, onClose, word, pinyin, meaning, the
   }, [characterInfo, isOpen]);
 
   useEffect(() => {
-    if (!isOpen) return undefined;
+    if (pinyinIndex) return undefined;
 
     let isCurrent = true;
-    fetch(resolvePinyinIndexPath())
-      .then((response) => {
-        if (!response.ok) throw new Error("Pinyin index is unavailable.");
-        return response.json();
-      })
+    loadJsonForSession(resolvePinyinIndexPath())
       .then((data) => {
         if (isCurrent) setPinyinIndex(data);
       })
@@ -297,17 +305,13 @@ export function CharacterInfoModal({ isOpen, onClose, word, pinyin, meaning, the
     return () => {
       isCurrent = false;
     };
-  }, [isOpen]);
+  }, [isOpen, pinyinIndex]);
 
   useEffect(() => {
-    if (!isOpen) return undefined;
+    if (otherUseCasesIndex) return undefined;
 
     let isCurrent = true;
-    fetch(resolveOtherUseCasesPath())
-      .then((response) => {
-        if (!response.ok) throw new Error("Other use cases index is unavailable.");
-        return response.json();
-      })
+    loadJsonForSession(resolveOtherUseCasesPath())
       .then((data) => {
         if (isCurrent) setOtherUseCasesIndex(data);
       })
@@ -318,7 +322,7 @@ export function CharacterInfoModal({ isOpen, onClose, word, pinyin, meaning, the
     return () => {
       isCurrent = false;
     };
-  }, [isOpen]);
+  }, [isOpen, otherUseCasesIndex]);
 
   useEffect(() => {
     if (!isOpen) return undefined;
