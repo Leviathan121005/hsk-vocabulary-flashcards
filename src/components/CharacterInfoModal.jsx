@@ -37,6 +37,14 @@ function loadJsonForSession(path) {
   return loadPromise;
 }
 
+export function preloadCharacterInfoResources() {
+  return Promise.all([
+    loadJsonForSession(resolveCharacterInfoPath()),
+    loadJsonForSession(resolvePinyinIndexPath()),
+    loadJsonForSession(resolveOtherUseCasesPath()),
+  ]);
+}
+
 function pinyinBase(reading) {
   return reading.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace("ü", "v").toLowerCase();
 }
@@ -268,7 +276,7 @@ export function CharacterInfoModal({ isOpen, onClose, word, pinyin, meaning, the
   }, []);
 
   useEffect(() => {
-    if (characterInfo) return undefined;
+    if (!isOpen || characterInfo) return undefined;
 
     let isCurrent = true;
     setIsLoading(true);
@@ -291,7 +299,7 @@ export function CharacterInfoModal({ isOpen, onClose, word, pinyin, meaning, the
   }, [characterInfo, isOpen]);
 
   useEffect(() => {
-    if (pinyinIndex) return undefined;
+    if (!isOpen || pinyinIndex) return undefined;
 
     let isCurrent = true;
     loadJsonForSession(resolvePinyinIndexPath())
@@ -308,7 +316,7 @@ export function CharacterInfoModal({ isOpen, onClose, word, pinyin, meaning, the
   }, [isOpen, pinyinIndex]);
 
   useEffect(() => {
-    if (otherUseCasesIndex) return undefined;
+    if (!isOpen || otherUseCasesIndex) return undefined;
 
     let isCurrent = true;
     loadJsonForSession(resolveOtherUseCasesPath())

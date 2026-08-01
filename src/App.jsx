@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { FlashcardSession } from "./components/FlashcardSession";
-import { CharacterInfoModal } from "./components/CharacterInfoModal";
+import { CharacterInfoModal, preloadCharacterInfoResources } from "./components/CharacterInfoModal";
 import { PronounceButton } from "./components/PronounceButton";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import { useSpeech } from "./hooks/useSpeech";
@@ -335,6 +335,12 @@ export default function App() {
     if (UI_THEMES.some((theme) => theme.value === uiTheme)) return;
     setUiTheme("classic");
   }, [uiTheme, setUiTheme]);
+
+  useEffect(() => {
+    preloadCharacterInfoResources().catch(() => {
+      // The modal reports a load failure if the session resources are unavailable.
+    });
+  }, []);
 
   useEffect(() => {
     setBuiltinWordSets((previous) => {
