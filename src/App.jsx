@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { FlashcardSession } from "./components/FlashcardSession";
-import { CharacterInfoModal, preloadCharacterInfoResources } from "./components/CharacterInfoModal";
+import { CharacterInfoModal } from "./components/CharacterInfoModal";
 import { PronounceButton } from "./components/PronounceButton";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import { useSpeech } from "./hooks/useSpeech";
@@ -41,6 +41,7 @@ const PROGRESS_EXPORT_KIND = "flashcards-progress";
 const PROGRESS_EXPORT_VERSION = 1;
 const VOCABULARY_STORAGE_VERSION = 3;
 const VOCABULARY_VERSION_KEY = "flashcards.v1.vocabularyVersion";
+const CHARACTER_INFO_LOAD_TIMEOUT_MS = 10000;
 const UI_THEMES = [
   { value: "classic", label: "Classic" },
   { value: "paper", label: "Paper" },
@@ -210,6 +211,43 @@ function resolvePublicCsvPath(fileName) {
   return `${baseUrl}${fileName}`;
 }
 
+function resolveCharacterInfoPath() {
+  const baseUrl = import.meta.env.BASE_URL || "/";
+  return `${baseUrl}character_info.json`;
+}
+
+function resolvePinyinIndexPath() {
+  const baseUrl = import.meta.env.BASE_URL || "/";
+  return `${baseUrl}pinyin_to_characters.json`;
+}
+
+function resolveOtherUseCasesPath() {
+  const baseUrl = import.meta.env.BASE_URL || "/";
+  return `${baseUrl}other_use_cases.json`;
+}
+
+async function fetchJsonWithTimeout(path, timeoutMs) {
+  const controller = new AbortController();
+  const timeout = window.setTimeout(() => {
+    controller.abort();
+  }, timeoutMs);
+
+  try {
+    const response = await fetch(path, {
+      cache: "no-store",
+      signal: controller.signal,
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    return response.json();
+  } finally {
+    window.clearTimeout(timeout);
+  }
+}
+
 function mergeLoadedWordsWithCachedStatus(loadedWords, cachedWords) {
   const statusById = new Map();
   const statusBySignature = new Map();
@@ -321,6 +359,11 @@ export default function App() {
   });
   const [showSessionComplete, setShowSessionComplete] = useState(false);
   const [vocabularyInfoWord, setVocabularyInfoWord] = useState(null);
+  const [characterInfoData, setCharacterInfoData] = useState(null);
+  const [pinyinIndexData, setPinyinIndexData] = useState(null);
+  const [otherUseCasesIndexData, setOtherUseCasesIndexData] = useState(null);
+  const [characterInfoLoading, setCharacterInfoLoading] = useState(false);
+  const [characterInfoLoadError, setCharacterInfoLoadError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
@@ -328,8 +371,33 @@ export default function App() {
   const [hanziLengthFilter, setHanziLengthFilter] = useState("all");
   const [vocabularySearch, setVocabularySearch] = useState("");
   const [visibleRows, setVisibleRows] = useState(120);
+  const isCharacterInfoRequested = view === "session" || Boolean(vocabularyInfoWord);
   const progressImportRef = useRef(null);
   const themeTokens = useMemo(() => getThemeTokens(uiTheme), [uiTheme]);
+
+  async function loadCharacterInfoResources() {
+    if (characterInfoLoading) return;
+    if (characterInfoData && pinyinIndexData && otherUseCasesIndexData) return;
+
+    setCharacterInfoLoading(true);
+    setCharacterInfoLoadError("");
+
+    try {
+      const [characterInfo, pinyinIndex, otherUseCasesIndex] = await Promise.all([
+        fetchJsonWithTimeout(resolveCharacterInfoPath(), CHARACTER_INFO_LOAD_TIMEOUT_MS),
+        fetchJsonWithTimeout(resolvePinyinIndexPath(), CHARACTER_INFO_LOAD_TIMEOUT_MS),
+        fetchJsonWithTimeout(resolveOtherUseCasesPath(), CHARACTER_INFO_LOAD_TIMEOUT_MS),
+      ]);
+
+      setCharacterInfoData(characterInfo);
+      setPinyinIndexData(pinyinIndex);
+      setOtherUseCasesIndexData(otherUseCasesIndex);
+    } catch (_error) {
+      setCharacterInfoLoadError("Character information could not be loaded.");
+    } finally {
+      setCharacterInfoLoading(false);
+    }
+  }
 
   useEffect(() => {
     if (UI_THEMES.some((theme) => theme.value === uiTheme)) return;
@@ -337,10 +405,16 @@ export default function App() {
   }, [uiTheme, setUiTheme]);
 
   useEffect(() => {
-    preloadCharacterInfoResources().catch(() => {
-      // The modal reports a load failure if the session resources are unavailable.
-    });
+    loadCharacterInfoResources();
   }, []);
+
+  useEffect(() => {
+    if (!isCharacterInfoRequested) return;
+    if (characterInfoData && pinyinIndexData && otherUseCasesIndexData) return;
+    if (characterInfoLoading) return;
+
+    loadCharacterInfoResources();
+  }, [isCharacterInfoRequested, characterInfoData, pinyinIndexData, otherUseCasesIndexData, characterInfoLoading]);
 
   useEffect(() => {
     setBuiltinWordSets((previous) => {
@@ -1053,6 +1127,11 @@ export default function App() {
             isSpeaking={isSpeaking}
             speakingText={speakingText}
             uiTheme={uiTheme}
+            characterInfoData={characterInfoData}
+            pinyinIndexData={pinyinIndexData}
+            otherUseCasesIndexData={otherUseCasesIndexData}
+            characterInfoLoading={characterInfoLoading}
+            characterInfoLoadError={characterInfoLoadError}
           />
         )}
 
@@ -1309,6 +1388,11 @@ export default function App() {
           pinyin={vocabularyInfoWord?.pinyin || ""}
           meaning={vocabularyInfoWord?.english || ""}
           theme={uiTheme}
+          characterInfoData={characterInfoData}
+          pinyinIndexData={pinyinIndexData}
+          otherUseCasesIndexData={otherUseCasesIndexData}
+          resourcesLoading={characterInfoLoading}
+          resourcesError={characterInfoLoadError}
         />
       </div>
     </main>

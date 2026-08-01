@@ -24,6 +24,11 @@ export function FlashcardSession({
   isSpeaking = false,
   speakingText = "",
   uiTheme = "classic",
+  characterInfoData = null,
+  pinyinIndexData = null,
+  otherUseCasesIndexData = null,
+  characterInfoLoading = false,
+  characterInfoLoadError = "",
 }) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isActionMenuOpen, setIsActionMenuOpen] = useState(false);
@@ -341,6 +346,11 @@ export function FlashcardSession({
         pinyin={currentWord.pinyin}
         meaning={currentWord.english}
         theme={uiTheme}
+        characterInfoData={characterInfoData}
+        pinyinIndexData={pinyinIndexData}
+        otherUseCasesIndexData={otherUseCasesIndexData}
+        resourcesLoading={characterInfoLoading}
+        resourcesError={characterInfoLoadError}
       />
     </section>
   );

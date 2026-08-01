@@ -5,45 +5,6 @@ const LOAD_MORE_COUNT = 12;
 const TOOLTIP_MAX_WIDTH = 220;
 const TOOLTIP_VIEWPORT_MARGIN = 20;
 const TOOLTIP_EDGE_GAP = 10;
-const jsonResourcePromises = new Map();
-
-function resolveCharacterInfoPath() {
-  const baseUrl = import.meta.env.BASE_URL || "/";
-  return `${baseUrl}character_info.json`;
-}
-
-function resolvePinyinIndexPath() {
-  const baseUrl = import.meta.env.BASE_URL || "/";
-  return `${baseUrl}pinyin_to_characters.json`;
-}
-
-function resolveOtherUseCasesPath() {
-  const baseUrl = import.meta.env.BASE_URL || "/";
-  return `${baseUrl}other_use_cases.json`;
-}
-
-function loadJsonForSession(path) {
-  const existingPromise = jsonResourcePromises.get(path);
-  if (existingPromise) return existingPromise;
-
-  const loadPromise = (async () => {
-    const response = await fetch(path, { cache: "no-store" });
-    if (!response.ok) throw new Error("Character information is unavailable.");
-    return response.json();
-  })();
-
-  jsonResourcePromises.set(path, loadPromise);
-  loadPromise.catch(() => jsonResourcePromises.delete(path));
-  return loadPromise;
-}
-
-export function preloadCharacterInfoResources() {
-  return Promise.all([
-    loadJsonForSession(resolveCharacterInfoPath()),
-    loadJsonForSession(resolvePinyinIndexPath()),
-    loadJsonForSession(resolveOtherUseCasesPath()),
-  ]);
-}
 
 function pinyinBase(reading) {
   return reading.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace("ü", "v").toLowerCase();
@@ -107,12 +68,19 @@ function CollapsibleSection({ title, count, isOpen, onToggle, children, sectionC
   );
 }
 
-export function CharacterInfoModal({ isOpen, onClose, word, pinyin, meaning, theme = "classic" }) {
-  const [characterInfo, setCharacterInfo] = useState(null);
-  const [pinyinIndex, setPinyinIndex] = useState(null);
-  const [otherUseCasesIndex, setOtherUseCasesIndex] = useState(null);
-  const [loadError, setLoadError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+export function CharacterInfoModal({
+  isOpen,
+  onClose,
+  word,
+  pinyin,
+  meaning,
+  theme = "classic",
+  characterInfoData = null,
+  pinyinIndexData = null,
+  otherUseCasesIndexData = null,
+  resourcesLoading = false,
+  resourcesError = "",
+}) {
   const characters = useMemo(() => Array.from(word || ""), [word]);
   const [selectedCharacter, setSelectedCharacter] = useState(characters[0] || "");
   const [visualLimit, setVisualLimit] = useState(INITIAL_ITEM_LIMIT);
@@ -275,62 +243,11 @@ export function CharacterInfoModal({ isOpen, onClose, word, pinyin, meaning, the
     return undefined;
   }, []);
 
-  useEffect(() => {
-    if (!isOpen || characterInfo) return undefined;
-
-    let isCurrent = true;
-    setIsLoading(true);
-    setLoadError("");
-
-    loadJsonForSession(resolveCharacterInfoPath())
-      .then((data) => {
-        if (isCurrent) setCharacterInfo(data);
-      })
-      .catch(() => {
-        if (isCurrent) setLoadError("Character information could not be loaded.");
-      })
-      .finally(() => {
-        if (isCurrent) setIsLoading(false);
-      });
-
-    return () => {
-      isCurrent = false;
-    };
-  }, [characterInfo, isOpen]);
-
-  useEffect(() => {
-    if (!isOpen || pinyinIndex) return undefined;
-
-    let isCurrent = true;
-    loadJsonForSession(resolvePinyinIndexPath())
-      .then((data) => {
-        if (isCurrent) setPinyinIndex(data);
-      })
-      .catch(() => {
-        if (isCurrent) setLoadError("Character information could not be loaded.");
-      });
-
-    return () => {
-      isCurrent = false;
-    };
-  }, [isOpen, pinyinIndex]);
-
-  useEffect(() => {
-    if (!isOpen || otherUseCasesIndex) return undefined;
-
-    let isCurrent = true;
-    loadJsonForSession(resolveOtherUseCasesPath())
-      .then((data) => {
-        if (isCurrent) setOtherUseCasesIndex(data);
-      })
-      .catch(() => {
-        if (isCurrent) setLoadError("Character information could not be loaded.");
-      });
-
-    return () => {
-      isCurrent = false;
-    };
-  }, [isOpen, otherUseCasesIndex]);
+  const characterInfo = characterInfoData;
+  const pinyinIndex = pinyinIndexData;
+  const otherUseCasesIndex = otherUseCasesIndexData;
+  const loadError = resourcesError;
+  const isLoading = resourcesLoading && !characterInfo;
 
   useEffect(() => {
     if (!isOpen) return undefined;
