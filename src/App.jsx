@@ -41,7 +41,6 @@ const PROGRESS_EXPORT_KIND = "flashcards-progress";
 const PROGRESS_EXPORT_VERSION = 1;
 const VOCABULARY_STORAGE_VERSION = 3;
 const VOCABULARY_VERSION_KEY = "flashcards.v1.vocabularyVersion";
-const CHARACTER_INFO_LOAD_TIMEOUT_MS = 10000;
 const UI_THEMES = [
   { value: "classic", label: "Classic" },
   { value: "paper", label: "Paper" },
@@ -226,26 +225,14 @@ function resolveOtherUseCasesPath() {
   return `${baseUrl}other_use_cases.json`;
 }
 
-async function fetchJsonWithTimeout(path, timeoutMs) {
-  const controller = new AbortController();
-  const timeout = window.setTimeout(() => {
-    controller.abort();
-  }, timeoutMs);
+async function fetchJsonResource(path) {
+  const response = await fetch(path, { cache: "no-store" });
 
-  try {
-    const response = await fetch(path, {
-      cache: "no-store",
-      signal: controller.signal,
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
-
-    return response.json();
-  } finally {
-    window.clearTimeout(timeout);
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}`);
   }
+
+  return response.json();
 }
 
 function mergeLoadedWordsWithCachedStatus(loadedWords, cachedWords) {
@@ -384,9 +371,9 @@ export default function App() {
 
     try {
       const [characterInfo, pinyinIndex, otherUseCasesIndex] = await Promise.all([
-        fetchJsonWithTimeout(resolveCharacterInfoPath(), CHARACTER_INFO_LOAD_TIMEOUT_MS),
-        fetchJsonWithTimeout(resolvePinyinIndexPath(), CHARACTER_INFO_LOAD_TIMEOUT_MS),
-        fetchJsonWithTimeout(resolveOtherUseCasesPath(), CHARACTER_INFO_LOAD_TIMEOUT_MS),
+        fetchJsonResource(resolveCharacterInfoPath()),
+        fetchJsonResource(resolvePinyinIndexPath()),
+        fetchJsonResource(resolveOtherUseCasesPath()),
       ]);
 
       setCharacterInfoData(characterInfo);
