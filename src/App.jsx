@@ -41,6 +41,7 @@ const PROGRESS_EXPORT_KIND = "flashcards-progress";
 const PROGRESS_EXPORT_VERSION = 1;
 const VOCABULARY_STORAGE_VERSION = 3;
 const VOCABULARY_VERSION_KEY = "flashcards.v1.vocabularyVersion";
+const CHARACTER_INFO_CACHE_NAME = "flashcards-character-info-v1";
 const UI_THEMES = [
   { value: "classic", label: "Classic" },
   { value: "paper", label: "Paper" },
@@ -226,7 +227,25 @@ function resolveOtherUseCasesPath() {
 }
 
 async function fetchJsonResource(path) {
-  const response = await fetch(path, { cache: "no-store" });
+  if (typeof window !== "undefined" && "caches" in window) {
+    const cache = await window.caches.open(CHARACTER_INFO_CACHE_NAME);
+    const cachedResponse = await cache.match(path);
+
+    if (cachedResponse) {
+      return cachedResponse.json();
+    }
+
+    const response = await fetch(path, { cache: "force-cache" });
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    await cache.put(path, response.clone());
+    return response.json();
+  }
+
+  const response = await fetch(path, { cache: "force-cache" });
 
   if (!response.ok) {
     throw new Error(`HTTP ${response.status}`);
@@ -349,7 +368,7 @@ export default function App() {
   const [characterInfoData, setCharacterInfoData] = useState(null);
   const [pinyinIndexData, setPinyinIndexData] = useState(null);
   const [otherUseCasesIndexData, setOtherUseCasesIndexData] = useState(null);
-  const [characterInfoLoading, setCharacterInfoLoading] = useState(false);
+  const [characterInfoLoading, setCharacterInfoLoading] = useState(true);
   const [characterInfoLoadError, setCharacterInfoLoadError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -360,30 +379,36 @@ export default function App() {
   const [visibleRows, setVisibleRows] = useState(120);
   const isCharacterInfoRequested = view === "session" || Boolean(vocabularyInfoWord);
   const progressImportRef = useRef(null);
+  const characterInfoLoadPromiseRef = useRef(null);
   const themeTokens = useMemo(() => getThemeTokens(uiTheme), [uiTheme]);
 
   async function loadCharacterInfoResources() {
-    if (characterInfoLoading) return;
     if (characterInfoData && pinyinIndexData && otherUseCasesIndexData) return;
+    if (characterInfoLoadPromiseRef.current) return characterInfoLoadPromiseRef.current;
 
     setCharacterInfoLoading(true);
     setCharacterInfoLoadError("");
 
-    try {
-      const [characterInfo, pinyinIndex, otherUseCasesIndex] = await Promise.all([
-        fetchJsonResource(resolveCharacterInfoPath()),
-        fetchJsonResource(resolvePinyinIndexPath()),
-        fetchJsonResource(resolveOtherUseCasesPath()),
-      ]);
+    const loadPromise = Promise.all([
+      fetchJsonResource(resolveCharacterInfoPath()),
+      fetchJsonResource(resolvePinyinIndexPath()),
+      fetchJsonResource(resolveOtherUseCasesPath()),
+    ])
+      .then(([characterInfo, pinyinIndex, otherUseCasesIndex]) => {
+        setCharacterInfoData(characterInfo);
+        setPinyinIndexData(pinyinIndex);
+        setOtherUseCasesIndexData(otherUseCasesIndex);
+      })
+      .catch(() => {
+        setCharacterInfoLoadError("Character information could not be loaded.");
+      })
+      .finally(() => {
+        characterInfoLoadPromiseRef.current = null;
+        setCharacterInfoLoading(false);
+      });
 
-      setCharacterInfoData(characterInfo);
-      setPinyinIndexData(pinyinIndex);
-      setOtherUseCasesIndexData(otherUseCasesIndex);
-    } catch (_error) {
-      setCharacterInfoLoadError("Character information could not be loaded.");
-    } finally {
-      setCharacterInfoLoading(false);
-    }
+    characterInfoLoadPromiseRef.current = loadPromise;
+    return loadPromise;
   }
 
   useEffect(() => {
@@ -494,6 +519,7 @@ export default function App() {
 
   const remainingVocabularyRows = Math.max(0, filteredVocabulary.length - visibleVocabularyRows.length);
   const isVocabularyInfoOpen = Boolean(vocabularyInfoWord);
+  const isAppLoading = isLoading || characterInfoLoading;
 
   const reviewPoolLabel = useMemo(() => {
     if (reviewPool === "mastered") return "Mastered";
@@ -959,9 +985,9 @@ export default function App() {
 
         </header>
 
-        {isLoading && (
+        {isAppLoading && (
           <section className="rounded-3xl border border-slate-200 bg-white p-6 text-slate-700 shadow-md">
-            Loading vocabulary set...
+            Preparing vocabulary and character information...
           </section>
         )}
 
@@ -975,7 +1001,7 @@ export default function App() {
           </section>
         )}
 
-        {!isLoading && view === "dashboard" && (
+        {!isAppLoading && view === "dashboard" && (
           <section className={`rounded-3xl border p-6 ${themeTokens.surfaceCard}`}>
             <div className="grid gap-4 sm:grid-cols-3">
               <label className="sm:col-span-2">
@@ -1099,7 +1125,7 @@ export default function App() {
           </section>
         )}
 
-        {!isLoading && view === "session" && sessionWords.length > 0 && (
+        {!isAppLoading && view === "session" && sessionWords.length > 0 && (
           <FlashcardSession
             sessionWords={sessionWords}
             currentIndex={sessionIndex}
@@ -1122,7 +1148,7 @@ export default function App() {
           />
         )}
 
-        {!isLoading && view === "summary" && showSessionComplete && (
+        {!isAppLoading && view === "summary" && showSessionComplete && (
           <section className="rounded-3xl border border-slate-200 bg-white p-6 text-center shadow-xl sm:p-8">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-700">Session Complete</p>
             <h2 className="mt-2 text-3xl font-bold text-slate-900">Great Work</h2>
@@ -1153,7 +1179,7 @@ export default function App() {
           </section>
         )}
 
-        {!isLoading && view === "vocabulary" && (
+        {!isAppLoading && view === "vocabulary" && (
           <section className={`rounded-3xl border p-6 ${themeTokens.surfaceCard}`}>
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
@@ -1321,7 +1347,7 @@ export default function App() {
           </section>
         )}
 
-        {!isLoading && view === "backup" && (
+        {!isAppLoading && view === "backup" && (
           <section className={`rounded-3xl border p-6 ${themeTokens.surfaceCard}`}>
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
