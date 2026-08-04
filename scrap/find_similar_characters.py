@@ -15,6 +15,7 @@ Methods:
 Key booleans:
 - include_phonetic: append extra phonetic-only candidates (renamed from naive)
 - use_phonetic: embed "or phonetic" directly into method pass conditions
+- include_decomposition: append character pairs with one difference in decomposition
 
 Phonetic matching rule (replaces decomposition-minus-radical naive rule):
 1) query phonetic == candidate character, OR
@@ -26,13 +27,17 @@ Examples:
   python3 scrap/find_similar_characters.py --method ssim --threshold 0.60 --include-phonetic
   python3 scrap/find_similar_characters.py --method or --glyph-threshold 0.90 --ssim-threshold 0.60 --use-phonetic
   python3 scrap/find_similar_characters.py --method fusion --threshold 1.75 --include-phonetic
-  python3 scrap/find_similar_characters.py --method exp --glyph-threshold 0.80 --ssim-threshold 0.60 --use-phonetic
   python3 scrap/find_similar_characters.py --method phonetic
+  python3 scrap/find_similar_characters.py --method ssim --threshold 0.60 --include-decomposition
+
+Current:
+  python3 scrap/find_similar_characters.py --method exp --glyph-threshold 0.80 --ssim-threshold 0.60 --use-phonetic --include-decomposition
 """
 
 from __future__ import annotations
 
 import argparse
+import csv
 import json
 import time
 from pathlib import Path
@@ -52,6 +57,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CHARACTER_INFO_PATH = REPO_ROOT / "public" / "character_info.json"
 DEFAULT_DICTIONARY_PATH = REPO_ROOT / "scrap" / "dictionary.json"
 DEFAULT_SSIM_CACHE = REPO_ROOT / "scrap" / "ssim_cache.npz"
+DEFAULT_DECOMPOSITION_PAIRS_PATH = REPO_ROOT / "scrap" / "decomposition_pairs_one_character_difference.csv"
 
 DEFAULT_FONT_CANDIDATES = (
     Path("/System/Library/Fonts/PingFang.ttc"),
@@ -64,6 +70,7 @@ CV_SSIM_WEIGHT = 1.5
 glyph_method = "cosine"
 include_phonetic_default = False
 use_phonetic_default = False
+decomposition_method = "decomposition"
 
 
 def log(message: str) -> None:
@@ -702,6 +709,60 @@ def remove_self_candidates(similar_visual_chars: Any, query: str) -> None:
         group["characters"] = filtered
 
 
+def append_decomposition_entries(
+    character_info: dict[str, dict[str, Any]],
+    pairs_path: Path,
+) -> tuple[int, int]:
+    with pairs_path.open(encoding="utf-8", newline="") as file:
+        pairs = list(csv.DictReader(file))
+
+    if len(pairs) != 20:
+        raise ValueError(f"Expected 20 decomposition pairs in {pairs_path}, found {len(pairs)}.")
+
+    added_characters = 0
+    added_matches = 0
+    for pair in pairs:
+        left = pair.get("character_1")
+        right = pair.get("character_2")
+        if not isinstance(left, str) or not isinstance(right, str):
+            raise ValueError(f"Invalid decomposition pair in {pairs_path}: {pair}")
+
+        for query, candidate in ((left, right), (right, left)):
+            info = character_info.get(query)
+            candidate_info = character_info.get(candidate)
+            if not isinstance(info, dict) or not isinstance(candidate_info, dict):
+                continue
+
+            groups = info.setdefault("similar_visual_chars", [])
+            if not isinstance(groups, list):
+                raise ValueError(f"similar_visual_chars for '{query}' must be a list.")
+
+            existing_characters = {
+                entry.get("character")
+                for group in groups
+                if isinstance(group, dict) and isinstance(group.get("characters"), list)
+                for entry in group["characters"]
+                if isinstance(entry, dict) and isinstance(entry.get("character"), str)
+            }
+            if candidate in existing_characters:
+                continue
+
+            if not groups or not isinstance(groups[0], dict) or not isinstance(groups[0].get("characters"), list):
+                groups.insert(0, {"characters": []})
+
+            groups[0]["characters"].append(
+                {
+                    "character": candidate,
+                    "pinyins": pinyins_for(candidate_info),
+                    "method": decomposition_method,
+                }
+            )
+            added_characters += 1
+            added_matches += 1
+
+    return added_characters, added_matches
+
+
 def update_character_info(
     character_info: dict[str, dict[str, Any]],
     method: str,
@@ -861,6 +922,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--top-k", type=int, default=20, help="Number of results to keep per character (default: 20).")
     parser.add_argument("--character", help="Update one character only.")
     parser.add_argument("--dry-run", action="store_true", help="Compute results without writing character_info.json.")
+    parser.add_argument(
+        "--include-decomposition",
+        action="store_true",
+        help="Append character pairs with one decomposition difference.",
+    )
 
     parser.add_argument("--character-info", type=Path, default=DEFAULT_CHARACTER_INFO_PATH, help="Path to character_info.json.")
     parser.add_argument("--dictionary", type=Path, default=DEFAULT_DICTIONARY_PATH, help="Path to dictionary.json.")
@@ -952,7 +1018,8 @@ def main() -> int:
         f"Starting method={args.method}, threshold={args.threshold}, max_stroke_gap={args.max_stroke_gap}, "
         f"top_k={args.top_k}, target={args.character or 'ALL'}, dry_run={args.dry_run}, "
         f"rule_thresholds=(glyph:{args.glyph_threshold}, ssim:{args.ssim_threshold}), "
-        f"include_phonetic={include_phonetic}, use_phonetic={args.use_phonetic}"
+        f"include_phonetic={include_phonetic}, include_decomposition={args.include_decomposition}, "
+        f"use_phonetic={args.use_phonetic}"
     )
 
     try:
@@ -978,6 +1045,22 @@ def main() -> int:
     except Exception as error:
         log(f"ERROR: {error}")
         return 1
+
+    if args.include_decomposition:
+        try:
+            decomposition_updated, decomposition_matches = append_decomposition_entries(
+                character_info,
+                DEFAULT_DECOMPOSITION_PAIRS_PATH,
+            )
+        except (OSError, ValueError) as error:
+            log(f"ERROR: {error}")
+            return 1
+        updated += decomposition_updated
+        total_matches += decomposition_matches
+        log(
+            f"Added {decomposition_matches} decomposition matches across "
+            f"{decomposition_updated} character lists."
+        )
 
     if not args.dry_run:
         args.character_info.write_text(json.dumps(character_info, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
