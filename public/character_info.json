@@ -747,15 +747,6 @@
             "glyph_score": 0.8915,
             "ssim_score": 0.6271,
             "stroke_count_difference": 1
-          },
-          {
-            "character": "杂",
-            "pinyins": [
-              "zá"
-            ],
-            "glyph_score": 0.1581,
-            "ssim_score": 0.611,
-            "stroke_count_difference": 4
           }
         ]
       }
@@ -769,15 +760,6 @@
     "similar_visual_chars": [
       {
         "characters": [
-          {
-            "character": "习",
-            "pinyins": [
-              "xí"
-            ],
-            "glyph_score": 0.8632,
-            "ssim_score": 0.6113,
-            "stroke_count_difference": 0
-          },
           {
             "character": "厉",
             "pinyins": [
@@ -828,30 +810,7 @@
     "meaning": "three",
     "sample_pinyin": "sān",
     "other_pinyins": [],
-    "similar_visual_chars": [
-      {
-        "characters": [
-          {
-            "character": "五",
-            "pinyins": [
-              "wǔ"
-            ],
-            "glyph_score": 0.8024,
-            "ssim_score": 0.6227,
-            "stroke_count_difference": 1
-          },
-          {
-            "character": "正",
-            "pinyins": [
-              "zhèng"
-            ],
-            "glyph_score": 0.8125,
-            "ssim_score": 0.6069,
-            "stroke_count_difference": 2
-          }
-        ]
-      }
-    ]
+    "similar_visual_chars": []
   },
   "上": {
     "character": "上",
@@ -891,15 +850,6 @@
             "stroke_count_difference": 0
           },
           {
-            "character": "杂",
-            "pinyins": [
-              "zá"
-            ],
-            "glyph_score": 0.2973,
-            "ssim_score": 0.623,
-            "stroke_count_difference": 3
-          },
-          {
             "character": "让",
             "pinyins": [
               "ràng"
@@ -907,24 +857,6 @@
             "method": "decomposition",
             "decomposition_component_in_character_info": true,
             "decomposition_glyph_score": 0.883
-          },
-          {
-            "character": "远",
-            "pinyins": [
-              "yuǎn"
-            ],
-            "glyph_score": 0.2973,
-            "ssim_score": 0.623,
-            "stroke_count_difference": 4
-          },
-          {
-            "character": "迟",
-            "pinyins": [
-              "chí"
-            ],
-            "glyph_score": 0.2973,
-            "ssim_score": 0.623,
-            "stroke_count_difference": 4
           }
         ]
       }
@@ -971,15 +903,6 @@
             "stroke_count_difference": 0
           },
           {
-            "character": "平",
-            "pinyins": [
-              "píng"
-            ],
-            "glyph_score": 0.8324,
-            "ssim_score": 0.6141,
-            "stroke_count_difference": 2
-          },
-          {
             "character": "千",
             "pinyins": [
               "qiān"
@@ -987,33 +910,6 @@
             "glyph_score": 0.9199,
             "ssim_score": 0.6113,
             "stroke_count_difference": 0
-          },
-          {
-            "character": "杂",
-            "pinyins": [
-              "zá"
-            ],
-            "glyph_score": 0.2012,
-            "ssim_score": 0.6091,
-            "stroke_count_difference": 3
-          },
-          {
-            "character": "远",
-            "pinyins": [
-              "yuǎn"
-            ],
-            "glyph_score": 0.2012,
-            "ssim_score": 0.6091,
-            "stroke_count_difference": 4
-          },
-          {
-            "character": "迟",
-            "pinyins": [
-              "chí"
-            ],
-            "glyph_score": 0.2012,
-            "ssim_score": 0.6091,
-            "stroke_count_difference": 4
           }
         ]
       }
@@ -1041,34 +937,6 @@
             "stroke_count_difference": 1
           },
           {
-            "character": "了",
-            "pinyins": [
-              "le",
-              "liǎo"
-            ],
-            "glyph_score": 0.8095,
-            "ssim_score": 0.6052,
-            "stroke_count_difference": 2
-          },
-          {
-            "character": "于",
-            "pinyins": [
-              "yú"
-            ],
-            "glyph_score": 0.7772,
-            "ssim_score": 0.6022,
-            "stroke_count_difference": 1
-          },
-          {
-            "character": "千",
-            "pinyins": [
-              "qiān"
-            ],
-            "glyph_score": 0.8564,
-            "ssim_score": 0.6029,
-            "stroke_count_difference": 1
-          },
-          {
             "character": "否",
             "pinyins": [
               "fǒu"
@@ -1085,15 +953,6 @@
             "method": "decomposition",
             "decomposition_component_in_character_info": true,
             "decomposition_glyph_score": 0.9249
-          },
-          {
-            "character": "平",
-            "pinyins": [
-              "píng"
-            ],
-            "glyph_score": 0.7538,
-            "ssim_score": 0.6197,
-            "stroke_count_difference": 1
           },
           {
             "character": "怀",
@@ -1393,15 +1252,6 @@
             "glyph_score": 0.8995,
             "ssim_score": 0.6351,
             "stroke_count_difference": 1
-          },
-          {
-            "character": "尺",
-            "pinyins": [
-              "chǐ"
-            ],
-            "glyph_score": 0.8171,
-            "ssim_score": 0.6031,
-            "stroke_count_difference": 3
           }
         ]
       }
@@ -1437,15 +1287,6 @@
             "stroke_count_difference": 1
           },
           {
-            "character": "令",
-            "pinyins": [
-              "lìng"
-            ],
-            "glyph_score": 0.8286,
-            "ssim_score": 0.6004,
-            "stroke_count_difference": 2
-          },
-          {
             "character": "企",
             "pinyins": [
               "qǐ"
@@ -1453,42 +1294,6 @@
             "glyph_score": 0.8944,
             "ssim_score": 0.6204,
             "stroke_count_difference": 3
-          },
-          {
-            "character": "十",
-            "pinyins": [
-              "shí"
-            ],
-            "glyph_score": 0.6739,
-            "ssim_score": 0.7358,
-            "stroke_count_difference": 1
-          },
-          {
-            "character": "杂",
-            "pinyins": [
-              "zá"
-            ],
-            "glyph_score": 0.1273,
-            "ssim_score": 0.6346,
-            "stroke_count_difference": 3
-          },
-          {
-            "character": "远",
-            "pinyins": [
-              "yuǎn"
-            ],
-            "glyph_score": 0.1273,
-            "ssim_score": 0.6346,
-            "stroke_count_difference": 4
-          },
-          {
-            "character": "迟",
-            "pinyins": [
-              "chí"
-            ],
-            "glyph_score": 0.1273,
-            "ssim_score": 0.6346,
-            "stroke_count_difference": 4
           }
         ]
       }
@@ -1563,15 +1368,6 @@
             "glyph_score": 0.9182,
             "ssim_score": 0.6791,
             "stroke_count_difference": 2
-          },
-          {
-            "character": "末",
-            "pinyins": [
-              "mò"
-            ],
-            "glyph_score": 0.8606,
-            "ssim_score": 0.6164,
-            "stroke_count_difference": 1
           }
         ]
       }
@@ -1753,16 +1549,6 @@
     "similar_visual_chars": [
       {
         "characters": [
-          {
-            "character": "了",
-            "pinyins": [
-              "le",
-              "liǎo"
-            ],
-            "glyph_score": 0.8202,
-            "ssim_score": 0.6117,
-            "stroke_count_difference": 3
-          },
           {
             "character": "千",
             "pinyins": [
@@ -2021,31 +1807,7 @@
     "meaning": "to study, to practice; habit",
     "sample_pinyin": "xí",
     "other_pinyins": [],
-    "similar_visual_chars": [
-      {
-        "characters": [
-          {
-            "character": "可",
-            "pinyins": [
-              "kě",
-              "kěn"
-            ],
-            "glyph_score": 0.7978,
-            "ssim_score": 0.6215,
-            "stroke_count_difference": 2
-          },
-          {
-            "character": "万",
-            "pinyins": [
-              "wàn"
-            ],
-            "glyph_score": 0.8632,
-            "ssim_score": 0.6113,
-            "stroke_count_difference": 0
-          }
-        ]
-      }
-    ]
+    "similar_visual_chars": []
   },
   "乡": {
     "character": "乡",
@@ -2158,15 +1920,6 @@
             "stroke_count_difference": 1
           },
           {
-            "character": "杂",
-            "pinyins": [
-              "zá"
-            ],
-            "glyph_score": 0.2652,
-            "ssim_score": 0.6719,
-            "stroke_count_difference": 4
-          },
-          {
             "character": "下",
             "pinyins": [
               "xià",
@@ -2175,36 +1928,6 @@
             "glyph_score": 0.9001,
             "ssim_score": 0.6703,
             "stroke_count_difference": 1
-          },
-          {
-            "character": "千",
-            "pinyins": [
-              "qiān"
-            ],
-            "glyph_score": 0.8351,
-            "ssim_score": 0.6381,
-            "stroke_count_difference": 1
-          },
-          {
-            "character": "乎",
-            "pinyins": [
-              "hū",
-              "hu"
-            ],
-            "glyph_score": 0.8202,
-            "ssim_score": 0.6117,
-            "stroke_count_difference": 3
-          },
-          {
-            "character": "不",
-            "pinyins": [
-              "bù",
-              "bú",
-              "bu"
-            ],
-            "glyph_score": 0.8095,
-            "ssim_score": 0.6052,
-            "stroke_count_difference": 2
           }
         ]
       }
@@ -2336,17 +2059,6 @@
             "glyph_score": 0.8838,
             "ssim_score": 0.6272,
             "stroke_count_difference": 0
-          },
-          {
-            "character": "不",
-            "pinyins": [
-              "bù",
-              "bú",
-              "bu"
-            ],
-            "glyph_score": 0.7772,
-            "ssim_score": 0.6022,
-            "stroke_count_difference": 1
           }
         ]
       }
@@ -2473,24 +2185,6 @@
       {
         "characters": [
           {
-            "character": "三",
-            "pinyins": [
-              "sān"
-            ],
-            "glyph_score": 0.8024,
-            "ssim_score": 0.6227,
-            "stroke_count_difference": 1
-          },
-          {
-            "character": "亚",
-            "pinyins": [
-              "Yà"
-            ],
-            "glyph_score": 0.8644,
-            "ssim_score": 0.6202,
-            "stroke_count_difference": 2
-          },
-          {
             "character": "伍",
             "pinyins": [
               "wu"
@@ -2511,15 +2205,6 @@
     "similar_visual_chars": [
       {
         "characters": [
-          {
-            "character": "五",
-            "pinyins": [
-              "wǔ"
-            ],
-            "glyph_score": 0.8644,
-            "ssim_score": 0.6202,
-            "stroke_count_difference": 2
-          },
           {
             "character": "业",
             "pinyins": [
@@ -2717,15 +2402,6 @@
             "decomposition_glyph_score": 0.9268
           },
           {
-            "character": "束",
-            "pinyins": [
-              "shù"
-            ],
-            "glyph_score": 0.8207,
-            "ssim_score": 0.6128,
-            "stroke_count_difference": 1
-          },
-          {
             "character": "谅",
             "pinyins": [
               "liàng"
@@ -2806,15 +2482,6 @@
             "stroke_count_difference": 0
           },
           {
-            "character": "天",
-            "pinyins": [
-              "tiān"
-            ],
-            "glyph_score": 0.7216,
-            "ssim_score": 0.6112,
-            "stroke_count_difference": 2
-          },
-          {
             "character": "太",
             "pinyins": [
               "tài",
@@ -2823,15 +2490,6 @@
             "glyph_score": 0.7928,
             "ssim_score": 0.7591,
             "stroke_count_difference": 2
-          },
-          {
-            "character": "杂",
-            "pinyins": [
-              "zá"
-            ],
-            "glyph_score": 0.1455,
-            "ssim_score": 0.6499,
-            "stroke_count_difference": 4
           }
         ]
       }
@@ -3133,15 +2791,6 @@
             "stroke_count_difference": 1
           },
           {
-            "character": "令",
-            "pinyins": [
-              "lìng"
-            ],
-            "glyph_score": 0.8497,
-            "ssim_score": 0.6163,
-            "stroke_count_difference": 1
-          },
-          {
             "character": "价",
             "pinyins": [
               "jià"
@@ -3247,24 +2896,6 @@
             "stroke_count_difference": 1,
             "decomposition_relation": true,
             "decomposition_glyph_score": 0.9506
-          },
-          {
-            "character": "估",
-            "pinyins": [
-              "gū"
-            ],
-            "glyph_score": 0.8803,
-            "ssim_score": 0.6124,
-            "stroke_count_difference": 2
-          },
-          {
-            "character": "住",
-            "pinyins": [
-              "zhù"
-            ],
-            "glyph_score": 0.8667,
-            "ssim_score": 0.6066,
-            "stroke_count_difference": 2
           },
           {
             "character": "也",
@@ -3443,32 +3074,12 @@
       {
         "characters": [
           {
-            "character": "个",
-            "pinyins": [
-              "gè",
-              "ge",
-              "gèr"
-            ],
-            "glyph_score": 0.8286,
-            "ssim_score": 0.6004,
-            "stroke_count_difference": 2
-          },
-          {
             "character": "今",
             "pinyins": [
               "jīn"
             ],
             "glyph_score": 0.9468,
             "ssim_score": 0.6317,
-            "stroke_count_difference": 1
-          },
-          {
-            "character": "介",
-            "pinyins": [
-              "jiè"
-            ],
-            "glyph_score": 0.8497,
-            "ssim_score": 0.6163,
             "stroke_count_difference": 1
           },
           {
@@ -3739,15 +3350,6 @@
             "stroke_count_difference": 0
           },
           {
-            "character": "伍",
-            "pinyins": [
-              "wu"
-            ],
-            "glyph_score": 0.8127,
-            "ssim_score": 0.6023,
-            "stroke_count_difference": 0
-          },
-          {
             "character": "扮",
             "pinyins": [
               "ban"
@@ -3917,15 +3519,6 @@
             "glyph_score": 0.93,
             "ssim_score": 0.6417,
             "stroke_count_difference": 1
-          },
-          {
-            "character": "份",
-            "pinyins": [
-              "fèn"
-            ],
-            "glyph_score": 0.8127,
-            "ssim_score": 0.6023,
-            "stroke_count_difference": 0
           },
           {
             "character": "五",
@@ -4147,21 +3740,7 @@
     "meaning": "umbrella, parasol, parachute",
     "sample_pinyin": "sǎn",
     "other_pinyins": [],
-    "similar_visual_chars": [
-      {
-        "characters": [
-          {
-            "character": "苹",
-            "pinyins": [
-              "píng"
-            ],
-            "glyph_score": 0.8274,
-            "ssim_score": 0.6241,
-            "stroke_count_difference": 2
-          }
-        ]
-      }
-    ]
+    "similar_visual_chars": []
   },
   "伟": {
     "character": "伟",
@@ -4306,15 +3885,6 @@
             "glyph_score": 0.9506,
             "ssim_score": 0.6868,
             "stroke_count_difference": 0
-          },
-          {
-            "character": "他",
-            "pinyins": [
-              "tā"
-            ],
-            "glyph_score": 0.8803,
-            "ssim_score": 0.6124,
-            "stroke_count_difference": 2
           },
           {
             "character": "姑",
@@ -4777,15 +4347,6 @@
             "glyph_score": 0.9653,
             "ssim_score": 0.6089,
             "stroke_count_difference": 1
-          },
-          {
-            "character": "他",
-            "pinyins": [
-              "tā"
-            ],
-            "glyph_score": 0.8667,
-            "ssim_score": 0.6066,
-            "stroke_count_difference": 2
           },
           {
             "character": "主",
@@ -5369,21 +4930,7 @@
     "meaning": "to trust, to believe; letter, sign",
     "sample_pinyin": "xìn",
     "other_pinyins": [],
-    "similar_visual_chars": [
-      {
-        "characters": [
-          {
-            "character": "倍",
-            "pinyins": [
-              "bèi"
-            ],
-            "glyph_score": 0.8803,
-            "ssim_score": 0.6114,
-            "stroke_count_difference": 1
-          }
-        ]
-      }
-    ]
+    "similar_visual_chars": []
   },
   "俩": {
     "character": "俩",
@@ -5451,15 +4998,6 @@
             "stroke_count_difference": 1,
             "decomposition_relation": true,
             "decomposition_glyph_score": 0.9446
-          },
-          {
-            "character": "信",
-            "pinyins": [
-              "xìn"
-            ],
-            "glyph_score": 0.8803,
-            "ssim_score": 0.6114,
-            "stroke_count_difference": 1
           },
           {
             "character": "陪",
@@ -6058,15 +5596,6 @@
             "method": "decomposition",
             "decomposition_component_in_character_info": true,
             "decomposition_glyph_score": 0.9457
-          },
-          {
-            "character": "死",
-            "pinyins": [
-              "sǐ"
-            ],
-            "glyph_score": 0.8907,
-            "ssim_score": 0.6042,
-            "stroke_count_difference": 2
           }
         ]
       }
@@ -6362,24 +5891,6 @@
             "glyph_score": 0.965,
             "ssim_score": 0.6674,
             "stroke_count_difference": 0
-          },
-          {
-            "character": "六",
-            "pinyins": [
-              "liù"
-            ],
-            "glyph_score": 0.7633,
-            "ssim_score": 0.6619,
-            "stroke_count_difference": 2
-          },
-          {
-            "character": "杂",
-            "pinyins": [
-              "zá"
-            ],
-            "glyph_score": 0.1063,
-            "ssim_score": 0.6309,
-            "stroke_count_difference": 4
           }
         ]
       }
@@ -6454,21 +5965,7 @@
     "meaning": "six",
     "sample_pinyin": "liù",
     "other_pinyins": [],
-    "similar_visual_chars": [
-      {
-        "characters": [
-          {
-            "character": "入",
-            "pinyins": [
-              "rù"
-            ],
-            "glyph_score": 0.7633,
-            "ssim_score": 0.6619,
-            "stroke_count_difference": 2
-          }
-        ]
-      }
-    ]
+    "similar_visual_chars": []
   },
   "共": {
     "character": "共",
@@ -6645,15 +6142,6 @@
             "decomposition_relation": true
           },
           {
-            "character": "灵",
-            "pinyins": [
-              "líng"
-            ],
-            "glyph_score": 0.8551,
-            "ssim_score": 0.6149,
-            "stroke_count_difference": 1
-          },
-          {
             "character": "算",
             "pinyins": [
               "suàn"
@@ -6661,15 +6149,6 @@
             "method": "decomposition",
             "decomposition_component_in_character_info": true,
             "decomposition_glyph_score": 0.9113
-          },
-          {
-            "character": "贝",
-            "pinyins": [
-              "bèi"
-            ],
-            "glyph_score": 0.7533,
-            "ssim_score": 0.6627,
-            "stroke_count_difference": 4
           }
         ]
       }
@@ -6710,21 +6189,7 @@
     "other_pinyins": [
       "èi"
     ],
-    "similar_visual_chars": [
-      {
-        "characters": [
-          {
-            "character": "向",
-            "pinyins": [
-              "xiàng"
-            ],
-            "glyph_score": 0.805,
-            "ssim_score": 0.6923,
-            "stroke_count_difference": 2
-          }
-        ]
-      }
-    ]
+    "similar_visual_chars": []
   },
   "册": {
     "character": "册",
@@ -7448,15 +6913,6 @@
             "stroke_count_difference": 1
           },
           {
-            "character": "到",
-            "pinyins": [
-              "dào"
-            ],
-            "glyph_score": 0.8833,
-            "ssim_score": 0.6106,
-            "stroke_count_difference": 2
-          },
-          {
             "character": "厕",
             "pinyins": [
               "cè"
@@ -7503,15 +6959,6 @@
             "glyph_score": 0.8676,
             "ssim_score": 0.6469,
             "stroke_count_difference": 2
-          },
-          {
-            "character": "剧",
-            "pinyins": [
-              "jù"
-            ],
-            "glyph_score": 0.8336,
-            "ssim_score": 0.6219,
-            "stroke_count_difference": 4
           }
         ]
       }
@@ -7603,15 +7050,6 @@
             ],
             "glyph_score": 0.9133,
             "ssim_score": 0.6245,
-            "stroke_count_difference": 1
-          },
-          {
-            "character": "刮",
-            "pinyins": [
-              "guā"
-            ],
-            "glyph_score": 0.8642,
-            "ssim_score": 0.6132,
             "stroke_count_difference": 1
           }
         ]
@@ -7731,15 +7169,6 @@
             "decomposition_glyph_score": 0.9762
           },
           {
-            "character": "判",
-            "pinyins": [
-              "pàn"
-            ],
-            "glyph_score": 0.8642,
-            "ssim_score": 0.6132,
-            "stroke_count_difference": 1
-          },
-          {
             "character": "别",
             "pinyins": [
               "bié"
@@ -7769,15 +7198,6 @@
             "method": "decomposition",
             "decomposition_component_in_character_info": true,
             "decomposition_glyph_score": 0.9393
-          },
-          {
-            "character": "则",
-            "pinyins": [
-              "zé"
-            ],
-            "glyph_score": 0.8833,
-            "ssim_score": 0.6106,
-            "stroke_count_difference": 2
           },
           {
             "character": "判",
@@ -7898,15 +7318,6 @@
             "glyph_score": 0.9582,
             "ssim_score": 0.8199,
             "stroke_count_difference": 2
-          },
-          {
-            "character": "刚",
-            "pinyins": [
-              "gāng"
-            ],
-            "glyph_score": 0.8336,
-            "ssim_score": 0.6219,
-            "stroke_count_difference": 4
           },
           {
             "character": "删",
@@ -8664,17 +8075,6 @@
       {
         "characters": [
           {
-            "character": "个",
-            "pinyins": [
-              "gè",
-              "ge",
-              "gèr"
-            ],
-            "glyph_score": 0.6739,
-            "ssim_score": 0.7358,
-            "stroke_count_difference": 1
-          },
-          {
             "character": "于",
             "pinyins": [
               "yú"
@@ -8738,15 +8138,6 @@
             "decomposition_glyph_score": 0.9008
           },
           {
-            "character": "杂",
-            "pinyins": [
-              "zá"
-            ],
-            "glyph_score": 0.2834,
-            "ssim_score": 0.6839,
-            "stroke_count_difference": 4
-          },
-          {
             "character": "针",
             "pinyins": [
               "zhēn"
@@ -8787,16 +8178,6 @@
             "stroke_count_difference": 2
           },
           {
-            "character": "了",
-            "pinyins": [
-              "le",
-              "liǎo"
-            ],
-            "glyph_score": 0.8351,
-            "ssim_score": 0.6381,
-            "stroke_count_difference": 1
-          },
-          {
             "character": "十",
             "pinyins": [
               "shí"
@@ -8824,17 +8205,6 @@
             "glyph_score": 0.9199,
             "ssim_score": 0.6113,
             "stroke_count_difference": 0
-          },
-          {
-            "character": "不",
-            "pinyins": [
-              "bù",
-              "bú",
-              "bu"
-            ],
-            "glyph_score": 0.8564,
-            "ssim_score": 0.6029,
-            "stroke_count_difference": 1
           },
           {
             "character": "午",
@@ -8950,15 +8320,6 @@
             "glyph_score": 0.9202,
             "ssim_score": 0.6852,
             "stroke_count_difference": 3
-          },
-          {
-            "character": "申",
-            "pinyins": [
-              "shēn"
-            ],
-            "glyph_score": 0.8465,
-            "ssim_score": 0.6115,
-            "stroke_count_difference": 0
           },
           {
             "character": "胖",
@@ -9283,15 +8644,6 @@
             "glyph_score": 0.9198,
             "ssim_score": 0.6174,
             "stroke_count_difference": 0
-          },
-          {
-            "character": "旦",
-            "pinyins": [
-              "dàn"
-            ],
-            "glyph_score": 0.8776,
-            "ssim_score": 0.6031,
-            "stroke_count_difference": 2
           }
         ]
       }
@@ -9383,15 +8735,6 @@
             "stroke_count_difference": 2
           },
           {
-            "character": "压",
-            "pinyins": [
-              "yā"
-            ],
-            "glyph_score": 0.8594,
-            "ssim_score": 0.6071,
-            "stroke_count_difference": 2
-          },
-          {
             "character": "厉",
             "pinyins": [
               "lì"
@@ -9477,24 +8820,6 @@
             "glyph_score": 0.8729,
             "ssim_score": 0.661,
             "stroke_count_difference": 0
-          },
-          {
-            "character": "厘",
-            "pinyins": [
-              "lí"
-            ],
-            "glyph_score": 0.8401,
-            "ssim_score": 0.6363,
-            "stroke_count_difference": 3
-          },
-          {
-            "character": "历",
-            "pinyins": [
-              "lì"
-            ],
-            "glyph_score": 0.8594,
-            "ssim_score": 0.6071,
-            "stroke_count_difference": 2
           }
         ]
       }
@@ -9619,15 +8944,6 @@
             "glyph_score": 0.9208,
             "ssim_score": 0.7026,
             "stroke_count_difference": 0
-          },
-          {
-            "character": "压",
-            "pinyins": [
-              "yā"
-            ],
-            "glyph_score": 0.8401,
-            "ssim_score": 0.6363,
-            "stroke_count_difference": 3
           },
           {
             "character": "尾",
@@ -10383,15 +9699,6 @@
       {
         "characters": [
           {
-            "character": "习",
-            "pinyins": [
-              "xí"
-            ],
-            "glyph_score": 0.7978,
-            "ssim_score": 0.6215,
-            "stroke_count_difference": 2
-          },
-          {
             "character": "何",
             "pinyins": [
               "hé"
@@ -10417,15 +9724,6 @@
             "method": "decomposition",
             "decomposition_component_in_character_info": true,
             "decomposition_glyph_score": 0.8818
-          },
-          {
-            "character": "百",
-            "pinyins": [
-              "bǎi"
-            ],
-            "glyph_score": 0.8776,
-            "ssim_score": 0.6086,
-            "stroke_count_difference": 1
           },
           {
             "character": "阿",
@@ -10497,16 +9795,6 @@
       {
         "characters": [
           {
-            "character": "户",
-            "pinyins": [
-              "hu",
-              "hù"
-            ],
-            "glyph_score": 0.8669,
-            "ssim_score": 0.6081,
-            "stroke_count_difference": 1
-          },
-          {
             "character": "驶",
             "pinyins": [
               "shǐ"
@@ -10548,15 +9836,6 @@
     "similar_visual_chars": [
       {
         "characters": [
-          {
-            "character": "味",
-            "pinyins": [
-              "wèi"
-            ],
-            "glyph_score": 0.8355,
-            "ssim_score": 0.6558,
-            "stroke_count_difference": 3
-          },
           {
             "character": "呼",
             "pinyins": [
@@ -10864,15 +10143,6 @@
             "stroke_count_difference": 2
           },
           {
-            "character": "图",
-            "pinyins": [
-              "tú"
-            ],
-            "glyph_score": 0.8351,
-            "ssim_score": 0.6113,
-            "stroke_count_difference": 2
-          },
-          {
             "character": "圆",
             "pinyins": [
               "yuán"
@@ -10898,15 +10168,6 @@
             "glyph_score": 0.9443,
             "ssim_score": 0.6011,
             "stroke_count_difference": 1
-          },
-          {
-            "character": "闻",
-            "pinyins": [
-              "wén"
-            ],
-            "glyph_score": 0.8836,
-            "ssim_score": 0.6043,
-            "stroke_count_difference": 3
           }
         ]
       }
@@ -10934,16 +10195,6 @@
     "similar_visual_chars": [
       {
         "characters": [
-          {
-            "character": "内",
-            "pinyins": [
-              "nèi",
-              "èi"
-            ],
-            "glyph_score": 0.805,
-            "ssim_score": 0.6923,
-            "stroke_count_difference": 2
-          },
           {
             "character": "同",
             "pinyins": [
@@ -11550,15 +10801,6 @@
             "stroke_count_difference": 1
           },
           {
-            "character": "屋",
-            "pinyins": [
-              "wū"
-            ],
-            "glyph_score": 0.885,
-            "ssim_score": 0.6103,
-            "stroke_count_difference": 1
-          },
-          {
             "character": "调",
             "pinyins": [
               "tiáo",
@@ -11591,15 +10833,6 @@
             "stroke_count_difference": 0,
             "decomposition_relation": true,
             "decomposition_glyph_score": 0.944
-          },
-          {
-            "character": "叶",
-            "pinyins": [
-              "yè"
-            ],
-            "glyph_score": 0.8355,
-            "ssim_score": 0.6558,
-            "stroke_count_difference": 3
           },
           {
             "character": "袜",
@@ -11867,15 +11100,6 @@
             "glyph_score": 0.9279,
             "ssim_score": 0.6221,
             "stroke_count_difference": 2
-          },
-          {
-            "character": "哈",
-            "pinyins": [
-              "hā"
-            ],
-            "glyph_score": 0.8658,
-            "ssim_score": 0.608,
-            "stroke_count_difference": 0
           }
         ]
       }
@@ -12009,24 +11233,6 @@
             "decomposition_glyph_score": 0.9679
           },
           {
-            "character": "暗",
-            "pinyins": [
-              "àn"
-            ],
-            "glyph_score": 0.8096,
-            "ssim_score": 0.6215,
-            "stroke_count_difference": 4
-          },
-          {
-            "character": "咱",
-            "pinyins": [
-              "zán"
-            ],
-            "glyph_score": 0.8658,
-            "ssim_score": 0.608,
-            "stroke_count_difference": 0
-          },
-          {
             "character": "给",
             "pinyins": [
               "gěi"
@@ -12061,15 +11267,6 @@
     "similar_visual_chars": [
       {
         "characters": [
-          {
-            "character": "喻",
-            "pinyins": [
-              "yù"
-            ],
-            "glyph_score": 0.8887,
-            "ssim_score": 0.6058,
-            "stroke_count_difference": 3
-          },
           {
             "character": "向",
             "pinyins": [
@@ -12396,15 +11593,6 @@
             "stroke_count_difference": 4
           },
           {
-            "character": "晒",
-            "pinyins": [
-              "shài"
-            ],
-            "glyph_score": 0.8743,
-            "ssim_score": 0.6026,
-            "stroke_count_difference": 1
-          },
-          {
             "character": "倡",
             "pinyins": [
               "chàng"
@@ -12668,15 +11856,6 @@
             "decomposition_glyph_score": 0.9819
           },
           {
-            "character": "响",
-            "pinyins": [
-              "xiǎng"
-            ],
-            "glyph_score": 0.8887,
-            "ssim_score": 0.6058,
-            "stroke_count_difference": 3
-          },
-          {
             "character": "输",
             "pinyins": [
               "shū"
@@ -12801,15 +11980,6 @@
             "stroke_count_difference": 2
           },
           {
-            "character": "困",
-            "pinyins": [
-              "kùn"
-            ],
-            "glyph_score": 0.7916,
-            "ssim_score": 0.6887,
-            "stroke_count_difference": 1
-          },
-          {
             "character": "因",
             "pinyins": [
               "yīn"
@@ -12837,15 +12007,6 @@
             "stroke_count_difference": 1
           },
           {
-            "character": "阅",
-            "pinyins": [
-              "yuè"
-            ],
-            "glyph_score": 0.758,
-            "ssim_score": 0.6445,
-            "stroke_count_difference": 4
-          },
-          {
             "character": "间",
             "pinyins": [
               "jiān"
@@ -12853,15 +12014,6 @@
             "glyph_score": 0.9037,
             "ssim_score": 0.6368,
             "stroke_count_difference": 1
-          },
-          {
-            "character": "圆",
-            "pinyins": [
-              "yuán"
-            ],
-            "glyph_score": 0.8593,
-            "ssim_score": 0.6294,
-            "stroke_count_difference": 4
           },
           {
             "character": "画",
@@ -12921,15 +12073,6 @@
             "stroke_count_difference": 1
           },
           {
-            "character": "围",
-            "pinyins": [
-              "wéi"
-            ],
-            "glyph_score": 0.7841,
-            "ssim_score": 0.6373,
-            "stroke_count_difference": 1
-          },
-          {
             "character": "固",
             "pinyins": [
               "gù"
@@ -12945,15 +12088,6 @@
             ],
             "glyph_score": 0.8594,
             "ssim_score": 0.6686,
-            "stroke_count_difference": 2
-          },
-          {
-            "character": "图",
-            "pinyins": [
-              "tú"
-            ],
-            "glyph_score": 0.8282,
-            "ssim_score": 0.6624,
             "stroke_count_difference": 2
           },
           {
@@ -13066,15 +12200,6 @@
             "glyph_score": 0.9189,
             "ssim_score": 0.6396,
             "stroke_count_difference": 2
-          },
-          {
-            "character": "围",
-            "pinyins": [
-              "wéi"
-            ],
-            "glyph_score": 0.8333,
-            "ssim_score": 0.6288,
-            "stroke_count_difference": 1
           },
           {
             "character": "西",
@@ -13232,71 +12357,6 @@
             "stroke_count_difference": 1
           },
           {
-            "character": "回",
-            "pinyins": [
-              "huí"
-            ],
-            "glyph_score": 0.7916,
-            "ssim_score": 0.6887,
-            "stroke_count_difference": 1
-          },
-          {
-            "character": "西",
-            "pinyins": [
-              "xi",
-              "xī",
-              "xīn"
-            ],
-            "glyph_score": 0.8449,
-            "ssim_score": 0.6363,
-            "stroke_count_difference": 1
-          },
-          {
-            "character": "国",
-            "pinyins": [
-              "guó"
-            ],
-            "glyph_score": 0.8265,
-            "ssim_score": 0.6353,
-            "stroke_count_difference": 1
-          },
-          {
-            "character": "圆",
-            "pinyins": [
-              "yuán"
-            ],
-            "glyph_score": 0.8373,
-            "ssim_score": 0.6346,
-            "stroke_count_difference": 3
-          },
-          {
-            "character": "围",
-            "pinyins": [
-              "wéi"
-            ],
-            "glyph_score": 0.7369,
-            "ssim_score": 0.6147,
-            "stroke_count_difference": 0
-          },
-          {
-            "character": "图",
-            "pinyins": [
-              "tú"
-            ],
-            "glyph_score": 0.8077,
-            "ssim_score": 0.6031,
-            "stroke_count_difference": 1
-          },
-          {
-            "character": "画",
-            "pinyins": [
-              "huà"
-            ],
-            "glyph_score": 0.7681,
-            "ssim_score": 0.6026,
-            "stroke_count_difference": 1
-          },
-          {
             "character": "闲",
             "pinyins": [
               "xián"
@@ -13358,24 +12418,6 @@
             "stroke_count_difference": 3
           },
           {
-            "character": "图",
-            "pinyins": [
-              "tú"
-            ],
-            "glyph_score": 0.8534,
-            "ssim_score": 0.6397,
-            "stroke_count_difference": 1
-          },
-          {
-            "character": "因",
-            "pinyins": [
-              "yīn"
-            ],
-            "glyph_score": 0.7841,
-            "ssim_score": 0.6373,
-            "stroke_count_difference": 1
-          },
-          {
             "character": "固",
             "pinyins": [
               "gù"
@@ -13383,24 +12425,6 @@
             "glyph_score": 0.9307,
             "ssim_score": 0.6361,
             "stroke_count_difference": 1
-          },
-          {
-            "character": "团",
-            "pinyins": [
-              "tuán"
-            ],
-            "glyph_score": 0.8333,
-            "ssim_score": 0.6288,
-            "stroke_count_difference": 1
-          },
-          {
-            "character": "困",
-            "pinyins": [
-              "kùn"
-            ],
-            "glyph_score": 0.7369,
-            "ssim_score": 0.6147,
-            "stroke_count_difference": 0
           }
         ]
       }
@@ -13609,15 +12633,6 @@
             "stroke_count_difference": 2
           },
           {
-            "character": "困",
-            "pinyins": [
-              "kùn"
-            ],
-            "glyph_score": 0.8265,
-            "ssim_score": 0.6353,
-            "stroke_count_difference": 1
-          },
-          {
             "character": "阳",
             "pinyins": [
               "yáng"
@@ -13682,43 +12697,6 @@
             "glyph_score": 0.861,
             "ssim_score": 0.6941,
             "stroke_count_difference": 0
-          },
-          {
-            "character": "因",
-            "pinyins": [
-              "yīn"
-            ],
-            "glyph_score": 0.8282,
-            "ssim_score": 0.6624,
-            "stroke_count_difference": 2
-          },
-          {
-            "character": "围",
-            "pinyins": [
-              "wéi"
-            ],
-            "glyph_score": 0.8534,
-            "ssim_score": 0.6397,
-            "stroke_count_difference": 1
-          },
-          {
-            "character": "同",
-            "pinyins": [
-              "tóng",
-              "tòng"
-            ],
-            "glyph_score": 0.8351,
-            "ssim_score": 0.6113,
-            "stroke_count_difference": 2
-          },
-          {
-            "character": "困",
-            "pinyins": [
-              "kùn"
-            ],
-            "glyph_score": 0.8077,
-            "ssim_score": 0.6031,
-            "stroke_count_difference": 1
           }
         ]
       }
@@ -13785,24 +12763,6 @@
             "glyph_score": 0.8765,
             "ssim_score": 0.6562,
             "stroke_count_difference": 3
-          },
-          {
-            "character": "困",
-            "pinyins": [
-              "kùn"
-            ],
-            "glyph_score": 0.8373,
-            "ssim_score": 0.6346,
-            "stroke_count_difference": 3
-          },
-          {
-            "character": "回",
-            "pinyins": [
-              "huí"
-            ],
-            "glyph_score": 0.8593,
-            "ssim_score": 0.6294,
-            "stroke_count_difference": 4
           },
           {
             "character": "因",
@@ -14876,15 +13836,6 @@
     "similar_visual_chars": [
       {
         "characters": [
-          {
-            "character": "人",
-            "pinyins": [
-              "rén"
-            ],
-            "glyph_score": 0.7216,
-            "ssim_score": 0.6112,
-            "stroke_count_difference": 2
-          },
           {
             "character": "元",
             "pinyins": [
@@ -16193,15 +15144,6 @@
       {
         "characters": [
           {
-            "character": "宜",
-            "pinyins": [
-              "yi"
-            ],
-            "glyph_score": 0.7942,
-            "ssim_score": 0.6063,
-            "stroke_count_difference": 3
-          },
-          {
             "character": "死",
             "pinyins": [
               "sǐ"
@@ -16425,15 +15367,6 @@
             "decomposition_component_in_character_info": true
           },
           {
-            "character": "它",
-            "pinyins": [
-              "tā"
-            ],
-            "glyph_score": 0.7942,
-            "ssim_score": 0.6063,
-            "stroke_count_difference": 3
-          },
-          {
             "character": "宝",
             "pinyins": [
               "bǎo"
@@ -16586,16 +15519,6 @@
             "stroke_count_difference": 1,
             "decomposition_relation": true,
             "decomposition_glyph_score": 0.9522
-          },
-          {
-            "character": "害",
-            "pinyins": [
-              "hài",
-              "hai"
-            ],
-            "glyph_score": 0.885,
-            "ssim_score": 0.6048,
-            "stroke_count_difference": 1
           },
           {
             "character": "各",
@@ -16764,16 +15687,6 @@
             ],
             "glyph_score": 0.9596,
             "ssim_score": 0.6256,
-            "stroke_count_difference": 1
-          },
-          {
-            "character": "客",
-            "pinyins": [
-              "kè",
-              "kèr"
-            ],
-            "glyph_score": 0.885,
-            "ssim_score": 0.6048,
             "stroke_count_difference": 1
           }
         ]
@@ -17424,31 +16337,7 @@
     "meaning": "ruler, tape-measure; unit of length, about 1 ft.",
     "sample_pinyin": "chǐ",
     "other_pinyins": [],
-    "similar_visual_chars": [
-      {
-        "characters": [
-          {
-            "character": "风",
-            "pinyins": [
-              "fēng"
-            ],
-            "glyph_score": 0.8545,
-            "ssim_score": 0.6137,
-            "stroke_count_difference": 0
-          },
-          {
-            "character": "严",
-            "pinyins": [
-              "yáng",
-              "yán"
-            ],
-            "glyph_score": 0.8171,
-            "ssim_score": 0.6031,
-            "stroke_count_difference": 3
-          }
-        ]
-      }
-    ]
+    "similar_visual_chars": []
   },
   "尽": {
     "character": "尽",
@@ -17819,15 +16708,6 @@
             "glyph_score": 0.9208,
             "ssim_score": 0.7026,
             "stroke_count_difference": 0
-          },
-          {
-            "character": "周",
-            "pinyins": [
-              "zhōu"
-            ],
-            "glyph_score": 0.885,
-            "ssim_score": 0.6103,
-            "stroke_count_difference": 1
           },
           {
             "character": "室",
@@ -18393,27 +17273,6 @@
       {
         "characters": [
           {
-            "character": "下",
-            "pinyins": [
-              "xià",
-              "xia"
-            ],
-            "glyph_score": 0.8324,
-            "ssim_score": 0.6141,
-            "stroke_count_difference": 2
-          },
-          {
-            "character": "不",
-            "pinyins": [
-              "bù",
-              "bú",
-              "bu"
-            ],
-            "glyph_score": 0.7538,
-            "ssim_score": 0.6197,
-            "stroke_count_difference": 1
-          },
-          {
             "character": "乎",
             "pinyins": [
               "hū",
@@ -18421,15 +17280,6 @@
             ],
             "glyph_score": 0.9602,
             "ssim_score": 0.7076,
-            "stroke_count_difference": 0
-          },
-          {
-            "character": "甲",
-            "pinyins": [
-              "jiǎ"
-            ],
-            "glyph_score": 0.8415,
-            "ssim_score": 0.6338,
             "stroke_count_difference": 0
           },
           {
@@ -18449,15 +17299,6 @@
             "method": "decomposition",
             "decomposition_component_in_character_info": true,
             "decomposition_glyph_score": 0.93
-          },
-          {
-            "character": "采",
-            "pinyins": [
-              "cǎi"
-            ],
-            "glyph_score": 0.8519,
-            "ssim_score": 0.64,
-            "stroke_count_difference": 3
           }
         ]
       }
@@ -18678,21 +17519,7 @@
       "ying",
       "yìng"
     ],
-    "similar_visual_chars": [
-      {
-        "characters": [
-          {
-            "character": "店",
-            "pinyins": [
-              "diàn"
-            ],
-            "glyph_score": 0.8317,
-            "ssim_score": 0.6143,
-            "stroke_count_difference": 1
-          }
-        ]
-      }
-    ]
+    "similar_visual_chars": []
   },
   "底": {
     "character": "底",
@@ -18725,17 +17552,6 @@
     "similar_visual_chars": [
       {
         "characters": [
-          {
-            "character": "应",
-            "pinyins": [
-              "yīng",
-              "ying",
-              "yìng"
-            ],
-            "glyph_score": 0.8317,
-            "ssim_score": 0.6143,
-            "stroke_count_difference": 1
-          },
           {
             "character": "占",
             "pinyins": [
@@ -18953,21 +17769,7 @@
     "meaning": "to do; to mock, to tease; to play with",
     "sample_pinyin": "nòng",
     "other_pinyins": [],
-    "similar_visual_chars": [
-      {
-        "characters": [
-          {
-            "character": "界",
-            "pinyins": [
-              "jiè"
-            ],
-            "glyph_score": 0.8769,
-            "ssim_score": 0.6179,
-            "stroke_count_difference": 2
-          }
-        ]
-      }
-    ]
+    "similar_visual_chars": []
   },
   "式": {
     "character": "式",
@@ -19223,15 +18025,6 @@
     "similar_visual_chars": [
       {
         "characters": [
-          {
-            "character": "果",
-            "pinyins": [
-              "guǒ"
-            ],
-            "glyph_score": 0.8578,
-            "ssim_score": 0.6136,
-            "stroke_count_difference": 0
-          },
           {
             "character": "碌",
             "pinyins": [
@@ -19702,15 +18495,6 @@
             "glyph_score": 0.9647,
             "ssim_score": 0.6911,
             "stroke_count_difference": 0
-          },
-          {
-            "character": "态",
-            "pinyins": [
-              "tài"
-            ],
-            "glyph_score": 0.8709,
-            "ssim_score": 0.6071,
-            "stroke_count_difference": 1
           }
         ]
       }
@@ -20010,15 +18794,6 @@
             "glyph_score": 0.8857,
             "ssim_score": 0.6661,
             "stroke_count_difference": 1
-          },
-          {
-            "character": "志",
-            "pinyins": [
-              "zhì"
-            ],
-            "glyph_score": 0.8709,
-            "ssim_score": 0.6071,
-            "stroke_count_difference": 1
           }
         ]
       }
@@ -20139,15 +18914,6 @@
             ],
             "glyph_score": 0.911,
             "ssim_score": 0.6113,
-            "stroke_count_difference": 2
-          },
-          {
-            "character": "悉",
-            "pinyins": [
-              "xi"
-            ],
-            "glyph_score": 0.8648,
-            "ssim_score": 0.611,
             "stroke_count_difference": 2
           }
         ]
@@ -20470,22 +19236,7 @@
     "meaning": "to know, to learn about, to comprehend",
     "sample_pinyin": "xi",
     "other_pinyins": [],
-    "similar_visual_chars": [
-      {
-        "characters": [
-          {
-            "character": "思",
-            "pinyins": [
-              "si",
-              "sī"
-            ],
-            "glyph_score": 0.8648,
-            "ssim_score": 0.611,
-            "stroke_count_difference": 2
-          }
-        ]
-      }
-    ]
+    "similar_visual_chars": []
   },
   "悔": {
     "character": "悔",
@@ -21380,15 +20131,6 @@
             "stroke_count_difference": 2
           },
           {
-            "character": "史",
-            "pinyins": [
-              "shǐ"
-            ],
-            "glyph_score": 0.8669,
-            "ssim_score": 0.6081,
-            "stroke_count_difference": 1
-          },
-          {
             "character": "护",
             "pinyins": [
               "hù"
@@ -22176,15 +20918,6 @@
             "glyph_score": 0.967,
             "ssim_score": 0.6284,
             "stroke_count_difference": 0
-          },
-          {
-            "character": "挂",
-            "pinyins": [
-              "guà"
-            ],
-            "glyph_score": 0.8856,
-            "ssim_score": 0.6132,
-            "stroke_count_difference": 2
           }
         ]
       }
@@ -22252,30 +20985,12 @@
       {
         "characters": [
           {
-            "character": "拥",
-            "pinyins": [
-              "yōng"
-            ],
-            "glyph_score": 0.8226,
-            "ssim_score": 0.6286,
-            "stroke_count_difference": 1
-          },
-          {
             "character": "拆",
             "pinyins": [
               "chāi"
             ],
             "glyph_score": 0.9541,
             "ssim_score": 0.6245,
-            "stroke_count_difference": 1
-          },
-          {
-            "character": "押",
-            "pinyins": [
-              "yā"
-            ],
-            "glyph_score": 0.8551,
-            "ssim_score": 0.6118,
             "stroke_count_difference": 1
           }
         ]
@@ -22764,15 +21479,6 @@
             "stroke_count_difference": 1
           },
           {
-            "character": "抓",
-            "pinyins": [
-              "zhuā"
-            ],
-            "glyph_score": 0.8551,
-            "ssim_score": 0.6118,
-            "stroke_count_difference": 1
-          },
-          {
             "character": "抽",
             "pinyins": [
               "chōu"
@@ -22844,15 +21550,6 @@
             "glyph_score": 0.9257,
             "ssim_score": 0.6163,
             "stroke_count_difference": 0
-          },
-          {
-            "character": "损",
-            "pinyins": [
-              "sǔn"
-            ],
-            "glyph_score": 0.88,
-            "ssim_score": 0.6027,
-            "stroke_count_difference": 2
           },
           {
             "character": "描",
@@ -23044,15 +21741,6 @@
             ],
             "glyph_score": 0.9025,
             "ssim_score": 0.606,
-            "stroke_count_difference": 1
-          },
-          {
-            "character": "括",
-            "pinyins": [
-              "kuò"
-            ],
-            "glyph_score": 0.8946,
-            "ssim_score": 0.6036,
             "stroke_count_difference": 1
           },
           {
@@ -23420,15 +22108,6 @@
             "decomposition_glyph_score": 0.9552
           },
           {
-            "character": "抓",
-            "pinyins": [
-              "zhuā"
-            ],
-            "glyph_score": 0.8226,
-            "ssim_score": 0.6286,
-            "stroke_count_difference": 1
-          },
-          {
             "character": "抽",
             "pinyins": [
               "chōu"
@@ -23454,15 +22133,6 @@
             "glyph_score": 0.9117,
             "ssim_score": 0.6072,
             "stroke_count_difference": 4
-          },
-          {
-            "character": "挥",
-            "pinyins": [
-              "huī"
-            ],
-            "glyph_score": 0.8828,
-            "ssim_score": 0.607,
-            "stroke_count_difference": 1
           },
           {
             "character": "据",
@@ -23636,15 +22306,6 @@
             ],
             "glyph_score": 0.9582,
             "ssim_score": 0.6305,
-            "stroke_count_difference": 1
-          },
-          {
-            "character": "拆",
-            "pinyins": [
-              "chāi"
-            ],
-            "glyph_score": 0.8946,
-            "ssim_score": 0.6036,
             "stroke_count_difference": 1
           },
           {
@@ -23900,16 +22561,6 @@
             ],
             "glyph_score": 0.908,
             "ssim_score": 0.6425,
-            "stroke_count_difference": 2
-          },
-          {
-            "character": "技",
-            "pinyins": [
-              "jì",
-              "jìn"
-            ],
-            "glyph_score": 0.8856,
-            "ssim_score": 0.6132,
             "stroke_count_difference": 2
           },
           {
@@ -24292,15 +22943,6 @@
             "stroke_count_difference": 1
           },
           {
-            "character": "拥",
-            "pinyins": [
-              "yōng"
-            ],
-            "glyph_score": 0.8828,
-            "ssim_score": 0.607,
-            "stroke_count_difference": 1
-          },
-          {
             "character": "掉",
             "pinyins": [
               "diào"
@@ -24402,15 +23044,6 @@
             ],
             "glyph_score": 0.9495,
             "ssim_score": 0.6164,
-            "stroke_count_difference": 2
-          },
-          {
-            "character": "抽",
-            "pinyins": [
-              "chōu"
-            ],
-            "glyph_score": 0.88,
-            "ssim_score": 0.6027,
             "stroke_count_difference": 2
           },
           {
@@ -26144,15 +24777,6 @@
             "decomposition_glyph_score": 0.9278
           },
           {
-            "character": "卫",
-            "pinyins": [
-              "wèi"
-            ],
-            "glyph_score": 0.8776,
-            "ssim_score": 0.6031,
-            "stroke_count_difference": 2
-          },
-          {
             "character": "担",
             "pinyins": [
               "dān"
@@ -26608,15 +25232,6 @@
       {
         "characters": [
           {
-            "character": "唱",
-            "pinyins": [
-              "chàng"
-            ],
-            "glyph_score": 0.8743,
-            "ssim_score": 0.6026,
-            "stroke_count_difference": 1
-          },
-          {
             "character": "洒",
             "pinyins": [
               "sǎ"
@@ -26971,15 +25586,6 @@
       {
         "characters": [
           {
-            "character": "哈",
-            "pinyins": [
-              "hā"
-            ],
-            "glyph_score": 0.8096,
-            "ssim_score": 0.6215,
-            "stroke_count_difference": 4
-          },
-          {
             "character": "陪",
             "pinyins": [
               "péi"
@@ -27306,15 +25912,6 @@
       {
         "characters": [
           {
-            "character": "丰",
-            "pinyins": [
-              "fēng"
-            ],
-            "glyph_score": 0.8606,
-            "ssim_score": 0.6164,
-            "stroke_count_difference": 1
-          },
-          {
             "character": "未",
             "pinyins": [
               "wèi"
@@ -27535,83 +26132,6 @@
             "glyph_score": 1.0,
             "ssim_score": 1.0,
             "stroke_count_difference": 1
-          },
-          {
-            "character": "十",
-            "pinyins": [
-              "shí"
-            ],
-            "glyph_score": 0.2834,
-            "ssim_score": 0.6839,
-            "stroke_count_difference": 4
-          },
-          {
-            "character": "了",
-            "pinyins": [
-              "le",
-              "liǎo"
-            ],
-            "glyph_score": 0.2652,
-            "ssim_score": 0.6719,
-            "stroke_count_difference": 4
-          },
-          {
-            "character": "人",
-            "pinyins": [
-              "rén"
-            ],
-            "glyph_score": 0.1455,
-            "ssim_score": 0.6499,
-            "stroke_count_difference": 4
-          },
-          {
-            "character": "个",
-            "pinyins": [
-              "gè",
-              "ge",
-              "gèr"
-            ],
-            "glyph_score": 0.1273,
-            "ssim_score": 0.6346,
-            "stroke_count_difference": 3
-          },
-          {
-            "character": "入",
-            "pinyins": [
-              "rù"
-            ],
-            "glyph_score": 0.1063,
-            "ssim_score": 0.6309,
-            "stroke_count_difference": 4
-          },
-          {
-            "character": "上",
-            "pinyins": [
-              "shàng",
-              "shang"
-            ],
-            "glyph_score": 0.2973,
-            "ssim_score": 0.623,
-            "stroke_count_difference": 3
-          },
-          {
-            "character": "七",
-            "pinyins": [
-              "qī"
-            ],
-            "glyph_score": 0.1581,
-            "ssim_score": 0.611,
-            "stroke_count_difference": 4
-          },
-          {
-            "character": "下",
-            "pinyins": [
-              "xià",
-              "xia"
-            ],
-            "glyph_score": 0.2012,
-            "ssim_score": 0.6091,
-            "stroke_count_difference": 3
           }
         ]
       }
@@ -27751,15 +26271,6 @@
     "similar_visual_chars": [
       {
         "characters": [
-          {
-            "character": "京",
-            "pinyins": [
-              "jīng"
-            ],
-            "glyph_score": 0.8207,
-            "ssim_score": 0.6128,
-            "stroke_count_difference": 1
-          },
           {
             "character": "荣",
             "pinyins": [
@@ -28278,15 +26789,6 @@
             "stroke_count_difference": 2
           },
           {
-            "character": "录",
-            "pinyins": [
-              "lù"
-            ],
-            "glyph_score": 0.8578,
-            "ssim_score": 0.6136,
-            "stroke_count_difference": 0
-          },
-          {
             "character": "棵",
             "pinyins": [
               "kē"
@@ -28538,16 +27040,6 @@
     "similar_visual_chars": [
       {
         "characters": [
-          {
-            "character": "相",
-            "pinyins": [
-              "xiāng",
-              "xiàng"
-            ],
-            "glyph_score": 0.8669,
-            "ssim_score": 0.6128,
-            "stroke_count_difference": 0
-          },
           {
             "character": "柿",
             "pinyins": [
@@ -29845,15 +28337,6 @@
       {
         "characters": [
           {
-            "character": "三",
-            "pinyins": [
-              "sān"
-            ],
-            "glyph_score": 0.8125,
-            "ssim_score": 0.6069,
-            "stroke_count_difference": 2
-          },
-          {
             "character": "征",
             "pinyins": [
               "zhēng"
@@ -29927,16 +28410,6 @@
     "similar_visual_chars": [
       {
         "characters": [
-          {
-            "character": "元",
-            "pinyins": [
-              "yuán",
-              "Yuán"
-            ],
-            "glyph_score": 0.8907,
-            "ssim_score": 0.6042,
-            "stroke_count_difference": 2
-          },
           {
             "character": "它",
             "pinyins": [
@@ -32286,24 +30759,6 @@
       {
         "characters": [
           {
-            "character": "具",
-            "pinyins": [
-              "jù"
-            ],
-            "glyph_score": 0.8551,
-            "ssim_score": 0.6149,
-            "stroke_count_difference": 1
-          },
-          {
-            "character": "页",
-            "pinyins": [
-              "yè"
-            ],
-            "glyph_score": 0.873,
-            "ssim_score": 0.6092,
-            "stroke_count_difference": 1
-          },
-          {
             "character": "员",
             "pinyins": [
               "yuán"
@@ -33637,15 +32092,6 @@
             "stroke_count_difference": 1
           },
           {
-            "character": "平",
-            "pinyins": [
-              "píng"
-            ],
-            "glyph_score": 0.8415,
-            "ssim_score": 0.6338,
-            "stroke_count_difference": 0
-          },
-          {
             "character": "押",
             "pinyins": [
               "yā"
@@ -33683,15 +32129,6 @@
             "method": "decomposition",
             "decomposition_component_in_character_info": true,
             "decomposition_glyph_score": 0.927
-          },
-          {
-            "character": "半",
-            "pinyins": [
-              "bàn"
-            ],
-            "glyph_score": 0.8465,
-            "ssim_score": 0.6115,
-            "stroke_count_difference": 0
           },
           {
             "character": "电",
@@ -33800,15 +32237,6 @@
             "glyph_score": 0.9109,
             "ssim_score": 0.6231,
             "stroke_count_difference": 2
-          },
-          {
-            "character": "困",
-            "pinyins": [
-              "kùn"
-            ],
-            "glyph_score": 0.7681,
-            "ssim_score": 0.6026,
-            "stroke_count_difference": 1
           }
         ]
       }
@@ -33829,15 +32257,6 @@
             ],
             "glyph_score": 0.9321,
             "ssim_score": 0.678,
-            "stroke_count_difference": 2
-          },
-          {
-            "character": "弄",
-            "pinyins": [
-              "nòng"
-            ],
-            "glyph_score": 0.8769,
-            "ssim_score": 0.6179,
             "stroke_count_difference": 2
           }
         ]
@@ -34131,16 +32550,6 @@
       {
         "characters": [
           {
-            "character": "可",
-            "pinyins": [
-              "kě",
-              "kěn"
-            ],
-            "glyph_score": 0.8776,
-            "ssim_score": 0.6086,
-            "stroke_count_difference": 1
-          },
-          {
             "character": "否",
             "pinyins": [
               "fǒu"
@@ -34394,15 +32803,6 @@
             "glyph_score": 0.9535,
             "ssim_score": 0.7064,
             "stroke_count_difference": 1
-          },
-          {
-            "character": "标",
-            "pinyins": [
-              "biāo"
-            ],
-            "glyph_score": 0.8669,
-            "ssim_score": 0.6128,
-            "stroke_count_difference": 0
           },
           {
             "character": "根",
@@ -35266,16 +33666,6 @@
             "method": "decomposition",
             "decomposition_component_in_character_info": true,
             "decomposition_glyph_score": 0.9248
-          },
-          {
-            "character": "累",
-            "pinyins": [
-              "lèi",
-              "lěi"
-            ],
-            "glyph_score": 0.8918,
-            "ssim_score": 0.6081,
-            "stroke_count_difference": 0
           }
         ]
       }
@@ -35475,15 +33865,6 @@
             "glyph_score": 0.9247,
             "ssim_score": 0.6495,
             "stroke_count_difference": 1
-          },
-          {
-            "character": "秒",
-            "pinyins": [
-              "miǎo"
-            ],
-            "glyph_score": 0.8476,
-            "ssim_score": 0.6072,
-            "stroke_count_difference": 0
           }
         ]
       }
@@ -35561,16 +33942,6 @@
             "stroke_count_difference": 1,
             "decomposition_relation": true,
             "decomposition_glyph_score": 0.925
-          },
-          {
-            "character": "种",
-            "pinyins": [
-              "zhǒng",
-              "zhòng"
-            ],
-            "glyph_score": 0.8476,
-            "ssim_score": 0.6072,
-            "stroke_count_difference": 0
           }
         ]
       }
@@ -37269,21 +35640,7 @@
     "other_pinyins": [
       "lěi"
     ],
-    "similar_visual_chars": [
-      {
-        "characters": [
-          {
-            "character": "票",
-            "pinyins": [
-              "piào"
-            ],
-            "glyph_score": 0.8918,
-            "ssim_score": 0.6081,
-            "stroke_count_difference": 0
-          }
-        ]
-      }
-    ]
+    "similar_visual_chars": []
   },
   "繁": {
     "character": "繁",
@@ -40247,15 +38604,6 @@
             "stroke_count_difference": 3
           },
           {
-            "character": "伞",
-            "pinyins": [
-              "sǎn"
-            ],
-            "glyph_score": 0.8274,
-            "ssim_score": 0.6241,
-            "stroke_count_difference": 2
-          },
-          {
             "character": "平",
             "pinyins": [
               "píng"
@@ -41222,15 +39570,6 @@
             "stroke_count_difference": 1
           },
           {
-            "character": "困",
-            "pinyins": [
-              "kùn"
-            ],
-            "glyph_score": 0.8449,
-            "ssim_score": 0.6363,
-            "stroke_count_difference": 1
-          },
-          {
             "character": "团",
             "pinyins": [
               "tuán"
@@ -41571,15 +39910,6 @@
             "stroke_count_difference": 4
           },
           {
-            "character": "认",
-            "pinyins": [
-              "rèn"
-            ],
-            "glyph_score": 0.8062,
-            "ssim_score": 0.6344,
-            "stroke_count_difference": 0
-          },
-          {
             "character": "订",
             "pinyins": [
               "dìng"
@@ -41714,34 +40044,6 @@
       {
         "characters": [
           {
-            "character": "识",
-            "pinyins": [
-              "shi",
-              "shí"
-            ],
-            "glyph_score": 0.815,
-            "ssim_score": 0.6549,
-            "stroke_count_difference": 3
-          },
-          {
-            "character": "计",
-            "pinyins": [
-              "jì"
-            ],
-            "glyph_score": 0.8062,
-            "ssim_score": 0.6344,
-            "stroke_count_difference": 0
-          },
-          {
-            "character": "让",
-            "pinyins": [
-              "ràng"
-            ],
-            "glyph_score": 0.817,
-            "ssim_score": 0.612,
-            "stroke_count_difference": 1
-          },
-          {
             "character": "队",
             "pinyins": [
               "duì"
@@ -41854,15 +40156,6 @@
             ],
             "glyph_score": 0.9486,
             "ssim_score": 0.6192,
-            "stroke_count_difference": 1
-          },
-          {
-            "character": "认",
-            "pinyins": [
-              "rèn"
-            ],
-            "glyph_score": 0.817,
-            "ssim_score": 0.612,
             "stroke_count_difference": 1
           },
           {
@@ -42003,15 +40296,6 @@
             "decomposition_glyph_score": 0.9352
           },
           {
-            "character": "论",
-            "pinyins": [
-              "lùn"
-            ],
-            "glyph_score": 0.8761,
-            "ssim_score": 0.6225,
-            "stroke_count_difference": 1
-          },
-          {
             "character": "让",
             "pinyins": [
               "ràng"
@@ -42112,21 +40396,7 @@
     "meaning": "debate; discussion",
     "sample_pinyin": "lùn",
     "other_pinyins": [],
-    "similar_visual_chars": [
-      {
-        "characters": [
-          {
-            "character": "记",
-            "pinyins": [
-              "jì"
-            ],
-            "glyph_score": 0.8761,
-            "ssim_score": 0.6225,
-            "stroke_count_difference": 1
-          }
-        ]
-      }
-    ]
+    "similar_visual_chars": []
   },
   "设": {
     "character": "设",
@@ -42375,15 +40645,6 @@
             "decomposition_glyph_score": 0.9644
           },
           {
-            "character": "认",
-            "pinyins": [
-              "rèn"
-            ],
-            "glyph_score": 0.815,
-            "ssim_score": 0.6549,
-            "stroke_count_difference": 3
-          },
-          {
             "character": "积",
             "pinyins": [
               "jī"
@@ -42393,15 +40654,6 @@
             "stroke_count_difference": 3,
             "decomposition_relation": true,
             "decomposition_glyph_score": 0.9249
-          },
-          {
-            "character": "说",
-            "pinyins": [
-              "shuō"
-            ],
-            "glyph_score": 0.8824,
-            "ssim_score": 0.6133,
-            "stroke_count_difference": 2
           },
           {
             "character": "只",
@@ -42831,15 +41083,6 @@
       {
         "characters": [
           {
-            "character": "谈",
-            "pinyins": [
-              "tán"
-            ],
-            "glyph_score": 0.7354,
-            "ssim_score": 0.6583,
-            "stroke_count_difference": 1
-          },
-          {
             "character": "读",
             "pinyins": [
               "dú"
@@ -42880,16 +41123,6 @@
     "similar_visual_chars": [
       {
         "characters": [
-          {
-            "character": "识",
-            "pinyins": [
-              "shi",
-              "shí"
-            ],
-            "glyph_score": 0.8824,
-            "ssim_score": 0.6133,
-            "stroke_count_difference": 2
-          },
           {
             "character": "税",
             "pinyins": [
@@ -43065,15 +41298,6 @@
             "glyph_score": 0.9655,
             "ssim_score": 0.6563,
             "stroke_count_difference": 1
-          },
-          {
-            "character": "谈",
-            "pinyins": [
-              "tán"
-            ],
-            "glyph_score": 0.7528,
-            "ssim_score": 0.6103,
-            "stroke_count_difference": 0
           },
           {
             "character": "卖",
@@ -43342,24 +41566,6 @@
       {
         "characters": [
           {
-            "character": "误",
-            "pinyins": [
-              "wù"
-            ],
-            "glyph_score": 0.7354,
-            "ssim_score": 0.6583,
-            "stroke_count_difference": 1
-          },
-          {
-            "character": "读",
-            "pinyins": [
-              "dú"
-            ],
-            "glyph_score": 0.7528,
-            "ssim_score": 0.6103,
-            "stroke_count_difference": 0
-          },
-          {
             "character": "淡",
             "pinyins": [
               "dàn"
@@ -43510,15 +41716,6 @@
       {
         "characters": [
           {
-            "character": "具",
-            "pinyins": [
-              "jù"
-            ],
-            "glyph_score": 0.7533,
-            "ssim_score": 0.6627,
-            "stroke_count_difference": 4
-          },
-          {
             "character": "员",
             "pinyins": [
               "yuán"
@@ -43556,21 +41753,7 @@
     "meaning": "load, burden; to carry, to bear",
     "sample_pinyin": "fù",
     "other_pinyins": [],
-    "similar_visual_chars": [
-      {
-        "characters": [
-          {
-            "character": "鱼",
-            "pinyins": [
-              "yú"
-            ],
-            "glyph_score": 0.8529,
-            "ssim_score": 0.6171,
-            "stroke_count_difference": 2
-          }
-        ]
-      }
-    ]
+    "similar_visual_chars": []
   },
   "贡": {
     "character": "贡",
@@ -45504,15 +43687,6 @@
             "glyph_score": 0.8954,
             "ssim_score": 0.6092,
             "stroke_count_difference": 3
-          },
-          {
-            "character": "递",
-            "pinyins": [
-              "dì"
-            ],
-            "glyph_score": 0.8679,
-            "ssim_score": 0.6007,
-            "stroke_count_difference": 3
           }
         ]
       }
@@ -45560,15 +43734,6 @@
             ],
             "glyph_score": 0.9409,
             "ssim_score": 0.6249,
-            "stroke_count_difference": 2
-          },
-          {
-            "character": "迷",
-            "pinyins": [
-              "mí"
-            ],
-            "glyph_score": 0.8441,
-            "ssim_score": 0.6232,
             "stroke_count_difference": 2
           },
           {
@@ -45717,15 +43882,6 @@
             "stroke_count_difference": 1
           },
           {
-            "character": "途",
-            "pinyins": [
-              "tú"
-            ],
-            "glyph_score": 0.8374,
-            "ssim_score": 0.6394,
-            "stroke_count_difference": 3
-          },
-          {
             "character": "运",
             "pinyins": [
               "yùn"
@@ -45760,15 +43916,6 @@
             "glyph_score": 0.892,
             "ssim_score": 0.6194,
             "stroke_count_difference": 3
-          },
-          {
-            "character": "述",
-            "pinyins": [
-              "shù"
-            ],
-            "glyph_score": 0.8507,
-            "ssim_score": 0.6113,
-            "stroke_count_difference": 1
           },
           {
             "character": "反",
@@ -45830,39 +43977,12 @@
       {
         "characters": [
           {
-            "character": "逻",
-            "pinyins": [
-              "luó"
-            ],
-            "glyph_score": 0.8363,
-            "ssim_score": 0.6313,
-            "stroke_count_difference": 4
-          },
-          {
             "character": "逐",
             "pinyins": [
               "zhú"
             ],
             "glyph_score": 0.8839,
             "ssim_score": 0.6264,
-            "stroke_count_difference": 3
-          },
-          {
-            "character": "通",
-            "pinyins": [
-              "tōng"
-            ],
-            "glyph_score": 0.8385,
-            "ssim_score": 0.6203,
-            "stroke_count_difference": 3
-          },
-          {
-            "character": "逛",
-            "pinyins": [
-              "guàng"
-            ],
-            "glyph_score": 0.8435,
-            "ssim_score": 0.6198,
             "stroke_count_difference": 3
           },
           {
@@ -45891,15 +44011,6 @@
             "glyph_score": 0.8957,
             "ssim_score": 0.6066,
             "stroke_count_difference": 2
-          },
-          {
-            "character": "述",
-            "pinyins": [
-              "shù"
-            ],
-            "glyph_score": 0.8231,
-            "ssim_score": 0.6002,
-            "stroke_count_difference": 1
           },
           {
             "character": "坏",
@@ -46012,15 +44123,6 @@
             "glyph_score": 0.915,
             "ssim_score": 0.6139,
             "stroke_count_difference": 2
-          },
-          {
-            "character": "选",
-            "pinyins": [
-              "xuǎn"
-            ],
-            "glyph_score": 0.8957,
-            "ssim_score": 0.6037,
-            "stroke_count_difference": 2
           }
         ]
       }
@@ -46092,37 +44194,6 @@
             "glyph_score": 1.0,
             "ssim_score": 1.0,
             "stroke_count_difference": 0
-          },
-          {
-            "character": "个",
-            "pinyins": [
-              "gè",
-              "ge",
-              "gèr"
-            ],
-            "glyph_score": 0.1273,
-            "ssim_score": 0.6346,
-            "stroke_count_difference": 4
-          },
-          {
-            "character": "上",
-            "pinyins": [
-              "shàng",
-              "shang"
-            ],
-            "glyph_score": 0.2973,
-            "ssim_score": 0.623,
-            "stroke_count_difference": 4
-          },
-          {
-            "character": "下",
-            "pinyins": [
-              "xià",
-              "xia"
-            ],
-            "glyph_score": 0.2012,
-            "ssim_score": 0.6091,
-            "stroke_count_difference": 4
           }
         ]
       }
@@ -46144,15 +44215,6 @@
             "glyph_score": 0.9631,
             "ssim_score": 0.6177,
             "stroke_count_difference": 0
-          },
-          {
-            "character": "递",
-            "pinyins": [
-              "dì"
-            ],
-            "glyph_score": 0.8328,
-            "ssim_score": 0.6095,
-            "stroke_count_difference": 3
           },
           {
             "character": "伟",
@@ -46279,37 +44341,6 @@
             "glyph_score": 1.0,
             "ssim_score": 1.0,
             "stroke_count_difference": 0
-          },
-          {
-            "character": "个",
-            "pinyins": [
-              "gè",
-              "ge",
-              "gèr"
-            ],
-            "glyph_score": 0.1273,
-            "ssim_score": 0.6346,
-            "stroke_count_difference": 4
-          },
-          {
-            "character": "上",
-            "pinyins": [
-              "shàng",
-              "shang"
-            ],
-            "glyph_score": 0.2973,
-            "ssim_score": 0.623,
-            "stroke_count_difference": 4
-          },
-          {
-            "character": "下",
-            "pinyins": [
-              "xià",
-              "xia"
-            ],
-            "glyph_score": 0.2012,
-            "ssim_score": 0.6091,
-            "stroke_count_difference": 4
           }
         ]
       }
@@ -46371,15 +44402,6 @@
             "stroke_count_difference": 2
           },
           {
-            "character": "返",
-            "pinyins": [
-              "fǎn"
-            ],
-            "glyph_score": 0.8507,
-            "ssim_score": 0.6113,
-            "stroke_count_difference": 1
-          },
-          {
             "character": "送",
             "pinyins": [
               "sòng"
@@ -46397,16 +44419,6 @@
             "glyph_score": 0.9016,
             "ssim_score": 0.6026,
             "stroke_count_difference": 2
-          },
-          {
-            "character": "还",
-            "pinyins": [
-              "hái",
-              "huán"
-            ],
-            "glyph_score": 0.8231,
-            "ssim_score": 0.6002,
-            "stroke_count_difference": 1
           }
         ]
       }
@@ -46439,51 +44451,6 @@
             "stroke_count_difference": 1,
             "decomposition_relation": true,
             "decomposition_glyph_score": 0.9575
-          },
-          {
-            "character": "运",
-            "pinyins": [
-              "yùn"
-            ],
-            "glyph_score": 0.8441,
-            "ssim_score": 0.6232,
-            "stroke_count_difference": 2
-          },
-          {
-            "character": "追",
-            "pinyins": [
-              "zhuī"
-            ],
-            "glyph_score": 0.8293,
-            "ssim_score": 0.6229,
-            "stroke_count_difference": 0
-          },
-          {
-            "character": "遇",
-            "pinyins": [
-              "yù"
-            ],
-            "glyph_score": 0.8533,
-            "ssim_score": 0.6152,
-            "stroke_count_difference": 3
-          },
-          {
-            "character": "适",
-            "pinyins": [
-              "shì"
-            ],
-            "glyph_score": 0.8395,
-            "ssim_score": 0.6099,
-            "stroke_count_difference": 0
-          },
-          {
-            "character": "退",
-            "pinyins": [
-              "tuì"
-            ],
-            "glyph_score": 0.8801,
-            "ssim_score": 0.6012,
-            "stroke_count_difference": 0
           }
         ]
       }
@@ -46629,15 +44596,6 @@
             "stroke_count_difference": 0
           },
           {
-            "character": "迷",
-            "pinyins": [
-              "mí"
-            ],
-            "glyph_score": 0.8293,
-            "ssim_score": 0.6229,
-            "stroke_count_difference": 0
-          },
-          {
             "character": "达",
             "pinyins": [
               "dá"
@@ -46754,15 +44712,6 @@
             "glyph_score": 0.8868,
             "ssim_score": 0.6845,
             "stroke_count_difference": 1
-          },
-          {
-            "character": "迷",
-            "pinyins": [
-              "mí"
-            ],
-            "glyph_score": 0.8801,
-            "ssim_score": 0.6012,
-            "stroke_count_difference": 0
           },
           {
             "character": "追",
@@ -46987,15 +44936,6 @@
             "stroke_count_difference": 1
           },
           {
-            "character": "迷",
-            "pinyins": [
-              "mí"
-            ],
-            "glyph_score": 0.8395,
-            "ssim_score": 0.6099,
-            "stroke_count_difference": 0
-          },
-          {
             "character": "还",
             "pinyins": [
               "hái",
@@ -47043,15 +44983,6 @@
             "glyph_score": 0.9279,
             "ssim_score": 0.6108,
             "stroke_count_difference": 0
-          },
-          {
-            "character": "这",
-            "pinyins": [
-              "zhè"
-            ],
-            "glyph_score": 0.8957,
-            "ssim_score": 0.6037,
-            "stroke_count_difference": 2
           },
           {
             "character": "递",
@@ -47180,24 +45111,6 @@
             "stroke_count_difference": 1
           },
           {
-            "character": "违",
-            "pinyins": [
-              "wéi"
-            ],
-            "glyph_score": 0.8328,
-            "ssim_score": 0.6095,
-            "stroke_count_difference": 3
-          },
-          {
-            "character": "迎",
-            "pinyins": [
-              "yíng"
-            ],
-            "glyph_score": 0.8679,
-            "ssim_score": 0.6007,
-            "stroke_count_difference": 3
-          },
-          {
             "character": "选",
             "pinyins": [
               "xuǎn"
@@ -47262,15 +45175,6 @@
             "glyph_score": 0.9155,
             "ssim_score": 0.6454,
             "stroke_count_difference": 2
-          },
-          {
-            "character": "返",
-            "pinyins": [
-              "fǎn"
-            ],
-            "glyph_score": 0.8374,
-            "ssim_score": 0.6394,
-            "stroke_count_difference": 3
           },
           {
             "character": "送",
@@ -47359,16 +45263,6 @@
             "stroke_count_difference": 2
           },
           {
-            "character": "还",
-            "pinyins": [
-              "hái",
-              "huán"
-            ],
-            "glyph_score": 0.8385,
-            "ssim_score": 0.6203,
-            "stroke_count_difference": 3
-          },
-          {
             "character": "返",
             "pinyins": [
               "fǎn"
@@ -47444,16 +45338,6 @@
             "glyph_score": 0.9106,
             "ssim_score": 0.6798,
             "stroke_count_difference": 4
-          },
-          {
-            "character": "还",
-            "pinyins": [
-              "hái",
-              "huán"
-            ],
-            "glyph_score": 0.8435,
-            "ssim_score": 0.6198,
-            "stroke_count_difference": 3
           },
           {
             "character": "过",
@@ -47557,15 +45441,6 @@
             "glyph_score": 0.9328,
             "ssim_score": 0.6122,
             "stroke_count_difference": 1
-          },
-          {
-            "character": "道",
-            "pinyins": [
-              "dào"
-            ],
-            "glyph_score": 0.8876,
-            "ssim_score": 0.6111,
-            "stroke_count_difference": 2
           },
           {
             "character": "还",
@@ -47717,16 +45592,6 @@
             "stroke_count_difference": 1
           },
           {
-            "character": "还",
-            "pinyins": [
-              "hái",
-              "huán"
-            ],
-            "glyph_score": 0.8363,
-            "ssim_score": 0.6313,
-            "stroke_count_difference": 4
-          },
-          {
             "character": "返",
             "pinyins": [
               "fǎn"
@@ -47809,15 +45674,6 @@
             "glyph_score": 0.9733,
             "ssim_score": 0.6181,
             "stroke_count_difference": 2
-          },
-          {
-            "character": "迷",
-            "pinyins": [
-              "mí"
-            ],
-            "glyph_score": 0.8533,
-            "ssim_score": 0.6152,
-            "stroke_count_difference": 3
           },
           {
             "character": "偶",
@@ -47974,24 +45830,6 @@
             "stroke_count_difference": 1
           },
           {
-            "character": "邀",
-            "pinyins": [
-              "yāo"
-            ],
-            "glyph_score": 0.8663,
-            "ssim_score": 0.6119,
-            "stroke_count_difference": 4
-          },
-          {
-            "character": "速",
-            "pinyins": [
-              "sù"
-            ],
-            "glyph_score": 0.8876,
-            "ssim_score": 0.6111,
-            "stroke_count_difference": 2
-          },
-          {
             "character": "遍",
             "pinyins": [
               "biàn"
@@ -48061,21 +45899,7 @@
     "meaning": "to invite, to welcome; to intercept, to meet",
     "sample_pinyin": "yāo",
     "other_pinyins": [],
-    "similar_visual_chars": [
-      {
-        "characters": [
-          {
-            "character": "道",
-            "pinyins": [
-              "dào"
-            ],
-            "glyph_score": 0.8663,
-            "ssim_score": 0.6119,
-            "stroke_count_difference": 4
-          }
-        ]
-      }
-    ]
+    "similar_visual_chars": []
   },
   "那": {
     "character": "那",
@@ -48437,15 +46261,6 @@
       {
         "characters": [
           {
-            "character": "平",
-            "pinyins": [
-              "píng"
-            ],
-            "glyph_score": 0.8519,
-            "ssim_score": 0.64,
-            "stroke_count_difference": 3
-          },
-          {
             "character": "床",
             "pinyins": [
               "chuáng"
@@ -48653,15 +46468,6 @@
             "stroke_count_difference": 1
           },
           {
-            "character": "铃",
-            "pinyins": [
-              "líng"
-            ],
-            "glyph_score": 0.8971,
-            "ssim_score": 0.6015,
-            "stroke_count_difference": 1
-          },
-          {
             "character": "冲",
             "pinyins": [
               "chōng"
@@ -48862,15 +46668,6 @@
             "decomposition_glyph_score": 0.9328
           },
           {
-            "character": "钟",
-            "pinyins": [
-              "zhōng"
-            ],
-            "glyph_score": 0.8971,
-            "ssim_score": 0.6015,
-            "stroke_count_difference": 1
-          },
-          {
             "character": "龄",
             "pinyins": [
               "líng"
@@ -48968,15 +46765,6 @@
             ],
             "glyph_score": 0.9123,
             "ssim_score": 0.6321,
-            "stroke_count_difference": 1
-          },
-          {
-            "character": "锁",
-            "pinyins": [
-              "suǒ"
-            ],
-            "glyph_score": 0.8247,
-            "ssim_score": 0.6147,
             "stroke_count_difference": 1
           },
           {
@@ -49120,15 +46908,6 @@
             "glyph_score": 0.8854,
             "ssim_score": 0.6478,
             "stroke_count_difference": 2
-          },
-          {
-            "character": "银",
-            "pinyins": [
-              "yín"
-            ],
-            "glyph_score": 0.8247,
-            "ssim_score": 0.6147,
-            "stroke_count_difference": 1
           }
         ]
       }
@@ -49382,15 +47161,6 @@
             "stroke_count_difference": 3
           },
           {
-            "character": "闲",
-            "pinyins": [
-              "xián"
-            ],
-            "glyph_score": 0.7674,
-            "ssim_score": 0.697,
-            "stroke_count_difference": 4
-          },
-          {
             "character": "间",
             "pinyins": [
               "jiān"
@@ -49458,24 +47228,6 @@
             "stroke_count_difference": 2
           },
           {
-            "character": "阅",
-            "pinyins": [
-              "yuè"
-            ],
-            "glyph_score": 0.8233,
-            "ssim_score": 0.6448,
-            "stroke_count_difference": 4
-          },
-          {
-            "character": "闻",
-            "pinyins": [
-              "wén"
-            ],
-            "glyph_score": 0.865,
-            "ssim_score": 0.6308,
-            "stroke_count_difference": 3
-          },
-          {
             "character": "团",
             "pinyins": [
               "tuán"
@@ -49529,15 +47281,6 @@
             "stroke_count_difference": 3
           },
           {
-            "character": "闲",
-            "pinyins": [
-              "xián"
-            ],
-            "glyph_score": 0.7665,
-            "ssim_score": 0.6888,
-            "stroke_count_difference": 1
-          },
-          {
             "character": "闭",
             "pinyins": [
               "bì"
@@ -49564,15 +47307,6 @@
             "glyph_score": 0.9014,
             "ssim_score": 0.6523,
             "stroke_count_difference": 2
-          },
-          {
-            "character": "阅",
-            "pinyins": [
-              "yuè"
-            ],
-            "glyph_score": 0.841,
-            "ssim_score": 0.649,
-            "stroke_count_difference": 4
           },
           {
             "character": "向",
@@ -49613,42 +47347,6 @@
             "glyph_score": 0.935,
             "ssim_score": 0.7386,
             "stroke_count_difference": 1
-          },
-          {
-            "character": "门",
-            "pinyins": [
-              "mén"
-            ],
-            "glyph_score": 0.7674,
-            "ssim_score": 0.697,
-            "stroke_count_difference": 4
-          },
-          {
-            "character": "问",
-            "pinyins": [
-              "wèn"
-            ],
-            "glyph_score": 0.7665,
-            "ssim_score": 0.6888,
-            "stroke_count_difference": 1
-          },
-          {
-            "character": "间",
-            "pinyins": [
-              "jiān"
-            ],
-            "glyph_score": 0.7862,
-            "ssim_score": 0.6872,
-            "stroke_count_difference": 0
-          },
-          {
-            "character": "闻",
-            "pinyins": [
-              "wén"
-            ],
-            "glyph_score": 0.7928,
-            "ssim_score": 0.6432,
-            "stroke_count_difference": 2
           },
           {
             "character": "因",
@@ -49749,15 +47447,6 @@
             "stroke_count_difference": 1
           },
           {
-            "character": "闲",
-            "pinyins": [
-              "xián"
-            ],
-            "glyph_score": 0.7862,
-            "ssim_score": 0.6872,
-            "stroke_count_difference": 0
-          },
-          {
             "character": "闹",
             "pinyins": [
               "ao",
@@ -49775,15 +47464,6 @@
             "glyph_score": 0.9441,
             "ssim_score": 0.7357,
             "stroke_count_difference": 2
-          },
-          {
-            "character": "阅",
-            "pinyins": [
-              "yuè"
-            ],
-            "glyph_score": 0.8263,
-            "ssim_score": 0.6253,
-            "stroke_count_difference": 3
           }
         ]
       }
@@ -49887,24 +47567,6 @@
             "stroke_count_difference": 3
           },
           {
-            "character": "阅",
-            "pinyins": [
-              "yuè"
-            ],
-            "glyph_score": 0.8257,
-            "ssim_score": 0.6485,
-            "stroke_count_difference": 1
-          },
-          {
-            "character": "闲",
-            "pinyins": [
-              "xián"
-            ],
-            "glyph_score": 0.7928,
-            "ssim_score": 0.6432,
-            "stroke_count_difference": 2
-          },
-          {
             "character": "闹",
             "pinyins": [
               "ao",
@@ -49913,25 +47575,6 @@
             "glyph_score": 0.9174,
             "ssim_score": 0.638,
             "stroke_count_difference": 1
-          },
-          {
-            "character": "闭",
-            "pinyins": [
-              "bì"
-            ],
-            "glyph_score": 0.865,
-            "ssim_score": 0.6308,
-            "stroke_count_difference": 3
-          },
-          {
-            "character": "同",
-            "pinyins": [
-              "tóng",
-              "tòng"
-            ],
-            "glyph_score": 0.8836,
-            "ssim_score": 0.6043,
-            "stroke_count_difference": 3
           }
         ]
       }
@@ -49945,51 +47588,6 @@
     "similar_visual_chars": [
       {
         "characters": [
-          {
-            "character": "问",
-            "pinyins": [
-              "wèn"
-            ],
-            "glyph_score": 0.841,
-            "ssim_score": 0.649,
-            "stroke_count_difference": 4
-          },
-          {
-            "character": "闻",
-            "pinyins": [
-              "wén"
-            ],
-            "glyph_score": 0.8257,
-            "ssim_score": 0.6485,
-            "stroke_count_difference": 1
-          },
-          {
-            "character": "闭",
-            "pinyins": [
-              "bì"
-            ],
-            "glyph_score": 0.8233,
-            "ssim_score": 0.6448,
-            "stroke_count_difference": 4
-          },
-          {
-            "character": "回",
-            "pinyins": [
-              "huí"
-            ],
-            "glyph_score": 0.758,
-            "ssim_score": 0.6445,
-            "stroke_count_difference": 4
-          },
-          {
-            "character": "间",
-            "pinyins": [
-              "jiān"
-            ],
-            "glyph_score": 0.8263,
-            "ssim_score": 0.6253,
-            "stroke_count_difference": 3
-          },
           {
             "character": "脱",
             "pinyins": [
@@ -51355,15 +48953,6 @@
             "stroke_count_difference": 2
           },
           {
-            "character": "灵",
-            "pinyins": [
-              "líng"
-            ],
-            "glyph_score": 0.873,
-            "ssim_score": 0.6092,
-            "stroke_count_difference": 1
-          },
-          {
             "character": "员",
             "pinyins": [
               "yuán"
@@ -51732,15 +49321,6 @@
             "stroke_count_difference": 0,
             "decomposition_relation": true,
             "decomposition_glyph_score": 0.936
-          },
-          {
-            "character": "尺",
-            "pinyins": [
-              "chǐ"
-            ],
-            "glyph_score": 0.8545,
-            "ssim_score": 0.6137,
-            "stroke_count_difference": 0
           },
           {
             "character": "疯",
@@ -52402,15 +49982,6 @@
             ],
             "glyph_score": 0.9378,
             "ssim_score": 0.6201,
-            "stroke_count_difference": 2
-          },
-          {
-            "character": "负",
-            "pinyins": [
-              "fù"
-            ],
-            "glyph_score": 0.8529,
-            "ssim_score": 0.6171,
             "stroke_count_difference": 2
           }
         ]

@@ -38,7 +38,7 @@ Examples:
     python3 scrap/find_similar_characters.py --method exp --glyph-threshold 0.60 --ssim-threshold 0.95 --use-phonetic --use-decomposition --max-stroke-gap 4
 
 Current:
-    python3 scrap/find_similar_characters.py --method exp --ssim-threshold 0.60 --glyph-threshold 0.975 --use-decomposition
+    python3 scrap/find_similar_characters.py --method exp --ssim-threshold 0.60 --glyph-threshold 0.975 --use-decomposition --max-stroke-gap 4
 """
 
 from __future__ import annotations
@@ -734,7 +734,7 @@ def rank_exp(
         effective_glyph_threshold = 0.90 if glyph_threshold is None else glyph_threshold
         effective_ssim_threshold = 0.60 if ssim_threshold is None else ssim_threshold
 
-        pass_condition = (ssim_score_value >= effective_ssim_threshold) or (glyph_score >= effective_glyph_threshold) or (decomposition_relation)
+        pass_condition = (ssim_score_value >= effective_ssim_threshold and ssim_score_value + glyph_score >= 1.5) or (glyph_score >= effective_glyph_threshold) or (decomposition_relation)
 
         if not pass_condition:
             continue
