@@ -227,31 +227,34 @@ function resolveOtherUseCasesPath() {
 }
 
 async function fetchJsonResource(path) {
-  if (typeof window !== "undefined" && "caches" in window) {
-    const cache = await window.caches.open(CHARACTER_INFO_CACHE_NAME);
-    const cachedResponse = await cache.match(path);
+  const cacheBustedPath = `${path}${path.includes("?") ? "&" : "?"}t=${Date.now()}`;
 
-    if (cachedResponse) {
-      return cachedResponse.json();
-    }
-
-    const response = await fetch(path, { cache: "force-cache" });
+  try {
+    // Always request a fresh copy from public/ on each page load.
+    const response = await fetch(cacheBustedPath, { cache: "no-store" });
 
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`);
     }
 
-    await cache.put(path, response.clone());
+    if (typeof window !== "undefined" && "caches" in window) {
+      const cache = await window.caches.open(CHARACTER_INFO_CACHE_NAME);
+      await cache.put(path, response.clone());
+    }
+
     return response.json();
+  } catch (error) {
+    if (typeof window !== "undefined" && "caches" in window) {
+      const cache = await window.caches.open(CHARACTER_INFO_CACHE_NAME);
+      const cachedResponse = await cache.match(path);
+
+      if (cachedResponse) {
+        return cachedResponse.json();
+      }
+    }
+
+    throw error;
   }
-
-  const response = await fetch(path, { cache: "force-cache" });
-
-  if (!response.ok) {
-    throw new Error(`HTTP ${response.status}`);
-  }
-
-  return response.json();
 }
 
 function mergeLoadedWordsWithCachedStatus(loadedWords, cachedWords) {
