@@ -38,7 +38,7 @@ Examples:
     python3 scrap/find_similar_characters.py --method exp --glyph-threshold 0.60 --ssim-threshold 0.95 --use-phonetic --use-decomposition --max-stroke-gap 4
 
 Current:
-    python3 scrap/find_similar_characters.py --method exp --ssim-threshold 0.60 --glyph-threshold 0.975 --use-decomposition --max-stroke-gap 4
+    python3 scrap/find_similar_characters.py --method exp --ssim-threshold 0.6 --glyph-threshold 0.965 --use-decomposition --max-stroke-gap 4
 """
 
 from __future__ import annotations
@@ -154,7 +154,7 @@ def build_radical_map(records: dict[str, dict[str, Any]], characters: list[str])
 
 decomposition_rule1_glyph_threshold = 0.95
 decomposition_rule2_glyph_threshold = 0.915
-decomposition_rule3_glyph_threshold = 0.88
+decomposition_rule3_glyph_threshold = 0
 decomposition_placeholder_components = {"？", "?"}
 
 
@@ -734,7 +734,7 @@ def rank_exp(
         effective_glyph_threshold = 0.90 if glyph_threshold is None else glyph_threshold
         effective_ssim_threshold = 0.60 if ssim_threshold is None else ssim_threshold
 
-        pass_condition = (ssim_score_value >= effective_ssim_threshold and ssim_score_value + glyph_score >= 1.5) or (glyph_score >= effective_glyph_threshold) or (decomposition_relation)
+        pass_condition = (ssim_score_value >= effective_ssim_threshold and glyph_score >= 0.9) or (ssim_score_value >= 0.55 and glyph_score >= 0.95) or (glyph_score >= effective_glyph_threshold) or (decomposition_relation)
 
         if not pass_condition:
             continue

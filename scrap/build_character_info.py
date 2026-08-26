@@ -125,6 +125,12 @@ def pinyin_base(text: str) -> str:
     return "".join(character for character in decomposed if unicodedata.category(character) != "Mn").replace("ü", "v")
 
 
+def normalize_hanzi_text(text: str) -> str:
+    """Normalize compatibility Hanzi/radical forms to standard code points."""
+
+    return unicodedata.normalize("NFKC", text)
+
+
 def is_valid_syllable(syllable: str) -> bool:
     base = pinyin_base(syllable)
     return base in VALID_SYLLABLES
@@ -244,14 +250,15 @@ def build_character_info(
             reader = csv.DictReader(file)
             for line_number, row in enumerate(reader, start=2):
                 word = (row.get("word") or "").strip()
+                normalized_word = normalize_hanzi_text(word)
                 word_pinyin = (row.get("pinyin") or "").strip()
                 meaning = (row.get("translation") or "").strip()
-                characters = [character for character in word if is_hanzi(character)]
+                characters = [character for character in normalized_word if is_hanzi(character)]
                 alternate_readings = [part.strip() for part in word_pinyin.split("/") if part.strip()]
                 syllables = split_pinyin(alternate_readings[0], len(characters))
 
                 if syllables is None:
-                    alignment_warnings.append(f"{csv_file.name}:{line_number} could not align '{word}' with '{word_pinyin}'.")
+                    alignment_warnings.append(f"{csv_file.name}:{line_number} could not align '{normalized_word}' with '{word_pinyin}'.")
                     fallback = first_syllable(alternate_readings[0]) if len(characters) == 1 else ""
                     syllables = [fallback] * len(characters)
 
@@ -269,7 +276,7 @@ def build_character_info(
                             add_pronunciation(info, alternate_reading)
                     add_usecase(
                         character,
-                        word,
+                        normalized_word,
                         word_pinyin,
                         meaning,
                         usecase_entries,
