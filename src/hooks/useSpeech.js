@@ -92,7 +92,7 @@ export function useSpeech() {
         utterance.lang = voice?.lang || getPreferredChineseLocale();
         utterance.voice = voice;
         utterance.volume = 1;
-        utterance.rate = 0.75;
+        utterance.rate = 0.67;
         utterance.pitch = 1;
         utterance.onend = () => {
           if (speechRequestRef.current !== requestId) return;
