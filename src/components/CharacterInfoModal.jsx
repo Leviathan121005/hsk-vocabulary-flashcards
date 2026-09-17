@@ -81,7 +81,7 @@ export function CharacterInfoModal({
   resourcesLoading = false,
   resourcesError = "",
 }) {
-  const characters = useMemo(() => Array.from(word || ""), [word]);
+  const characters = useMemo(() => Array.from((word || "").normalize("NFKC")), [word]);
   const [selectedCharacter, setSelectedCharacter] = useState(characters[0] || "");
   const [visualLimit, setVisualLimit] = useState(INITIAL_ITEM_LIMIT);
   const [pinyinLimit, setPinyinLimit] = useState(INITIAL_ITEM_LIMIT);

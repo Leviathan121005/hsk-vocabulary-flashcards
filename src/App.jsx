@@ -300,8 +300,11 @@ function normalizeWordForStorage(word) {
       ? safeWord.part_of_speech
       : "";
 
+  const normalizedHanzi = (safeWord?.hanzi || "").normalize("NFKC").trim();
+
   return {
     ...withoutLegacyPos,
+    hanzi: normalizedHanzi,
     partOfSpeech,
   };
 }
@@ -319,7 +322,11 @@ function normalizeWordsForStorage(words) {
     const nextWord = normalizeWordForStorage(word);
     const hasLegacyPartOfSpeechKey = Object.prototype.hasOwnProperty.call(word || {}, "part_of_speech");
 
-    if ((word?.partOfSpeech || "") !== nextWord.partOfSpeech || hasLegacyPartOfSpeechKey) {
+    if (
+      (word?.partOfSpeech || "") !== nextWord.partOfSpeech
+      || (word?.hanzi || "") !== nextWord.hanzi
+      || hasLegacyPartOfSpeechKey
+    ) {
       changed = true;
     }
     return nextWord;
@@ -497,7 +504,7 @@ export default function App() {
   const reviewPoolWords = useMemo(() => getReviewPoolWords(allWords, reviewPool), [allWords, reviewPool]);
 
   const filteredVocabulary = useMemo(() => {
-    const query = vocabularySearch.trim().toLowerCase();
+    const query = vocabularySearch.trim().normalize("NFKC").toLowerCase();
 
     return allWords.filter((word) => {
       if (vocabularyFilter === "mastered" && word.masteryStatus !== "mastered") return false;
@@ -510,7 +517,7 @@ export default function App() {
 
       if (!query) return true;
 
-      const haystack = `${word.hanzi} ${word.pinyin} ${word.english}`.toLowerCase();
+      const haystack = `${word.hanzi} ${word.pinyin} ${word.english}`.normalize("NFKC").toLowerCase();
       return haystack.includes(query);
     });
   }, [allWords, vocabularyFilter, hanziLengthFilter, vocabularySearch]);

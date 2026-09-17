@@ -38,7 +38,7 @@ Examples:
     python3 scrap/find_similar_characters.py --method exp --glyph-threshold 0.60 --ssim-threshold 0.95 --use-phonetic --use-decomposition --max-stroke-gap 4
 
 Current:
-    python3 scrap/find_similar_characters.py --method exp --ssim-threshold 0.6 --glyph-threshold 0.965 --use-decomposition --max-stroke-gap 4
+    python3 scrap/find_similar_characters.py --method exp --ssim-threshold 0.6 --glyph-threshold 0.963 --use-decomposition --max-stroke-gap 4
 """
 
 from __future__ import annotations

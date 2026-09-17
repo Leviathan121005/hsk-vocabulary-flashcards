@@ -1,5 +1,9 @@
 import { MASTERY_STATUS } from "../data/masteryStatus";
 
+function normalizeHanziText(text) {
+  return (text || "").normalize("NFKC").trim();
+}
+
 function parseCsvLine(line) {
   const cells = [];
   let current = "";
@@ -102,7 +106,7 @@ function normalizeWord({ row, headerMap, fallbackId }) {
 
   return {
     id,
-    hanzi: (hanzi || "").trim(),
+    hanzi: normalizeHanziText(hanzi),
     pinyin: (pinyin || "").trim(),
     english: (english || "").trim(),
     partOfSpeech: (partOfSpeech || "").trim(),
