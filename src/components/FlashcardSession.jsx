@@ -27,8 +27,13 @@ export function FlashcardSession({
   characterInfoData = null,
   pinyinIndexData = null,
   otherUseCasesIndexData = null,
+  sentenceExamplesData = null,
+  sentenceGlossaryByWord = null,
+  sentenceLevel = null,
   characterInfoLoading = false,
   characterInfoLoadError = "",
+  sentenceExamplesLoading = false,
+  sentenceExamplesLoadError = "",
 }) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isActionMenuOpen, setIsActionMenuOpen] = useState(false);
@@ -349,8 +354,13 @@ export function FlashcardSession({
         characterInfoData={characterInfoData}
         pinyinIndexData={pinyinIndexData}
         otherUseCasesIndexData={otherUseCasesIndexData}
+        sentenceExamplesData={sentenceExamplesData}
+        sentenceGlossaryByWord={sentenceGlossaryByWord}
+        sentenceLevel={sentenceLevel}
         resourcesLoading={characterInfoLoading}
         resourcesError={characterInfoLoadError}
+        sentenceExamplesLoading={sentenceExamplesLoading}
+        sentenceExamplesError={sentenceExamplesLoadError}
       />
     </section>
   );

@@ -226,6 +226,11 @@ function resolveOtherUseCasesPath() {
   return `${baseUrl}other_use_cases.json`;
 }
 
+function resolveSentenceExamplesPath() {
+  const baseUrl = import.meta.env.BASE_URL || "/";
+  return `${baseUrl}sentence_example.json`;
+}
+
 async function fetchJsonResource(path) {
   const cacheBustedPath = `${path}${path.includes("?") ? "&" : "?"}t=${Date.now()}`;
 
@@ -353,6 +358,10 @@ function wordsNeedPartOfSpeechHydration(words) {
   });
 }
 
+function normalizeHanziKey(text) {
+  return (text || "").normalize("NFKC").trim();
+}
+
 export default function App() {
   const { speak, stop, isSpeaking, speakingText } = useSpeech();
   const [selectedSet, setSelectedSet] = useLocalStorage("flashcards.v1.selectedSet", "hsk5");
@@ -378,8 +387,11 @@ export default function App() {
   const [characterInfoData, setCharacterInfoData] = useState(null);
   const [pinyinIndexData, setPinyinIndexData] = useState(null);
   const [otherUseCasesIndexData, setOtherUseCasesIndexData] = useState(null);
+  const [sentenceExamplesData, setSentenceExamplesData] = useState(null);
   const [characterInfoLoading, setCharacterInfoLoading] = useState(true);
   const [characterInfoLoadError, setCharacterInfoLoadError] = useState("");
+  const [sentenceExamplesLoading, setSentenceExamplesLoading] = useState(true);
+  const [sentenceExamplesLoadError, setSentenceExamplesLoadError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
@@ -393,28 +405,55 @@ export default function App() {
   const themeTokens = useMemo(() => getThemeTokens(uiTheme), [uiTheme]);
 
   async function loadCharacterInfoResources() {
-    if (characterInfoData && pinyinIndexData && otherUseCasesIndexData) return;
+    if (characterInfoData && pinyinIndexData && otherUseCasesIndexData && sentenceExamplesData) return;
     if (characterInfoLoadPromiseRef.current) return characterInfoLoadPromiseRef.current;
 
     setCharacterInfoLoading(true);
     setCharacterInfoLoadError("");
+    setSentenceExamplesLoading(true);
+    setSentenceExamplesLoadError("");
 
-    const loadPromise = Promise.all([
+    const loadPromise = Promise.allSettled([
       fetchJsonResource(resolveCharacterInfoPath()),
       fetchJsonResource(resolvePinyinIndexPath()),
       fetchJsonResource(resolveOtherUseCasesPath()),
+      fetchJsonResource(resolveSentenceExamplesPath()),
     ])
-      .then(([characterInfo, pinyinIndex, otherUseCasesIndex]) => {
-        setCharacterInfoData(characterInfo);
-        setPinyinIndexData(pinyinIndex);
-        setOtherUseCasesIndexData(otherUseCasesIndex);
-      })
-      .catch(() => {
-        setCharacterInfoLoadError("Character information could not be loaded.");
+      .then((results) => {
+        const [characterInfoResult, pinyinIndexResult, otherUseCasesResult, sentenceExamplesResult] = results;
+
+        if (characterInfoResult.status === "fulfilled") {
+          setCharacterInfoData(characterInfoResult.value);
+        }
+
+        if (pinyinIndexResult.status === "fulfilled") {
+          setPinyinIndexData(pinyinIndexResult.value);
+        }
+
+        if (otherUseCasesResult.status === "fulfilled") {
+          setOtherUseCasesIndexData(otherUseCasesResult.value);
+        }
+
+        if (sentenceExamplesResult.status === "fulfilled") {
+          setSentenceExamplesData(sentenceExamplesResult.value);
+        }
+
+        if (
+          characterInfoResult.status !== "fulfilled"
+          || pinyinIndexResult.status !== "fulfilled"
+          || otherUseCasesResult.status !== "fulfilled"
+        ) {
+          setCharacterInfoLoadError("Character information could not be loaded.");
+        }
+
+        if (sentenceExamplesResult.status !== "fulfilled") {
+          setSentenceExamplesLoadError("Sentence examples could not be loaded.");
+        }
       })
       .finally(() => {
         characterInfoLoadPromiseRef.current = null;
         setCharacterInfoLoading(false);
+        setSentenceExamplesLoading(false);
       });
 
     characterInfoLoadPromiseRef.current = loadPromise;
@@ -432,11 +471,19 @@ export default function App() {
 
   useEffect(() => {
     if (!isCharacterInfoRequested) return;
-    if (characterInfoData && pinyinIndexData && otherUseCasesIndexData) return;
-    if (characterInfoLoading) return;
+    if (characterInfoData && pinyinIndexData && otherUseCasesIndexData && sentenceExamplesData) return;
+    if (characterInfoLoading || sentenceExamplesLoading) return;
 
     loadCharacterInfoResources();
-  }, [isCharacterInfoRequested, characterInfoData, pinyinIndexData, otherUseCasesIndexData, characterInfoLoading]);
+  }, [
+    isCharacterInfoRequested,
+    characterInfoData,
+    pinyinIndexData,
+    otherUseCasesIndexData,
+    sentenceExamplesData,
+    characterInfoLoading,
+    sentenceExamplesLoading,
+  ]);
 
   useEffect(() => {
     setBuiltinWordSets((previous) => {
@@ -500,6 +547,39 @@ export default function App() {
     return custom?.words || [];
   }, [builtinWordSets, customSets, selectedSet]);
 
+  const selectedSetLevel = useMemo(() => {
+    const match = /^hsk(\d+)$/i.exec(selectedSet || "");
+    if (!match) return null;
+    return Number.parseInt(match[1], 10);
+  }, [selectedSet]);
+
+  const sentenceGlossaryByWord = useMemo(() => {
+    const lookup = {};
+
+    allWords.forEach((entry) => {
+      const normalizedWord = normalizeHanziKey(entry?.hanzi);
+      if (!normalizedWord) return;
+
+      const existing = lookup[normalizedWord];
+      const nextPinyin = (entry?.pinyin || "").trim();
+      const nextMeaning = (entry?.english || "").trim();
+
+      if (!existing) {
+        lookup[normalizedWord] = {
+          word: normalizedWord,
+          pinyin: nextPinyin,
+          meaning: nextMeaning,
+        };
+        return;
+      }
+
+      if (!existing.pinyin && nextPinyin) existing.pinyin = nextPinyin;
+      if (!existing.meaning && nextMeaning) existing.meaning = nextMeaning;
+    });
+
+    return lookup;
+  }, [allWords]);
+
   const counts = useMemo(() => countByMastery(allWords), [allWords]);
   const reviewPoolWords = useMemo(() => getReviewPoolWords(allWords, reviewPool), [allWords, reviewPool]);
 
@@ -529,7 +609,7 @@ export default function App() {
 
   const remainingVocabularyRows = Math.max(0, filteredVocabulary.length - visibleVocabularyRows.length);
   const isVocabularyInfoOpen = Boolean(vocabularyInfoWord);
-  const isAppLoading = isLoading || characterInfoLoading;
+  const isAppLoading = isLoading || characterInfoLoading || sentenceExamplesLoading;
 
   const reviewPoolLabel = useMemo(() => {
     if (reviewPool === "mastered") return "Mastered";
@@ -1153,8 +1233,13 @@ export default function App() {
             characterInfoData={characterInfoData}
             pinyinIndexData={pinyinIndexData}
             otherUseCasesIndexData={otherUseCasesIndexData}
+            sentenceExamplesData={sentenceExamplesData}
+            sentenceGlossaryByWord={sentenceGlossaryByWord}
+            sentenceLevel={selectedSetLevel}
             characterInfoLoading={characterInfoLoading}
             characterInfoLoadError={characterInfoLoadError}
+            sentenceExamplesLoading={sentenceExamplesLoading}
+            sentenceExamplesLoadError={sentenceExamplesLoadError}
           />
         )}
 
@@ -1414,8 +1499,13 @@ export default function App() {
           characterInfoData={characterInfoData}
           pinyinIndexData={pinyinIndexData}
           otherUseCasesIndexData={otherUseCasesIndexData}
+          sentenceExamplesData={sentenceExamplesData}
+          sentenceGlossaryByWord={sentenceGlossaryByWord}
+          sentenceLevel={selectedSetLevel}
           resourcesLoading={characterInfoLoading}
           resourcesError={characterInfoLoadError}
+          sentenceExamplesLoading={sentenceExamplesLoading}
+          sentenceExamplesError={sentenceExamplesLoadError}
         />
       </div>
     </main>

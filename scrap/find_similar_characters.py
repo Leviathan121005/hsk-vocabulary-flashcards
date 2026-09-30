@@ -38,7 +38,7 @@ Examples:
     python3 scrap/find_similar_characters.py --method exp --glyph-threshold 0.60 --ssim-threshold 0.95 --use-phonetic --use-decomposition --max-stroke-gap 4
 
 Current:
-    python3 scrap/find_similar_characters.py --method exp --ssim-threshold 0.6 --glyph-threshold 0.963 --use-decomposition --max-stroke-gap 4
+    python3 scrap/find_similar_characters.py --method exp --ssim-threshold 0.6 --glyph-threshold 0.9615 --use-decomposition --max-stroke-gap 4
 """
 
 from __future__ import annotations
@@ -46,6 +46,7 @@ from __future__ import annotations
 import argparse
 import json
 import time
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Optional
 
@@ -152,10 +153,84 @@ def build_radical_map(records: dict[str, dict[str, Any]], characters: list[str])
         out[character] = radical.strip() if isinstance(radical, str) else ""
     return out
 
-decomposition_rule1_glyph_threshold = 0.95
-decomposition_rule2_glyph_threshold = 0.915
-decomposition_rule3_glyph_threshold = 0
+# Thresholds used by the 3 decomposition length==3 subrules.
+DECOMPOSITION_THRESHOLDS = [
+    0.95,   # [0] shared radical position -> compare the other components
+    0.915,  # [1] shared non-radical position -> compare whole-character glyphs
+    0.0,    # [2] direct (character, non-radical-component) pairing
+]
 decomposition_placeholder_components = {"？", "?"}
+
+
+@dataclass(frozen=True)
+class RunConfig:
+    # Selection and method.
+    method: str
+    only_character: Optional[str]
+
+    # Score cutoffs.
+    threshold: Optional[float]
+    glyph_threshold: Optional[float]
+    ssim_threshold: Optional[float]
+
+    # Structural filter.
+    max_stroke_gap: int
+
+    # Semantic options.
+    use_phonetic: bool
+    use_decomposition: bool
+    include_phonetic: bool
+    include_decomposition: bool
+
+    # Glyph rendering/embedding settings.
+    glyph_metric: str
+    glyph_font: Optional[str]
+    glyph_device: str
+
+    # SSIM cache settings.
+    ssim_size: int
+    ssim_cache_path: Path
+    refresh_ssim_cache: bool
+
+
+@dataclass(frozen=True)
+class MatchContext:
+    characters: list[str]
+    character_info: dict[str, dict[str, Any]]
+    stroke_counts: dict[str, int]
+    phonetic_map: dict[str, str]
+    max_stroke_gap: int
+
+
+@dataclass(frozen=True)
+class GlyphLookup:
+    index_by_symbol: dict[str, int]
+    similarities_by_symbol: torch.Tensor
+
+
+@dataclass(frozen=True)
+class SsimLookup:
+    index_by_character: dict[str, int]
+    scores: Any
+
+
+@dataclass(frozen=True)
+class DecompositionLookup:
+    decomposition_map: dict[str, str]
+    radical_map: dict[str, str]
+    character_set: set[str]
+    glyph_lookup: GlyphLookup
+
+
+def non_radical_component_for_len3(left_component: str, right_component: str, radical: str) -> Optional[str]:
+    """Return the non-radical component from a len-3 decomposition when identifiable."""
+    if not radical:
+        return None
+    if left_component == radical and right_component != radical:
+        return right_component
+    if right_component == radical and left_component != radical:
+        return left_component
+    return None
 
 
 def is_valid_decomposition_component(component: str) -> bool:
@@ -205,23 +280,23 @@ def decomposition_is_single_change(left: str, right: str) -> bool:
     return sum(a != b for a, b in zip(left, right)) == 1
 
 
-def match_rule3_direct_component_pair(
+def match_direct_component_pair(
     query: str,
     candidate: str,
-    query_left_component: str,
-    query_right_component: str,
-    query_radical: str,
+    *,
+    left_component: str,
+    right_component: str,
+    radical: str,
     character_set: set[str],
     glyph_index_by_symbol: dict[str, int],
     glyph_similarities_by_symbol: torch.Tensor,
     glyph_threshold: float,
 ) -> tuple[bool, Optional[float], bool]:
-    query_non_radical_component: Optional[str] = None
-    if query_radical:
-        if query_left_component == query_radical and query_right_component != query_radical:
-            query_non_radical_component = query_right_component
-        elif query_right_component == query_radical and query_left_component != query_radical:
-            query_non_radical_component = query_left_component
+    query_non_radical_component = non_radical_component_for_len3(
+        left_component=left_component,
+        right_component=right_component,
+        radical=radical,
+    )
 
     if not query_non_radical_component:
         return False, None, False
@@ -246,15 +321,17 @@ def match_rule3_direct_component_pair(
 def decomposition_match_details(
     query: str,
     candidate: str,
-    decomposition_map: dict[str, str],
-    radical_map: dict[str, str],
-    glyph_index_by_symbol: dict[str, int],
-    glyph_similarities_by_symbol: torch.Tensor,
-    character_set: set[str],
-    rule1_glyph_threshold: float = decomposition_rule1_glyph_threshold,
-    rule2_glyph_threshold: float = decomposition_rule2_glyph_threshold,
-    rule3_glyph_threshold: float = decomposition_rule3_glyph_threshold,
+    decomposition_lookup: DecompositionLookup,
+    thresholds: Optional[list[float]] = None,
 ) -> tuple[bool, Optional[float], Optional[str], bool]:
+    # Returns: (matched, optional_glyph_score, rule_tag, direct_component_flag)
+    decomposition_map = decomposition_lookup.decomposition_map
+    radical_map = decomposition_lookup.radical_map
+    active_thresholds = thresholds if thresholds is not None else DECOMPOSITION_THRESHOLDS
+    shared_radical_component_threshold = active_thresholds[0]
+    shared_non_radical_whole_threshold = active_thresholds[1]
+    direct_component_pair_threshold = active_thresholds[2]
+
     query_decomp = decomposition_map.get(query)
     candidate_decomp = decomposition_map.get(candidate)
     if not query_decomp or not candidate_decomp:
@@ -264,32 +341,32 @@ def decomposition_match_details(
         is_match = decomposition_is_single_change(query_decomp, candidate_decomp)
         return is_match, None, ("length_ge_4_single_change" if is_match else None), False
 
-    query_len3 = parse_len3_decomposition(query_decomp)
-    candidate_len3 = parse_len3_decomposition(candidate_decomp)
-    if query_len3 is None or candidate_len3 is None:
+    query_parts = parse_len3_decomposition(query_decomp)
+    candidate_parts = parse_len3_decomposition(candidate_decomp)
+    if query_parts is None or candidate_parts is None:
         return False, None, None, False
 
-    _, query_left_component, query_right_component = query_len3
-    _, candidate_left_component, candidate_right_component = candidate_len3
+    _, query_left_component, query_right_component = query_parts
+    _, candidate_left_component, candidate_right_component = candidate_parts
 
-    query_components = (query_left_component, query_right_component)
-    candidate_components = (candidate_left_component, candidate_right_component)
+    query_component_pair = (query_left_component, query_right_component)
+    candidate_component_pair = (candidate_left_component, candidate_right_component)
     query_radical = radical_map.get(query, "")
     candidate_radical = radical_map.get(candidate, "")
 
     # Rule 3 (separate idea): directly pair the query character with its
     # non-radical component when that component is also a character in
     # character_info.json, and the pair passes Rule 3 glyph threshold.
-    is_direct_pair, direct_pair_score, component_in_character_info = match_rule3_direct_component_pair(
+    is_direct_pair, direct_pair_score, component_in_character_info = match_direct_component_pair(
         query=query,
         candidate=candidate,
-        query_left_component=query_left_component,
-        query_right_component=query_right_component,
-        query_radical=query_radical,
-        character_set=character_set,
-        glyph_index_by_symbol=glyph_index_by_symbol,
-        glyph_similarities_by_symbol=glyph_similarities_by_symbol,
-        glyph_threshold=rule3_glyph_threshold,
+        left_component=query_left_component,
+        right_component=query_right_component,
+        radical=query_radical,
+        character_set=decomposition_lookup.character_set,
+        glyph_index_by_symbol=decomposition_lookup.glyph_lookup.index_by_symbol,
+        glyph_similarities_by_symbol=decomposition_lookup.glyph_lookup.similarities_by_symbol,
+        glyph_threshold=direct_component_pair_threshold,
     )
     if is_direct_pair:
         return True, direct_pair_score, "length_3_direct_component_pair", component_in_character_info
@@ -298,14 +375,14 @@ def decomposition_match_details(
     # glyph similarity on the remaining component using rule1_glyph_threshold.
     if query_radical and candidate_radical and query_radical == candidate_radical:
         for position in (0, 1):
-            if query_components[position] != query_radical:
+            if query_component_pair[position] != query_radical:
                 continue
-            if candidate_components[position] != candidate_radical:
+            if candidate_component_pair[position] != candidate_radical:
                 continue
 
             other_position = 1 - position
-            query_other_component = query_components[other_position]
-            candidate_other_component = candidate_components[other_position]
+            query_other_component = query_component_pair[other_position]
+            candidate_other_component = candidate_component_pair[other_position]
             if not is_valid_decomposition_component(query_other_component):
                 continue
             if not is_valid_decomposition_component(candidate_other_component):
@@ -316,20 +393,20 @@ def decomposition_match_details(
             component_score = glyph_similarity_for_symbols(
                 query_other_component,
                 candidate_other_component,
-                glyph_index_by_symbol,
-                glyph_similarities_by_symbol,
+                decomposition_lookup.glyph_lookup.index_by_symbol,
+                decomposition_lookup.glyph_lookup.similarities_by_symbol,
             )
-            if component_score is not None and component_score >= rule1_glyph_threshold:
+            if component_score is not None and component_score >= shared_radical_component_threshold:
                 return True, component_score, "length_3_rule_1_component", False
 
     # Rule 2: same non-radical component at the same IDS component position,
     # then compare glyph similarity on the whole character using
     # rule2_glyph_threshold.
     for position in (0, 1):
-        shared_component = query_components[position]
+        shared_component = query_component_pair[position]
         if not is_valid_decomposition_component(shared_component):
             continue
-        if shared_component != candidate_components[position]:
+        if shared_component != candidate_component_pair[position]:
             continue
         if shared_component == query_radical or shared_component == candidate_radical:
             continue
@@ -337,10 +414,10 @@ def decomposition_match_details(
         whole_score = glyph_similarity_for_symbols(
             query,
             candidate,
-            glyph_index_by_symbol,
-            glyph_similarities_by_symbol,
+            decomposition_lookup.glyph_lookup.index_by_symbol,
+            decomposition_lookup.glyph_lookup.similarities_by_symbol,
         )
-        if whole_score is not None and whole_score >= rule2_glyph_threshold:
+        if whole_score is not None and whole_score >= shared_non_radical_whole_threshold:
             return True, whole_score, "length_3_rule_2_whole", False
 
     return False, None, None, False
@@ -552,43 +629,38 @@ def normalize_glyph_metric(metric: str) -> str:
 
 def rank_glyph(
     query: str,
-    characters: list[str],
-    char_info: dict[str, dict[str, Any]],
-    glyph_index_by_symbol: dict[str, int],
-    glyph_similarities_by_symbol: torch.Tensor,
-    stroke_counts: dict[str, int],
+    context: MatchContext,
+    glyph_lookup: GlyphLookup,
     threshold: float,
-    max_stroke_gap: int,
-    phonetic_map: dict[str, str],
     use_phonetic: bool,
 ) -> list[dict[str, Any]]:
-    query_strokes = stroke_counts.get(query)
+    # Quick skip when stroke metadata is unavailable for the query.
+    query_strokes = context.stroke_counts.get(query)
     if query_strokes is None:
         return []
 
     results: list[tuple[str, float, int, bool]] = []
-    for candidate in characters:
+    for candidate in context.characters:
         if candidate == query:
             continue
         score = glyph_similarity_for_symbols(
             query,
             candidate,
-            glyph_index_by_symbol,
-            glyph_similarities_by_symbol,
+            glyph_lookup.index_by_symbol,
+            glyph_lookup.similarities_by_symbol,
         )
         if score is None:
             continue
 
-        candidate_strokes = stroke_counts.get(candidate)
+        candidate_strokes = context.stroke_counts.get(candidate)
         if candidate_strokes is None:
             continue
         stroke_gap = abs(query_strokes - candidate_strokes)
-        if stroke_gap > max_stroke_gap:
+        if stroke_gap > context.max_stroke_gap:
             continue
 
-        phonetic_match = use_phonetic and phonetic_match_details(query, candidate, phonetic_map)[0]
-        pass_condition = score >= threshold
-        if not pass_condition:
+        phonetic_match = use_phonetic and phonetic_match_details(query, candidate, context.phonetic_map)[0]
+        if score < threshold:
             continue
 
         results.append((candidate, score, stroke_gap, phonetic_match))
@@ -598,7 +670,7 @@ def rank_glyph(
     for candidate, score, stroke_gap, phonetic_match in results:
         entry: dict[str, Any] = {
             "character": candidate,
-            "pinyins": pinyins_for(char_info[candidate]),
+            "pinyins": pinyins_for(context.character_info[candidate]),
             "score": round(score, 4),
             "glyph_score": round(score, 4),
             "stroke_count_difference": stroke_gap,
@@ -611,39 +683,34 @@ def rank_glyph(
 
 def rank_ssim(
     query: str,
-    characters: list[str],
-    char_info: dict[str, dict[str, Any]],
-    index_by_character: dict[str, int],
-    score_matrix: Any,
-    stroke_counts: dict[str, int],
+    context: MatchContext,
+    ssim_lookup: SsimLookup,
     threshold: float,
-    max_stroke_gap: int,
-    phonetic_map: dict[str, str],
     use_phonetic: bool,
 ) -> list[dict[str, Any]]:
-    query_index = index_by_character.get(query)
-    query_strokes = stroke_counts.get(query)
+    # Quick skip when stroke metadata or SSIM index is unavailable.
+    query_index = ssim_lookup.index_by_character.get(query)
+    query_strokes = context.stroke_counts.get(query)
     if query_index is None or query_strokes is None:
         return []
 
     results: list[tuple[str, float, int, bool]] = []
-    for candidate in characters:
+    for candidate in context.characters:
         if candidate == query:
             continue
-        candidate_index = index_by_character.get(candidate)
-        candidate_strokes = stroke_counts.get(candidate)
+        candidate_index = ssim_lookup.index_by_character.get(candidate)
+        candidate_strokes = context.stroke_counts.get(candidate)
         if candidate_index is None or candidate_strokes is None:
             continue
 
         stroke_gap = abs(query_strokes - candidate_strokes)
-        if stroke_gap > max_stroke_gap:
+        if stroke_gap > context.max_stroke_gap:
             continue
 
-        score = float(score_matrix[query_index, candidate_index])
-        phonetic_match = use_phonetic and phonetic_match_details(query, candidate, phonetic_map)[0]
+        score = float(ssim_lookup.scores[query_index, candidate_index])
+        phonetic_match = use_phonetic and phonetic_match_details(query, candidate, context.phonetic_map)[0]
 
-        pass_condition = score >= threshold
-        if not pass_condition:
+        if score < threshold:
             continue
 
         results.append((candidate, score, stroke_gap, phonetic_match))
@@ -653,7 +720,7 @@ def rank_ssim(
     for candidate, score, stroke_gap, phonetic_match in results:
         entry: dict[str, Any] = {
             "character": candidate,
-            "pinyins": pinyins_for(char_info[candidate]),
+            "pinyins": pinyins_for(context.character_info[candidate]),
             "score": round(score, 4),
             "ssim_score": round(score, 4),
             "stroke_count_difference": stroke_gap,
@@ -666,56 +733,48 @@ def rank_ssim(
 
 def rank_exp(
     query: str,
-    characters: list[str],
-    char_info: dict[str, dict[str, Any]],
-    ssim_index_by_character: dict[str, int],
-    ssim_scores: Any,
-    stroke_counts: dict[str, int],
-    phonetic_map: dict[str, str],
-    decomposition_map: dict[str, str],
-    radical_map: dict[str, str],
-    glyph_index_by_symbol: dict[str, int],
-    glyph_similarities_by_symbol: torch.Tensor,
-    character_set: set[str],
+    context: MatchContext,
+    ssim_lookup: SsimLookup,
+    decomposition_lookup: DecompositionLookup,
     glyph_threshold: Optional[float],
     ssim_threshold: Optional[float],
-    max_stroke_gap: int,
     use_phonetic: bool,
     use_decomposition: bool,
 ) -> list[dict[str, Any]]:
-    query_ssim_index = ssim_index_by_character.get(query)
-    query_strokes = stroke_counts.get(query)
+    # Experimental mode fuses SSIM, glyph, and optional semantic relations.
+    query_ssim_index = ssim_lookup.index_by_character.get(query)
+    query_strokes = context.stroke_counts.get(query)
     if query_ssim_index is None or query_strokes is None:
         return []
 
     results: list[tuple[str, float, float, int, bool, bool, Optional[float], bool]] = []
-    for candidate in characters:
+    for candidate in context.characters:
         if candidate == query:
             continue
 
-        candidate_ssim_index = ssim_index_by_character.get(candidate)
-        candidate_strokes = stroke_counts.get(candidate)
+        candidate_ssim_index = ssim_lookup.index_by_character.get(candidate)
+        candidate_strokes = context.stroke_counts.get(candidate)
         if candidate_ssim_index is None or candidate_strokes is None:
             continue
 
         stroke_gap = abs(query_strokes - candidate_strokes)
-        if stroke_gap > max_stroke_gap:
+        if stroke_gap > context.max_stroke_gap:
             continue
 
         glyph_score_raw = glyph_similarity_for_symbols(
             query,
             candidate,
-            glyph_index_by_symbol,
-            glyph_similarities_by_symbol,
+            decomposition_lookup.glyph_lookup.index_by_symbol,
+            decomposition_lookup.glyph_lookup.similarities_by_symbol,
         )
         if glyph_score_raw is None:
             continue
         glyph_score = float(glyph_score_raw)
-        ssim_score_value = float(ssim_scores[query_ssim_index, candidate_ssim_index])
+        ssim_score_value = float(ssim_lookup.scores[query_ssim_index, candidate_ssim_index])
 
         phonetic_relation = None
         if use_phonetic:
-            phonetic_relation = phonetic_match_details(query, candidate, phonetic_map)[0]
+            phonetic_relation = phonetic_match_details(query, candidate, context.phonetic_map)[0]
 
         decomposition_relation = None
         decomposition_relation_score: Optional[float] = None
@@ -724,17 +783,18 @@ def rank_exp(
             decomposition_relation, decomposition_relation_score, _, decomposition_component_in_character_info = decomposition_match_details(
                 query,
                 candidate,
-                decomposition_map,
-                radical_map,
-                glyph_index_by_symbol,
-                glyph_similarities_by_symbol,
-                character_set,
+                decomposition_lookup,
             )
 
         effective_glyph_threshold = 0.90 if glyph_threshold is None else glyph_threshold
         effective_ssim_threshold = 0.60 if ssim_threshold is None else ssim_threshold
 
-        pass_condition = (ssim_score_value >= effective_ssim_threshold and glyph_score >= 0.9) or (ssim_score_value >= 0.55 and glyph_score >= 0.95) or (glyph_score >= effective_glyph_threshold) or (decomposition_relation)
+        pass_condition = (
+            (ssim_score_value >= effective_ssim_threshold and glyph_score >= 0.9)
+            or (ssim_score_value >= 0.55 and glyph_score >= 0.95)
+            or (glyph_score >= effective_glyph_threshold)
+            or decomposition_relation
+        )
 
         if not pass_condition:
             continue
@@ -757,7 +817,7 @@ def rank_exp(
     for candidate, glyph_score, ssim_score_value, stroke_gap, phonetic_hit, decomposition_hit, decomposition_score, component_in_character_info in results:
         entry: dict[str, Any] = {
             "character": candidate,
-            "pinyins": pinyins_for(char_info[candidate]),
+            "pinyins": pinyins_for(context.character_info[candidate]),
             "glyph_score": round(glyph_score, 4),
             "ssim_score": round(ssim_score_value, 4),
             "stroke_count_difference": stroke_gap,
@@ -811,11 +871,7 @@ def append_decomposition_entries(
     matches: list[dict[str, Any]],
     characters: list[str],
     char_info: dict[str, dict[str, Any]],
-    decomposition_map: dict[str, str],
-    radical_map: dict[str, str],
-    glyph_index_by_symbol: dict[str, int],
-    glyph_similarities_by_symbol: torch.Tensor,
-    character_set: set[str],
+    decomposition_lookup: DecompositionLookup,
 ) -> list[dict[str, Any]]:
     existing = {
         entry.get("character")
@@ -830,11 +886,7 @@ def append_decomposition_entries(
         is_match, decomposition_score, _, component_in_character_info = decomposition_match_details(
             query,
             candidate,
-            decomposition_map,
-            radical_map,
-            glyph_index_by_symbol,
-            glyph_similarities_by_symbol,
-            character_set,
+            decomposition_lookup,
         )
         if not is_match:
             continue
@@ -855,16 +907,14 @@ def append_decomposition_entries(
 
 def apply_symmetric_direct_component_pairs(
     character_info: dict[str, dict[str, Any]],
-    decomposition_map: dict[str, str],
-    radical_map: dict[str, str],
-    character_set: set[str],
-    glyph_index_by_symbol: dict[str, int],
-    glyph_similarities_by_symbol: torch.Tensor,
-    rule3_threshold: float = decomposition_rule3_glyph_threshold,
+    decomposition_lookup: DecompositionLookup,
+    direct_component_pair_threshold: float = DECOMPOSITION_THRESHOLDS[2],
 ) -> int:
-    added = 0
+    added_directed_edges = 0
+    decomposition_map = decomposition_lookup.decomposition_map
+    radical_map = decomposition_lookup.radical_map
 
-    for query in character_set:
+    for query in decomposition_lookup.character_set:
         query_decomp = decomposition_map.get(query)
         query_len3 = parse_len3_decomposition(query_decomp or "")
         if query_len3 is None:
@@ -873,25 +923,24 @@ def apply_symmetric_direct_component_pairs(
         _, query_left_component, query_right_component = query_len3
         query_radical = radical_map.get(query, "")
 
-        candidate = ""
-        if query_radical:
-            if query_left_component == query_radical and query_right_component != query_radical:
-                candidate = query_right_component
-            elif query_right_component == query_radical and query_left_component != query_radical:
-                candidate = query_left_component
+        candidate = non_radical_component_for_len3(
+            left_component=query_left_component,
+            right_component=query_right_component,
+            radical=query_radical,
+        ) or ""
         if not candidate:
             continue
 
-        is_match, pair_score, _ = match_rule3_direct_component_pair(
+        is_match, pair_score, _ = match_direct_component_pair(
             query=query,
             candidate=candidate,
-            query_left_component=query_left_component,
-            query_right_component=query_right_component,
-            query_radical=query_radical,
-            character_set=character_set,
-            glyph_index_by_symbol=glyph_index_by_symbol,
-            glyph_similarities_by_symbol=glyph_similarities_by_symbol,
-            glyph_threshold=rule3_threshold,
+            left_component=query_left_component,
+            right_component=query_right_component,
+            radical=query_radical,
+            character_set=decomposition_lookup.character_set,
+            glyph_index_by_symbol=decomposition_lookup.glyph_lookup.index_by_symbol,
+            glyph_similarities_by_symbol=decomposition_lookup.glyph_lookup.similarities_by_symbol,
+            glyph_threshold=direct_component_pair_threshold,
         )
         if not is_match:
             continue
@@ -921,9 +970,9 @@ def apply_symmetric_direct_component_pairs(
                 new_entry["decomposition_glyph_score"] = round(pair_score, 4)
             candidates.append(new_entry)
             candidates.sort(key=lambda item: item.get("character", "") if isinstance(item, dict) else "")
-            added += 1
+            added_directed_edges += 1
 
-    return added
+    return added_directed_edges
 
 
 def normalize_group_method_shape(similar_visual_chars: Any) -> None:
@@ -973,24 +1022,10 @@ def remove_self_candidates(similar_visual_chars: Any, query: str) -> None:
 
 def update_character_info(
     character_info: dict[str, dict[str, Any]],
-    method: str,
-    threshold: Optional[float],
-    max_stroke_gap: int,
     dictionary_records: dict[str, dict[str, Any]],
-    glyph_metric: str,
-    glyph_font: Optional[str],
-    glyph_device: str,
-    ssim_cache_path: Path,
-    refresh_ssim_cache: bool,
-    only_character: Optional[str],
-    include_phonetic: bool,
-    include_decomposition: bool,
-    use_phonetic: bool,
-    use_decomposition: bool,
-    ssim_size: int = CANVAS_SIZE,
-    glyph_threshold: Optional[float] = None,
-    ssim_threshold: Optional[float] = None,
+    config: RunConfig,
 ) -> tuple[int, int]:
+    # Build all static lookup maps once per run.
     characters = sorted(character_info)
     character_set = set(characters)
     stroke_counts = build_stroke_counts(dictionary_records)
@@ -998,19 +1033,29 @@ def update_character_info(
     decomposition_map = build_decomposition_map(dictionary_records, characters)
     radical_map = build_radical_map(dictionary_records, characters)
 
+    match_context = MatchContext(
+        characters=characters,
+        character_info=character_info,
+        stroke_counts=stroke_counts,
+        phonetic_map=phonetic_map,
+        max_stroke_gap=config.max_stroke_gap,
+    )
+
     glyph_similarities_by_symbol: Optional[torch.Tensor] = None
     glyph_index_by_symbol: dict[str, int] = {}
     ssim_scores: Any = None
     ssim_index_by_character: dict[str, int] = {}
 
-    need_decomposition_glyph = include_decomposition or use_decomposition
-    need_glyph = method in ("glyph", "exp") or need_decomposition_glyph
-    need_ssim = method in ("ssim", "exp")
+    # Decide which expensive resources are required for this run mode.
+    need_decomposition_glyph = config.include_decomposition or config.use_decomposition
+    need_glyph = config.method in ("glyph", "exp") or need_decomposition_glyph
+    need_ssim = config.method in ("ssim", "exp")
 
-    font_path = resolve_font_path(glyph_font)
+    font_path = resolve_font_path(config.glyph_font)
 
     if need_glyph:
-        device = resolve_torch_device(glyph_device)
+        # Glyph lookup can include decomposition-only symbols, not just characters.
+        device = resolve_torch_device(config.glyph_device)
         glyph_symbols = set(characters)
         if need_decomposition_glyph:
             glyph_symbols.update(collect_len3_decomposition_components(decomposition_map))
@@ -1018,26 +1063,45 @@ def update_character_info(
 
         log(f"Glyph setup: building embeddings for {len(ordered_glyph_symbols)} symbols on {device.type}")
         embeddings = build_embeddings(ordered_glyph_symbols, font_path, device)
-        glyph_similarities_by_symbol = similarity_matrix(embeddings, glyph_metric)
+        glyph_similarities_by_symbol = similarity_matrix(embeddings, config.glyph_metric)
         glyph_index_by_symbol = {symbol: index for index, symbol in enumerate(ordered_glyph_symbols)}
         log("Glyph setup: similarity matrix ready")
 
-    if need_ssim:
-        log(f"SSIM setup: preparing cached score matrix for {len(characters)} characters")
-        ssim_scores, ssim_index_by_character = load_or_build_ssim_cache(
-            cache_path=ssim_cache_path,
-            refresh=refresh_ssim_cache,
-            characters=characters,
-            font_path=font_path,
-            ssim_size=ssim_size,
+    glyph_lookup: Optional[GlyphLookup] = None
+    decomposition_lookup: Optional[DecompositionLookup] = None
+    if glyph_similarities_by_symbol is not None:
+        glyph_lookup = GlyphLookup(
+            index_by_symbol=glyph_index_by_symbol,
+            similarities_by_symbol=glyph_similarities_by_symbol,
+        )
+        decomposition_lookup = DecompositionLookup(
+            decomposition_map=decomposition_map,
+            radical_map=radical_map,
+            character_set=character_set,
+            glyph_lookup=glyph_lookup,
         )
 
-    targets = [only_character] if only_character else characters
+    ssim_lookup: Optional[SsimLookup] = None
+    if need_ssim:
+        # SSIM matrix is loaded from cache when compatible, otherwise rebuilt.
+        log(f"SSIM setup: preparing cached score matrix for {len(characters)} characters")
+        ssim_scores, ssim_index_by_character = load_or_build_ssim_cache(
+            cache_path=config.ssim_cache_path,
+            refresh=config.refresh_ssim_cache,
+            characters=characters,
+            font_path=font_path,
+            ssim_size=config.ssim_size,
+        )
+        ssim_lookup = SsimLookup(index_by_character=ssim_index_by_character, scores=ssim_scores)
+
+    targets = [config.only_character] if config.only_character else characters
     updated = 0
-    total_matches = 0
+    # This accumulator stores directed edges (A->B), not unique undirected pairs.
+    total_directed_matches = 0
     started = time.time()
     progress_every = 25 if len(targets) > 100 else 10
 
+    # Main query loop: compute or append candidates for each character.
     for index, query in enumerate(targets, start=1):
         info = character_info.get(query)
         if not isinstance(info, dict):
@@ -1046,60 +1110,41 @@ def update_character_info(
         normalize_group_method_shape(info.get("similar_visual_chars"))
         remove_self_candidates(info.get("similar_visual_chars"), query)
 
-        if method == "glyph":
-            assert glyph_similarities_by_symbol is not None
+        if config.method == "glyph":
+            assert glyph_lookup is not None
             matches = rank_glyph(
                 query,
-                characters,
-                character_info,
-                glyph_index_by_symbol,
-                glyph_similarities_by_symbol,
-                stroke_counts,
-                float(threshold),
-                max_stroke_gap,
-                phonetic_map,
-                use_phonetic,
+                match_context,
+                glyph_lookup,
+                float(config.threshold),
+                config.use_phonetic,
             )
-        elif method == "ssim":
-            assert ssim_scores is not None
+        elif config.method == "ssim":
+            assert ssim_lookup is not None
             matches = rank_ssim(
                 query,
-                characters,
-                character_info,
-                ssim_index_by_character,
-                ssim_scores,
-                stroke_counts,
-                float(threshold),
-                max_stroke_gap,
-                phonetic_map,
-                use_phonetic,
+                match_context,
+                ssim_lookup,
+                float(config.threshold),
+                config.use_phonetic,
             )
-        elif method == "exp":
-            assert glyph_similarities_by_symbol is not None and ssim_scores is not None
-            assert glyph_similarities_by_symbol is not None
+        elif config.method == "exp":
+            assert decomposition_lookup is not None and ssim_lookup is not None
             matches = rank_exp(
                 query,
-                characters,
-                character_info,
-                ssim_index_by_character,
-                ssim_scores,
-                stroke_counts,
-                phonetic_map,
-                decomposition_map,
-                radical_map,
-                glyph_index_by_symbol,
-                glyph_similarities_by_symbol,
-                character_set,
-                glyph_threshold,
-                ssim_threshold,
-                max_stroke_gap,
-                use_phonetic,
-                use_decomposition,
+                match_context,
+                ssim_lookup,
+                decomposition_lookup,
+                config.glyph_threshold,
+                config.ssim_threshold,
+                config.use_phonetic,
+                config.use_decomposition,
             )
         else:
-            raise ValueError(f"Unsupported method: {method}")
+            raise ValueError(f"Unsupported method: {config.method}")
 
-        if include_phonetic:
+        # Optional append steps run after the core ranking pass.
+        if config.include_phonetic:
             matches = append_phonetic_entries(
                 query=query,
                 matches=matches,
@@ -1107,23 +1152,19 @@ def update_character_info(
                 char_info=character_info,
                 phonetic_map=phonetic_map,
             )
-        if include_decomposition:
-            assert glyph_similarities_by_symbol is not None
+        if config.include_decomposition:
+            assert decomposition_lookup is not None
             matches = append_decomposition_entries(
                 query=query,
                 matches=matches,
                 characters=characters,
                 char_info=character_info,
-                decomposition_map=decomposition_map,
-                radical_map=radical_map,
-                glyph_index_by_symbol=glyph_index_by_symbol,
-                glyph_similarities_by_symbol=glyph_similarities_by_symbol,
-                character_set=character_set,
+                decomposition_lookup=decomposition_lookup,
             )
 
         character_info[query]["similar_visual_chars"] = [{"characters": matches}] if matches else []
         updated += 1
-        total_matches += len(matches)
+        total_directed_matches += len(matches)
 
         if index % progress_every == 0 or index == len(targets):
             elapsed = time.time() - started
@@ -1131,23 +1172,20 @@ def update_character_info(
             eta_seconds = (len(targets) - index) / rate if rate > 0 else 0.0
             log(
                 f"Progress {index}/{len(targets)} | updated={updated} | "
-                f"matches={total_matches} | elapsed={elapsed:.1f}s | eta={eta_seconds:.1f}s"
+                f"matches={total_directed_matches} | elapsed={elapsed:.1f}s | eta={eta_seconds:.1f}s"
             )
 
-    if (include_decomposition or use_decomposition) and glyph_similarities_by_symbol is not None:
+    # Enforce direct component-pair symmetry after per-query generation.
+    if (config.include_decomposition or config.use_decomposition) and decomposition_lookup is not None:
         added_symmetric = apply_symmetric_direct_component_pairs(
             character_info=character_info,
-            decomposition_map=decomposition_map,
-            radical_map=radical_map,
-            character_set=character_set,
-            glyph_index_by_symbol=glyph_index_by_symbol,
-            glyph_similarities_by_symbol=glyph_similarities_by_symbol,
-            rule3_threshold=decomposition_rule3_glyph_threshold,
+            decomposition_lookup=decomposition_lookup,
+            direct_component_pair_threshold=DECOMPOSITION_THRESHOLDS[2],
         )
         if added_symmetric > 0:
-            total_matches += added_symmetric
+            total_directed_matches += added_symmetric
 
-    return updated, total_matches
+    return updated, total_directed_matches
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -1256,25 +1294,34 @@ def main() -> int:
     )
 
     try:
-        updated, total_matches = update_character_info(
-            character_info=character_info,
+        run_config = RunConfig(
             method=args.method,
+            only_character=args.character,
+
             threshold=args.threshold,
+            glyph_threshold=args.glyph_threshold,
+            ssim_threshold=args.ssim_threshold,
+
             max_stroke_gap=args.max_stroke_gap,
-            dictionary_records=dictionary_records,
+
+            use_phonetic=args.use_phonetic,
+            use_decomposition=args.use_decomposition,
+            include_phonetic=include_phonetic,
+            include_decomposition=args.include_decomposition,
+
             glyph_metric=args.glyph_metric,
             glyph_font=args.glyph_font,
             glyph_device=args.glyph_device,
+
+            ssim_size=args.ssim_size,
             ssim_cache_path=args.ssim_cache,
             refresh_ssim_cache=args.refresh_ssim_cache,
-            only_character=args.character,
-            include_phonetic=include_phonetic,
-            include_decomposition=args.include_decomposition,
-            use_phonetic=args.use_phonetic,
-            use_decomposition=args.use_decomposition,
-            ssim_size=args.ssim_size,
-            glyph_threshold=args.glyph_threshold,
-            ssim_threshold=args.ssim_threshold,
+        )
+
+        updated, total_directed_matches = update_character_info(
+            character_info=character_info,
+            dictionary_records=dictionary_records,
+            config=run_config,
         )
     except Exception as error:
         log(f"ERROR: {error}")
@@ -1284,7 +1331,7 @@ def main() -> int:
         args.character_info.write_text(json.dumps(character_info, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     action = "Would update" if args.dry_run else "Updated"
-    log(f"{action} {updated} entries, {total_matches} directed matches.")
+    log(f"{action} {updated} entries, {total_directed_matches} directed matches.")
     return 0
 
 

@@ -10,6 +10,140 @@ function pinyinBase(reading) {
   return reading.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace("ü", "v").toLowerCase();
 }
 
+function normalizeHanziKey(text) {
+  return (text || "").normalize("NFKC").trim();
+}
+
+function normalizeSentencePunctuation(text) {
+  return (text || "").replace(/,/g, "，");
+}
+
+function collectSentenceExamplesByLevel(sentenceEntry, sentenceLevel) {
+  if (!sentenceEntry || typeof sentenceEntry !== "object") return [];
+
+  const normalizedLevel = Number.isFinite(Number(sentenceLevel))
+    ? String(Number(sentenceLevel))
+    : "";
+  const levels = sentenceEntry.levels && typeof sentenceEntry.levels === "object"
+    ? sentenceEntry.levels
+    : null;
+
+  if (levels) {
+    if (normalizedLevel) {
+      const selectedLevelSentences = levels[normalizedLevel];
+      if (Array.isArray(selectedLevelSentences)) {
+        return selectedLevelSentences;
+      }
+      if (Array.isArray(selectedLevelSentences?.sentences)) {
+        return selectedLevelSentences.sentences;
+      }
+    }
+
+    return Object.keys(levels)
+      .sort((left, right) => Number(left) - Number(right))
+      .flatMap((levelKey) => {
+        const levelSentences = levels[levelKey];
+        if (Array.isArray(levelSentences)) return levelSentences;
+        return Array.isArray(levelSentences?.sentences) ? levelSentences.sentences : [];
+      });
+  }
+
+  return Array.isArray(sentenceEntry.sentences) ? sentenceEntry.sentences : [];
+}
+
+function formatSentenceTooltip(meta) {
+  if (!meta) return "";
+
+  const word = (meta.word || "").trim();
+  const pinyin = (meta.pinyin || "").trim();
+  const meaning = (meta.meaning || "").trim();
+  const head = pinyin ? `${word} (${pinyin})` : word;
+
+  return [head, meaning].filter(Boolean).join(": ");
+}
+
+function hasWordStartingAt(text, index, wordsByFirstChar, normalizedTargetWord) {
+  if (normalizedTargetWord && text.startsWith(normalizedTargetWord, index)) {
+    return true;
+  }
+
+  const candidates = wordsByFirstChar.get(text[index]);
+  if (!candidates || candidates.length === 0) return false;
+  return candidates.some((candidate) => text.startsWith(candidate, index));
+}
+
+function tokenizeSentenceText(text, normalizedTargetWord, wordsByFirstChar, glossaryByWord) {
+  const source = normalizeHanziKey(text);
+  if (!source) return [];
+
+  const targetStarts = [];
+  if (normalizedTargetWord) {
+    let searchIndex = 0;
+    while (searchIndex < source.length) {
+      const foundIndex = source.indexOf(normalizedTargetWord, searchIndex);
+      if (foundIndex === -1) break;
+      targetStarts.push(foundIndex);
+      searchIndex = foundIndex + Math.max(1, normalizedTargetWord.length);
+    }
+  }
+
+  const tokens = [];
+  let index = 0;
+
+  while (index < source.length) {
+    if (normalizedTargetWord && source.startsWith(normalizedTargetWord, index)) {
+      tokens.push({
+        text: normalizedTargetWord,
+        type: "target",
+        glossaryEntry: glossaryByWord.get(normalizedTargetWord) || null,
+      });
+      index += normalizedTargetWord.length;
+      continue;
+    }
+
+    const candidates = wordsByFirstChar.get(source[index]) || [];
+    const nextTargetStart = targetStarts.find((start) => start >= index);
+    const matchedWord = candidates.find((candidate) => {
+      if (!source.startsWith(candidate, index)) return false;
+
+      if (nextTargetStart === undefined || !normalizedTargetWord) {
+        return true;
+      }
+
+      const candidateEnd = index + candidate.length;
+      const overlapsUpcomingTarget = index < nextTargetStart && candidateEnd > nextTargetStart;
+      return !overlapsUpcomingTarget;
+    });
+
+    if (matchedWord) {
+      const isTargetWord = matchedWord === normalizedTargetWord;
+      const glossaryEntry = glossaryByWord.get(matchedWord) || null;
+
+      tokens.push({
+        text: matchedWord,
+        type: isTargetWord ? "target" : "interactive",
+        glossaryEntry,
+      });
+      index += matchedWord.length;
+      continue;
+    }
+
+    const plainStart = index;
+    index += 1;
+    while (index < source.length && !hasWordStartingAt(source, index, wordsByFirstChar, normalizedTargetWord)) {
+      index += 1;
+    }
+
+    tokens.push({
+      text: source.slice(plainStart, index),
+      type: "plain",
+      glossaryEntry: null,
+    });
+  }
+
+  return tokens;
+}
+
 function ItemLimitControls({ shown, total, onShowMore, onShowLess, lessClassName, moreClassName }) {
   if (total <= INITIAL_ITEM_LIMIT) return null;
 
@@ -78,15 +212,21 @@ export function CharacterInfoModal({
   characterInfoData = null,
   pinyinIndexData = null,
   otherUseCasesIndexData = null,
+  sentenceExamplesData = null,
+  sentenceGlossaryByWord = null,
+  sentenceLevel = null,
   resourcesLoading = false,
   resourcesError = "",
+  sentenceExamplesLoading = false,
+  sentenceExamplesError = "",
 }) {
   const characters = useMemo(() => Array.from((word || "").normalize("NFKC")), [word]);
   const [selectedCharacter, setSelectedCharacter] = useState(characters[0] || "");
   const [visualLimit, setVisualLimit] = useState(INITIAL_ITEM_LIMIT);
   const [pinyinLimit, setPinyinLimit] = useState(INITIAL_ITEM_LIMIT);
   const [usecaseLimit, setUsecaseLimit] = useState(INITIAL_ITEM_LIMIT);
-  const [openSections, setOpenSections] = useState({ visual: true, pinyin: true, usecases: true });
+  const [showAllSentences, setShowAllSentences] = useState(false);
+  const [openSections, setOpenSections] = useState({ sentences: true, visual: true, pinyin: true, usecases: true });
   const [hoverTooltip, setHoverTooltip] = useState(null);
   const [supportsHover, setSupportsHover] = useState(true);
   const scrollContainerRef = useRef(null);
@@ -131,6 +271,13 @@ export function CharacterInfoModal({
         usecaseWord: "px-3 py-2.5 text-xl font-semibold text-slate-100",
         usecasePinyin: "px-3 py-2.5 text-sky-200",
         usecaseMeaning: "px-3 py-2.5 text-slate-300",
+        sentenceCard: "rounded-lg border border-slate-700 bg-slate-800 px-4 py-3",
+        sentenceText: "text-base font-normal text-slate-100",
+        sentenceTranslation: "mt-2 text-sm text-slate-300",
+        sentenceTarget: "font-extrabold text-slate-50 underline decoration-2 underline-offset-2",
+        sentenceInteractive:
+          "inline cursor-pointer rounded-sm border-0 bg-transparent p-0 text-inherit transition-colors hover:bg-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400",
+        sentenceLevel: "text-xs font-semibold uppercase tracking-wide text-sky-300",
       };
     }
 
@@ -170,6 +317,13 @@ export function CharacterInfoModal({
         usecaseWord: "px-3 py-2.5 text-xl font-semibold text-stone-900",
         usecasePinyin: "px-3 py-2.5 text-amber-900",
         usecaseMeaning: "px-3 py-2.5 text-stone-700",
+        sentenceCard: "rounded-lg border border-stone-300 bg-stone-100 px-4 py-3",
+        sentenceText: "text-base font-normal text-stone-900",
+        sentenceTranslation: "mt-2 text-sm text-stone-700",
+        sentenceTarget: "font-extrabold text-stone-900 underline decoration-2 underline-offset-2",
+        sentenceInteractive:
+          "inline cursor-pointer rounded-sm border-0 bg-transparent p-0 text-inherit transition-colors hover:bg-amber-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-300",
+        sentenceLevel: "text-xs font-semibold uppercase tracking-wide text-stone-700",
       };
     }
 
@@ -208,6 +362,13 @@ export function CharacterInfoModal({
       usecaseWord: "px-3 py-2.5 text-xl font-semibold text-slate-900",
       usecasePinyin: "px-3 py-2.5 text-sky-700",
       usecaseMeaning: "px-3 py-2.5 text-slate-600",
+      sentenceCard: "rounded-lg border border-slate-200 bg-white px-4 py-3",
+      sentenceText: "text-base font-normal text-slate-900",
+      sentenceTranslation: "mt-2 text-sm text-slate-700",
+      sentenceTarget: "font-extrabold text-slate-900 underline decoration-2 underline-offset-2",
+      sentenceInteractive:
+        "inline cursor-pointer rounded-sm border-0 bg-transparent p-0 text-inherit transition-colors hover:bg-sky-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300",
+      sentenceLevel: "text-xs font-semibold uppercase tracking-wide text-sky-700",
     };
   }, [theme]);
 
@@ -216,7 +377,8 @@ export function CharacterInfoModal({
     setVisualLimit(INITIAL_ITEM_LIMIT);
     setPinyinLimit(INITIAL_ITEM_LIMIT);
     setUsecaseLimit(INITIAL_ITEM_LIMIT);
-    setOpenSections({ visual: true, pinyin: true, usecases: true });
+    setShowAllSentences(false);
+    setOpenSections({ sentences: true, visual: true, pinyin: true, usecases: true });
     setHoverTooltip(null);
   }, [characters]);
 
@@ -304,6 +466,61 @@ export function CharacterInfoModal({
     .filter(Boolean)
     .filter((usecase) => usecase.word !== word);
 
+  const normalizedWord = useMemo(() => (word || "").normalize("NFKC").trim(), [word]);
+  const sentenceGlossaryIndex = useMemo(() => {
+    const wordsByFirstChar = new Map();
+    const glossaryByWord = new Map();
+
+    Object.values(sentenceGlossaryByWord || {}).forEach((entry) => {
+      const normalizedEntryWord = normalizeHanziKey(entry?.word || "");
+      if (!normalizedEntryWord) return;
+
+      const normalizedEntry = {
+        word: normalizedEntryWord,
+        pinyin: (entry?.pinyin || "").trim(),
+        meaning: (entry?.meaning || "").trim(),
+      };
+
+      glossaryByWord.set(normalizedEntryWord, normalizedEntry);
+
+      const firstChar = normalizedEntryWord[0];
+      const bucket = wordsByFirstChar.get(firstChar) || [];
+      bucket.push(normalizedEntryWord);
+      wordsByFirstChar.set(firstChar, bucket);
+    });
+
+    wordsByFirstChar.forEach((bucket, key) => {
+      const sortedBucket = Array.from(new Set(bucket)).sort((left, right) => {
+        if (right.length !== left.length) return right.length - left.length;
+        return left.localeCompare(right, "zh-Hans");
+      });
+      wordsByFirstChar.set(key, sortedBucket);
+    });
+
+    return { wordsByFirstChar, glossaryByWord };
+  }, [sentenceGlossaryByWord]);
+  const sentenceEntry = sentenceExamplesData?.by_word?.[normalizedWord] || null;
+  const sentenceExamples = collectSentenceExamplesByLevel(sentenceEntry, sentenceLevel)
+    .filter((entry) => entry?.disable !== true);
+  const tokenizedSentenceExamples = useMemo(
+    () =>
+      sentenceExamples.map((entry) => ({
+        ...entry,
+        displaySentence: normalizeSentencePunctuation(entry?.sentence || ""),
+        tokens: tokenizeSentenceText(
+          normalizeSentencePunctuation(entry?.sentence || ""),
+          normalizedWord,
+          sentenceGlossaryIndex.wordsByFirstChar,
+          sentenceGlossaryIndex.glossaryByWord
+        ),
+      })),
+    [sentenceExamples, normalizedWord, sentenceGlossaryIndex]
+  );
+  const visibleSentenceExamples = showAllSentences
+    ? tokenizedSentenceExamples
+    : tokenizedSentenceExamples.slice(0, 2);
+  const hiddenSentenceCount = Math.max(0, sentenceExamples.length - 2);
+
   function selectCharacter(character) {
     setSelectedCharacter(character);
     setVisualLimit(INITIAL_ITEM_LIMIT);
@@ -351,7 +568,7 @@ export function CharacterInfoModal({
 
   const getTooltipPosition = useCallback((anchorElement, key, text = "") => {
     const rect = anchorElement.getBoundingClientRect();
-    const isTileTooltip = key?.startsWith("visual-") || key?.startsWith("pinyin-");
+    const isTileTooltip = key?.startsWith("visual-") || key?.startsWith("pinyin-") || key?.startsWith("sentence-");
     const isTabTooltip = key?.startsWith("tab-");
     const margin = TOOLTIP_VIEWPORT_MARGIN;
 
@@ -542,7 +759,104 @@ export function CharacterInfoModal({
         </header>
 
         <div ref={scrollContainerRef} className={`min-h-0 flex-1 touch-pan-y overflow-y-auto overscroll-contain px-5 pb-7 pt-5 sm:px-6 ${themeClasses.body}`}>
-          <div className={`flex gap-2 overflow-x-auto pb-3 ${themeClasses.tabStrip}`} role="tablist" aria-label="Characters in word">
+          <CollapsibleSection
+            title="Sentence Example(s)"
+            count={sentenceExamples.length}
+            isOpen={openSections.sentences}
+            onToggle={() => toggleSection("sentences")}
+            sectionClassName={`${themeClasses.section} mt-1`}
+            triggerClassName={themeClasses.sectionTrigger}
+            titleClassName={themeClasses.sectionTitle}
+            countClassName={themeClasses.sectionCount}
+            bodyClassName={themeClasses.sectionBody}
+          >
+            {sentenceExamplesLoading && !sentenceExamplesData && (
+              <p className="text-sm text-slate-500">Loading sentence examples...</p>
+            )}
+
+            {!sentenceExamplesLoading && sentenceExamplesError && (
+              <p className="rounded-lg border border-rose-200 bg-rose-50 p-3 text-sm text-rose-800">
+                {sentenceExamplesError}
+              </p>
+            )}
+
+            {!sentenceExamplesLoading && !sentenceExamplesError && sentenceExamples.length === 0 && (
+              <p className={themeClasses.emptyHint}>
+                No sentence examples were available for this word.
+              </p>
+            )}
+
+            {!sentenceExamplesLoading && !sentenceExamplesError && sentenceExamples.length > 0 && (
+              <>
+                <div className="space-y-2">
+                  {visibleSentenceExamples.map((entry, index) => (
+                    <article key={`${entry.displaySentence}-${index}`} className={themeClasses.sentenceCard}>
+                      <p className={`${themeClasses.sentenceText} leading-relaxed`}>
+                        {entry.tokens.map((token, tokenIndex) => {
+                          if (token.type === "interactive") {
+                            const tooltipText = formatSentenceTooltip(token.glossaryEntry);
+                            const tooltipKey = `sentence-${index}-${tokenIndex}`;
+
+                            return (
+                              <button
+                                key={`${token.text}-${tokenIndex}`}
+                                type="button"
+                                className={themeClasses.sentenceInteractive}
+                                onMouseEnter={supportsHover ? (event) => showMeaningTooltip(event, tooltipText, tooltipKey) : undefined}
+                                onMouseLeave={supportsHover ? hideMeaningTooltip : undefined}
+                                onClick={(event) => {
+                                  if (!supportsHover) {
+                                    toggleMeaningTooltip(event, tooltipText, tooltipKey);
+                                  }
+                                }}
+                              >
+                                {token.text}
+                              </button>
+                            );
+                          }
+
+                          if (token.type === "target") {
+                            return (
+                              <strong key={`${token.text}-${tokenIndex}`} className={themeClasses.sentenceTarget}>
+                                {token.text}
+                              </strong>
+                            );
+                          }
+
+                          return <span key={`${token.text}-${tokenIndex}`}>{token.text}</span>;
+                        })}
+                      </p>
+                      <p className={themeClasses.sentenceTranslation}>{entry.translation}</p>
+                    </article>
+                  ))}
+                </div>
+
+                {sentenceExamples.length > 2 && (
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {showAllSentences ? (
+                      <button
+                        type="button"
+                        onClick={() => setShowAllSentences(false)}
+                        className={themeClasses.lessButton}
+                      >
+                        Show less
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => setShowAllSentences(true)}
+                        className={themeClasses.moreButton}
+                      >
+                        Show {hiddenSentenceCount} more
+                      </button>
+                    )}
+                  </div>
+                )}
+              </>
+            )}
+          </CollapsibleSection>
+
+          <div className={`mt-4 flex gap-2 overflow-x-auto pb-3 ${themeClasses.tabStrip}`} role="tablist" aria-label="Characters in word">
             {characters.map((character, index) => (
               <button
                 key={`${character}-${index}`}

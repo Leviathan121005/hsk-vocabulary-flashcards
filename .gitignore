@@ -6,4 +6,4 @@ deployment.md
 plan.md
 projectStructure.md
 scrap/exp
-scrap/__pycache__/
+scrap/__pycache__
