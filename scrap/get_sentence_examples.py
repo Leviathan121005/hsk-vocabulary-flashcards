@@ -25,7 +25,7 @@ from urllib.request import urlopen
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SOURCE_URL = "https://github.com/Roxaleen/hsk-annotated-corpus/blob/main/export/json/sentences.json"
-DEFAULT_OUTPUT_PATH = REPO_ROOT / "public" / "sentence_example.json"
+DEFAULT_OUTPUT_PATH = REPO_ROOT / "public" / "sentence_examples.json"
 DEFAULT_LEVELS = [1, 2, 3, 4, 5]
 
 
@@ -146,9 +146,41 @@ def load_hsk_words(levels: list[int]) -> tuple[dict[str, dict[str, Any]], dict[s
     return words_by_norm, words_by_first_char
 
 
-def find_matching_words(sentence_text: str, words_by_first_char: dict[str, list[str]]) -> set[str]:
+def extract_tag_words(payload: dict[str, Any]) -> set[str]:
+    tags = payload.get("tags")
+    if not isinstance(tags, list):
+        return set()
+
+    words: set[str] = set()
+    for tag in tags:
+        candidate = ""
+
+        if isinstance(tag, str):
+            candidate = tag
+        elif isinstance(tag, (list, tuple)) and len(tag) > 0:
+            candidate = str(tag[0])
+        elif isinstance(tag, dict):
+            candidate = str(tag.get("word") or tag.get("token") or tag.get("text") or "")
+
+        normalized = normalize_text(candidate)
+        if normalized:
+            words.add(normalized)
+
+    return words
+
+
+def find_matching_words(
+    sentence_text: str,
+    payload: dict[str, Any],
+    words_by_first_char: dict[str, list[str]],
+    known_words: set[str],
+) -> set[str]:
     if not sentence_text:
         return set()
+
+    tag_words = extract_tag_words(payload)
+    if tag_words:
+        return {word for word in tag_words if word in known_words}
 
     candidate_words: set[str] = set()
     for char in set(sentence_text):
@@ -176,6 +208,7 @@ def build_sentence_index(
     malformed_records = 0
 
     selected_set = set(selected_levels)
+    known_words = set(words_by_norm.keys())
 
     for sentence, payload in corpus.items():
         total_sentences += 1
@@ -193,7 +226,7 @@ def build_sentence_index(
         if not normalized_sentence:
             continue
 
-        matching_words = find_matching_words(normalized_sentence, words_by_first_char)
+        matching_words = find_matching_words(normalized_sentence, payload, words_by_first_char, known_words)
         if not matching_words:
             continue
 

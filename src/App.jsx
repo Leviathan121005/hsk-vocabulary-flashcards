@@ -228,7 +228,7 @@ function resolveOtherUseCasesPath() {
 
 function resolveSentenceExamplesPath() {
   const baseUrl = import.meta.env.BASE_URL || "/";
-  return `${baseUrl}sentence_example.json`;
+  return `${baseUrl}sentence_examples.json`;
 }
 
 async function fetchJsonResource(path) {
