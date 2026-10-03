@@ -26,7 +26,9 @@ from urllib.request import urlopen
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SOURCE_URL = "https://github.com/Roxaleen/hsk-annotated-corpus/blob/main/export/json/sentences.json"
 DEFAULT_OUTPUT_PATH = REPO_ROOT / "public" / "sentence_examples.json"
+DEFAULT_WORDS_CSV_PATH = REPO_ROOT / "scrap" / "words.csv"
 DEFAULT_LEVELS = [1, 2, 3, 4, 5]
+DEFAULT_LEVEL_TOLERANCE = 2
 
 
 def log(message: str) -> None:
@@ -37,10 +39,41 @@ def normalize_text(text: str) -> str:
     return unicodedata.normalize("NFKC", text.strip())
 
 
+def normalize_sentence_punctuation(text: str) -> str:
+    # Persist Chinese comma in sentence text so all consumers render consistently.
+    return (text or "").replace(",", "，").replace("、", "，")
+
+
+def normalize_pos(text: str) -> str:
+    normalized = unicodedata.normalize("NFKC", (text or "")).strip().lower()
+    while normalized.startswith("(") and normalized.endswith(")") and len(normalized) >= 2:
+        normalized = normalized[1:-1].strip()
+    return " ".join(normalized.split())
+
+
+def split_pos_values(text: str) -> set[str]:
+    raw = unicodedata.normalize("NFKC", (text or "")).strip()
+    if not raw:
+        return set()
+
+    values: set[str] = set()
+    for token in raw.split(","):
+        normalized = normalize_pos(token)
+        if normalized:
+            values.add(normalized)
+    return values
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Build HSK sentence example index.")
     parser.add_argument("--source-url", default=DEFAULT_SOURCE_URL, help="Sentence corpus URL (GitHub blob URL is supported).")
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT_PATH, help="Output JSON path.")
+    parser.add_argument(
+        "--words-csv",
+        type=Path,
+        default=DEFAULT_WORDS_CSV_PATH,
+        help="Path to local words.csv reference (default: scrap/words.csv).",
+    )
     parser.add_argument(
         "--levels",
         type=int,
@@ -121,6 +154,28 @@ def parse_level(value: Any) -> int | None:
     return None
 
 
+def load_reference_word_pos_levels(words_csv_path: Path) -> dict[tuple[str, str], set[int]]:
+    if not words_csv_path.exists():
+        raise FileNotFoundError(f"Missing words CSV: {words_csv_path}")
+
+    matches: dict[tuple[str, str], set[int]] = {}
+
+    with words_csv_path.open("r", encoding="utf-8", newline="") as handle:
+        reader = csv.DictReader(handle)
+        for row in reader:
+            word = normalize_text(row.get("word", ""))
+            level = parse_level(row.get("level"))
+            pos_values = split_pos_values(row.get("pos", ""))
+
+            if not word or level is None or not pos_values:
+                continue
+
+            for pos in pos_values:
+                matches.setdefault((word, pos), set()).add(level)
+
+    return matches
+
+
 def load_hsk_words(levels: list[int]) -> tuple[dict[str, dict[str, Any]], dict[str, list[str]]]:
     words_by_norm: dict[str, dict[str, Any]] = {}
     words_by_first_char: dict[str, list[str]] = {}
@@ -136,8 +191,11 @@ def load_hsk_words(levels: list[int]) -> tuple[dict[str, dict[str, Any]], dict[s
                 word = normalize_text(row.get("word", ""))
                 if not word:
                     continue
-                meta = words_by_norm.setdefault(word, {"word": word, "levels": set()})
+                meta = words_by_norm.setdefault(word, {"word": word, "levels": set(), "pos_by_level": {}})
                 meta["levels"].add(level)
+
+                pos_set = meta["pos_by_level"].setdefault(level, set())
+                pos_set.update(split_pos_values(row.get("part_of_speech", "")))
 
     for word in words_by_norm:
         first_char = word[0]
@@ -146,55 +204,78 @@ def load_hsk_words(levels: list[int]) -> tuple[dict[str, dict[str, Any]], dict[s
     return words_by_norm, words_by_first_char
 
 
-def extract_tag_words(payload: dict[str, Any]) -> set[str]:
+def extract_tag_entries(payload: dict[str, Any]) -> set[tuple[str, str]]:
     tags = payload.get("tags")
     if not isinstance(tags, list):
         return set()
 
-    words: set[str] = set()
+    entries: set[tuple[str, str]] = set()
     for tag in tags:
-        candidate = ""
+        candidate_word = ""
+        candidate_pos = ""
 
         if isinstance(tag, str):
-            candidate = tag
+            candidate_word = tag
         elif isinstance(tag, (list, tuple)) and len(tag) > 0:
-            candidate = str(tag[0])
+            candidate_word = str(tag[0])
+            if len(tag) > 1:
+                candidate_pos = str(tag[1])
         elif isinstance(tag, dict):
-            candidate = str(tag.get("word") or tag.get("token") or tag.get("text") or "")
+            candidate_word = str(tag.get("word") or tag.get("token") or tag.get("text") or "")
+            candidate_pos = str(tag.get("pos") or tag.get("part_of_speech") or "")
 
-        normalized = normalize_text(candidate)
-        if normalized:
-            words.add(normalized)
+        normalized_word = normalize_text(candidate_word)
+        normalized_pos = normalize_pos(candidate_pos)
+        if normalized_word and normalized_pos:
+            entries.add((normalized_word, normalized_pos))
 
-    return words
+    return entries
 
 
 def find_matching_words(
     sentence_text: str,
     payload: dict[str, Any],
-    words_by_first_char: dict[str, list[str]],
-    known_words: set[str],
-) -> set[str]:
+    words_by_norm: dict[str, dict[str, Any]],
+    reference_matches: dict[tuple[str, str], set[int]],
+    level_tolerance: int,
+) -> set[tuple[str, int]]:
     if not sentence_text:
         return set()
 
-    tag_words = extract_tag_words(payload)
-    if tag_words:
-        return {word for word in tag_words if word in known_words}
+    matches: set[tuple[str, int]] = set()
+    tag_entries = extract_tag_entries(payload)
+    if not tag_entries:
+        return matches
 
-    candidate_words: set[str] = set()
-    for char in set(sentence_text):
-        candidate_words.update(words_by_first_char.get(char, []))
+    for tag_word, tag_pos in tag_entries:
+        local_word_meta = words_by_norm.get(tag_word)
+        if not local_word_meta:
+            continue
 
-    return {word for word in candidate_words if word in sentence_text}
+        reference_levels = reference_matches.get((tag_word, tag_pos), set())
+        if not reference_levels:
+            continue
+
+        for local_level in local_word_meta["levels"]:
+            if not any(abs(local_level - reference_level) <= level_tolerance for reference_level in reference_levels):
+                continue
+
+            local_level_pos_values = local_word_meta["pos_by_level"].get(local_level, set())
+            if tag_pos not in local_level_pos_values:
+                continue
+
+            matches.add((tag_word, local_level))
+
+    return matches
 
 
 def build_sentence_index(
     corpus: Any,
     selected_levels: list[int],
     words_by_norm: dict[str, dict[str, Any]],
-    words_by_first_char: dict[str, list[str]],
+    reference_matches: dict[tuple[str, str], set[int]],
     max_sentences_per_word: int,
+    level_tolerance: int,
 ) -> tuple[dict[str, dict[str, Any]], dict[str, int]]:
     if not isinstance(corpus, dict):
         raise RuntimeError("Corpus root must be a JSON object keyed by sentence text.")
@@ -208,7 +289,6 @@ def build_sentence_index(
     malformed_records = 0
 
     selected_set = set(selected_levels)
-    known_words = set(words_by_norm.keys())
 
     for sentence, payload in corpus.items():
         total_sentences += 1
@@ -226,42 +306,40 @@ def build_sentence_index(
         if not normalized_sentence:
             continue
 
-        matching_words = find_matching_words(normalized_sentence, payload, words_by_first_char, known_words)
+        matching_words = find_matching_words(
+            normalized_sentence,
+            payload,
+            words_by_norm,
+            reference_matches,
+            level_tolerance,
+        )
         if not matching_words:
             continue
 
         matched_any_for_sentence = False
-        for matched_word in matching_words:
+        for matched_word, matched_level in matching_words:
             word_meta = words_by_norm.get(matched_word)
             if not word_meta:
                 continue
-
-            word_levels = word_meta["levels"]
-            if sentence_level not in word_levels:
-                continue
-
-            has_multiple_levels = len(word_levels) > 1
 
             dedupe_key = (
                 word_meta["word"],
                 sentence,
                 str(payload.get("source", "")),
-                sentence_level,
+                matched_level,
             )
             if dedupe_key in dedupe_keys:
                 continue
             dedupe_keys.add(dedupe_key)
 
             entry = {
-                "sentence": sentence,
+                "sentence": normalize_sentence_punctuation(normalized_sentence),
                 "translation": payload.get("translation", ""),
             }
-            if has_multiple_levels:
-                entry["disable"] = True
 
             word_entry = by_word.setdefault(word_meta["word"], {"levels": {}})
 
-            level_key = str(sentence_level)
+            level_key = str(matched_level)
             sentence_items = word_entry["levels"].setdefault(level_key, [])
 
             if len(sentence_items) >= max_sentences_per_word:
@@ -290,6 +368,7 @@ def build_sentence_index(
             for level_entry in items.get("levels", {}).values()
         ),
         "max_sentences_per_word": max_sentences_per_word,
+        "level_tolerance": level_tolerance,
     }
     return by_word, stats
 
@@ -326,12 +405,14 @@ def main() -> int:
         max_sentences_per_word = validate_max_sentences(args.max_sentences)
         corpus, raw_url = download_json(args.source_url)
         words_by_norm, words_by_first_char = load_hsk_words(selected_levels)
+        reference_matches = load_reference_word_pos_levels(args.words_csv)
         by_word, stats = build_sentence_index(
             corpus,
             selected_levels,
             words_by_norm,
-            words_by_first_char,
+            reference_matches,
             max_sentences_per_word,
+            DEFAULT_LEVEL_TOLERANCE,
         )
         write_output(args.output, raw_url, selected_levels, by_word, stats)
     except Exception as error:

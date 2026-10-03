@@ -15,7 +15,7 @@ function normalizeHanziKey(text) {
 }
 
 function normalizeSentencePunctuation(text) {
-  return (text || "").replace(/,/g, "，");
+  return (text || "").replace(/[,，﹐､]/g, "，");
 }
 
 function collectSentenceExamplesByLevel(sentenceEntry, sentenceLevel) {
@@ -73,7 +73,7 @@ function hasWordStartingAt(text, index, wordsByFirstChar, normalizedTargetWord) 
 }
 
 function tokenizeSentenceText(text, normalizedTargetWord, wordsByFirstChar, glossaryByWord) {
-  const source = normalizeHanziKey(text);
+  const source = (text || "").normalize("NFC").trim();
   if (!source) return [];
 
   const targetStarts = [];
@@ -226,7 +226,7 @@ export function CharacterInfoModal({
   const [pinyinLimit, setPinyinLimit] = useState(INITIAL_ITEM_LIMIT);
   const [usecaseLimit, setUsecaseLimit] = useState(INITIAL_ITEM_LIMIT);
   const [showAllSentences, setShowAllSentences] = useState(false);
-  const [openSections, setOpenSections] = useState({ sentences: true, visual: true, pinyin: true, usecases: true });
+  const [openSections, setOpenSections] = useState({ sentences: false, visual: true, pinyin: true, usecases: true });
   const [hoverTooltip, setHoverTooltip] = useState(null);
   const [supportsHover, setSupportsHover] = useState(true);
   const scrollContainerRef = useRef(null);
@@ -272,7 +272,7 @@ export function CharacterInfoModal({
         usecasePinyin: "px-3 py-2.5 text-sky-200",
         usecaseMeaning: "px-3 py-2.5 text-slate-300",
         sentenceCard: "rounded-lg border border-slate-700 bg-slate-800 px-4 py-3",
-        sentenceText: "text-base font-normal text-slate-100",
+        sentenceText: "text-lg font-normal text-slate-100",
         sentenceTranslation: "mt-2 text-sm text-slate-300",
         sentenceTarget: "font-extrabold text-slate-50 underline decoration-2 underline-offset-2",
         sentenceInteractive:
@@ -318,7 +318,7 @@ export function CharacterInfoModal({
         usecasePinyin: "px-3 py-2.5 text-amber-900",
         usecaseMeaning: "px-3 py-2.5 text-stone-700",
         sentenceCard: "rounded-lg border border-stone-300 bg-stone-100 px-4 py-3",
-        sentenceText: "text-base font-normal text-stone-900",
+        sentenceText: "text-lg font-normal text-stone-900",
         sentenceTranslation: "mt-2 text-sm text-stone-700",
         sentenceTarget: "font-extrabold text-stone-900 underline decoration-2 underline-offset-2",
         sentenceInteractive:
@@ -363,7 +363,7 @@ export function CharacterInfoModal({
       usecasePinyin: "px-3 py-2.5 text-sky-700",
       usecaseMeaning: "px-3 py-2.5 text-slate-600",
       sentenceCard: "rounded-lg border border-slate-200 bg-white px-4 py-3",
-      sentenceText: "text-base font-normal text-slate-900",
+      sentenceText: "text-lg font-normal text-slate-900",
       sentenceTranslation: "mt-2 text-sm text-slate-700",
       sentenceTarget: "font-extrabold text-slate-900 underline decoration-2 underline-offset-2",
       sentenceInteractive:
@@ -378,7 +378,7 @@ export function CharacterInfoModal({
     setPinyinLimit(INITIAL_ITEM_LIMIT);
     setUsecaseLimit(INITIAL_ITEM_LIMIT);
     setShowAllSentences(false);
-    setOpenSections({ sentences: true, visual: true, pinyin: true, usecases: true });
+    setOpenSections({ sentences: false, visual: true, pinyin: true, usecases: true });
     setHoverTooltip(null);
   }, [characters]);
 
