@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { FlashcardSession } from "./components/FlashcardSession";
-import { CharacterInfoModal } from "./components/CharacterInfoModal";
+import { CharacterInfoModal } from "./components/WordInfoModal";
 import { PronounceButton } from "./components/PronounceButton";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import { useSpeech } from "./hooks/useSpeech";
@@ -1379,7 +1379,7 @@ export default function App() {
                             <button
                               type="button"
                               onClick={() => handleOpenVocabularyWordInfo(word)}
-                              aria-label={`Open information for ${word.hanzi}`}
+                              aria-label={`Open word notes for ${word.hanzi}`}
                               className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:border-sky-300 hover:bg-sky-50 hover:text-sky-700 focus:outline-none focus-visible:ring-4 focus-visible:ring-sky-300"
                             >
                               <span aria-hidden="true" className="text-lg font-bold">i</span>

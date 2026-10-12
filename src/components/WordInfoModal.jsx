@@ -29,26 +29,21 @@ function collectSentenceExamplesByLevel(sentenceEntry, sentenceLevel) {
     : null;
 
   if (levels) {
-    if (normalizedLevel) {
-      const selectedLevelSentences = levels[normalizedLevel];
-      if (Array.isArray(selectedLevelSentences)) {
-        return selectedLevelSentences;
-      }
-      if (Array.isArray(selectedLevelSentences?.sentences)) {
-        return selectedLevelSentences.sentences;
-      }
+    // Only show sentences from the current effective level.
+    if (!normalizedLevel) return [];
+
+    const selectedLevelSentences = levels[normalizedLevel];
+    if (Array.isArray(selectedLevelSentences)) {
+      return selectedLevelSentences;
+    }
+    if (Array.isArray(selectedLevelSentences?.sentences)) {
+      return selectedLevelSentences.sentences;
     }
 
-    return Object.keys(levels)
-      .sort((left, right) => Number(left) - Number(right))
-      .flatMap((levelKey) => {
-        const levelSentences = levels[levelKey];
-        if (Array.isArray(levelSentences)) return levelSentences;
-        return Array.isArray(levelSentences?.sentences) ? levelSentences.sentences : [];
-      });
+    return [];
   }
 
-  return Array.isArray(sentenceEntry.sentences) ? sentenceEntry.sentences : [];
+  return [];
 }
 
 function formatSentenceTooltip(meta) {
@@ -741,9 +736,9 @@ export function CharacterInfoModal({
       >
         <header className={`flex items-start justify-between gap-4 px-5 py-4 sm:px-6 ${themeClasses.header}`}>
           <div>
-            <p className={`text-xs font-semibold uppercase tracking-[0.16em] ${themeClasses.titleTag}`}>Character Notes</p>
+            <p className={`text-xs font-semibold uppercase tracking-[0.16em] ${themeClasses.titleTag}`}>Word Notes</p>
             <h2 id="character-info-title" className={`mt-2 text-xl font-bold ${themeClasses.title}`}>
-              {word || "Character information"}
+              {word || "Word notes"}
               {pinyin && <span className="ml-2 text-base font-medium text-slate-500">{pinyin}</span>}
             </h2>
             {meaning && <p className="mt-1 max-w-[30ch] truncate text-sm text-slate-600">{meaning}</p>}
@@ -751,7 +746,7 @@ export function CharacterInfoModal({
           <button
             type="button"
             onClick={onClose}
-            aria-label="Close character information"
+            aria-label="Close word notes"
             className={themeClasses.closeButton}
           >
             <span aria-hidden="true" className="text-2xl leading-none">×</span>
@@ -882,11 +877,11 @@ export function CharacterInfoModal({
             ))}
           </div>
 
-          {isLoading && <p className={themeClasses.loading}>Loading character information...</p>}
+          {isLoading && <p className={themeClasses.loading}>Loading word notes...</p>}
           {loadError && <p className="mt-5 rounded-lg border border-rose-200 bg-rose-50 p-4 text-sm text-rose-800">{loadError}</p>}
           {!isLoading && !loadError && !selectedInfo && (
             <p className={themeClasses.noInfo}>
-              No HSK character information is available for {selectedCharacter || "this character"}.
+              No HSK details are available for {selectedCharacter || "this character"}.
             </p>
           )}
 

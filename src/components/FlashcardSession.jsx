@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { CharacterInfoModal } from "./CharacterInfoModal";
+import { CharacterInfoModal } from "./WordInfoModal";
 import { PronounceButton } from "./PronounceButton";
 
 /**
@@ -169,7 +169,7 @@ export function FlashcardSession({
             <button
               type="button"
               onClick={handleOpenCharacterInfo}
-              aria-label={`Open information for ${currentWord.hanzi}`}
+              aria-label={`Open word notes for ${currentWord.hanzi}`}
               className="card-action-item card-action-item-info inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:border-sky-300 hover:bg-sky-50 hover:text-sky-700 focus:outline-none focus-visible:ring-4 focus-visible:ring-sky-300 sm:h-11 sm:w-11"
             >
               <span aria-hidden="true" className="text-lg font-bold">i</span>

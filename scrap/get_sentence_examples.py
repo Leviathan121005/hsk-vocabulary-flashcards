@@ -39,6 +39,13 @@ def normalize_text(text: str) -> str:
     return unicodedata.normalize("NFKC", text.strip())
 
 
+def normalize_sentence_text(text: str) -> str:
+    # Keep sentence glyph choices as close as possible to source text.
+    normalized = unicodedata.normalize("NFC", text.strip())
+    # Keep interrogative form consistent in output.
+    return normalized.replace("甚么", "什么").replace("甚麼", "什麼")
+
+
 def normalize_sentence_punctuation(text: str) -> str:
     # Persist Chinese comma in sentence text so all consumers render consistently.
     return (text or "").replace(",", "，").replace("、", "，")
@@ -51,6 +58,15 @@ def normalize_pos(text: str) -> str:
     return " ".join(normalized.split())
 
 
+def normalize_pinyin(text: str) -> str:
+    normalized = unicodedata.normalize("NFKC", (text or "")).strip().lower()
+    normalized = normalized.replace("’", "'")
+    normalized = normalized.replace("u:", "ü")
+    for separator in (" ", "'", "-"):
+        normalized = normalized.replace(separator, "")
+    return normalized
+
+
 def split_pos_values(text: str) -> set[str]:
     raw = unicodedata.normalize("NFKC", (text or "")).strip()
     if not raw:
@@ -59,6 +75,19 @@ def split_pos_values(text: str) -> set[str]:
     values: set[str] = set()
     for token in raw.split(","):
         normalized = normalize_pos(token)
+        if normalized:
+            values.add(normalized)
+    return values
+
+
+def split_pinyin_values(text: str) -> set[str]:
+    raw = unicodedata.normalize("NFKC", (text or "")).strip()
+    if not raw:
+        return set()
+
+    values: set[str] = set()
+    for token in raw.replace("/", "|").split("|"):
+        normalized = normalize_pinyin(token)
         if normalized:
             values.add(normalized)
     return values
@@ -154,11 +183,14 @@ def parse_level(value: Any) -> int | None:
     return None
 
 
-def load_reference_word_pos_levels(words_csv_path: Path) -> dict[tuple[str, str], set[int]]:
+def load_reference_word_pos_data(
+    words_csv_path: Path,
+) -> tuple[dict[tuple[str, str], set[int]], dict[tuple[str, str], set[str]]]:
     if not words_csv_path.exists():
         raise FileNotFoundError(f"Missing words CSV: {words_csv_path}")
 
-    matches: dict[tuple[str, str], set[int]] = {}
+    levels_by_word_pos: dict[tuple[str, str], set[int]] = {}
+    pinyins_by_word_pos: dict[tuple[str, str], set[str]] = {}
 
     with words_csv_path.open("r", encoding="utf-8", newline="") as handle:
         reader = csv.DictReader(handle)
@@ -166,14 +198,17 @@ def load_reference_word_pos_levels(words_csv_path: Path) -> dict[tuple[str, str]
             word = normalize_text(row.get("word", ""))
             level = parse_level(row.get("level"))
             pos_values = split_pos_values(row.get("pos", ""))
+            pinyin_values = split_pinyin_values(row.get("pinyin", ""))
 
-            if not word or level is None or not pos_values:
+            if not word or level is None or not pos_values or not pinyin_values:
                 continue
 
             for pos in pos_values:
-                matches.setdefault((word, pos), set()).add(level)
+                key = (word, pos)
+                levels_by_word_pos.setdefault(key, set()).add(level)
+                pinyins_by_word_pos.setdefault(key, set()).update(pinyin_values)
 
-    return matches
+    return levels_by_word_pos, pinyins_by_word_pos
 
 
 def load_hsk_words(levels: list[int]) -> tuple[dict[str, dict[str, Any]], dict[str, list[str]]]:
@@ -191,11 +226,17 @@ def load_hsk_words(levels: list[int]) -> tuple[dict[str, dict[str, Any]], dict[s
                 word = normalize_text(row.get("word", ""))
                 if not word:
                     continue
-                meta = words_by_norm.setdefault(word, {"word": word, "levels": set(), "pos_by_level": {}})
+                meta = words_by_norm.setdefault(
+                    word,
+                    {"word": word, "levels": set(), "pos_by_level": {}, "pinyin_by_level": {}},
+                )
                 meta["levels"].add(level)
 
                 pos_set = meta["pos_by_level"].setdefault(level, set())
                 pos_set.update(split_pos_values(row.get("part_of_speech", "")))
+
+                pinyin_set = meta["pinyin_by_level"].setdefault(level, set())
+                pinyin_set.update(split_pinyin_values(row.get("pinyin", "")))
 
     for word in words_by_norm:
         first_char = word[0]
@@ -236,7 +277,8 @@ def find_matching_words(
     sentence_text: str,
     payload: dict[str, Any],
     words_by_norm: dict[str, dict[str, Any]],
-    reference_matches: dict[tuple[str, str], set[int]],
+    reference_levels_by_word_pos: dict[tuple[str, str], set[int]],
+    reference_pinyins_by_word_pos: dict[tuple[str, str], set[str]],
     level_tolerance: int,
 ) -> set[tuple[str, int]]:
     if not sentence_text:
@@ -252,16 +294,29 @@ def find_matching_words(
         if not local_word_meta:
             continue
 
-        reference_levels = reference_matches.get((tag_word, tag_pos), set())
+        key = (tag_word, tag_pos)
+        reference_levels = reference_levels_by_word_pos.get(key, set())
+        reference_pinyins = reference_pinyins_by_word_pos.get(key, set())
         if not reference_levels:
+            continue
+        if not reference_pinyins:
             continue
 
         for local_level in local_word_meta["levels"]:
+            local_level_pos_values = local_word_meta["pos_by_level"].get(local_level, set())
+            if tag_pos not in local_level_pos_values:
+                continue
+
+            local_level_pinyins = local_word_meta["pinyin_by_level"].get(local_level, set())
+            if not local_level_pinyins:
+                continue
+
+            # Rule 2: local level must be close to reference (words.csv) level.
             if not any(abs(local_level - reference_level) <= level_tolerance for reference_level in reference_levels):
                 continue
 
-            local_level_pos_values = local_word_meta["pos_by_level"].get(local_level, set())
-            if tag_pos not in local_level_pos_values:
+            # Rule 3: require at least one shared pinyin variant for this word+POS.
+            if local_level_pinyins.isdisjoint(reference_pinyins):
                 continue
 
             matches.add((tag_word, local_level))
@@ -273,7 +328,8 @@ def build_sentence_index(
     corpus: Any,
     selected_levels: list[int],
     words_by_norm: dict[str, dict[str, Any]],
-    reference_matches: dict[tuple[str, str], set[int]],
+    reference_levels_by_word_pos: dict[tuple[str, str], set[int]],
+    reference_pinyins_by_word_pos: dict[tuple[str, str], set[str]],
     max_sentences_per_word: int,
     level_tolerance: int,
 ) -> tuple[dict[str, dict[str, Any]], dict[str, int]]:
@@ -302,7 +358,7 @@ def build_sentence_index(
             continue
         level_filtered_sentences += 1
 
-        normalized_sentence = normalize_text(sentence)
+        normalized_sentence = normalize_sentence_text(sentence)
         if not normalized_sentence:
             continue
 
@@ -310,7 +366,8 @@ def build_sentence_index(
             normalized_sentence,
             payload,
             words_by_norm,
-            reference_matches,
+            reference_levels_by_word_pos,
+            reference_pinyins_by_word_pos,
             level_tolerance,
         )
         if not matching_words:
@@ -405,12 +462,13 @@ def main() -> int:
         max_sentences_per_word = validate_max_sentences(args.max_sentences)
         corpus, raw_url = download_json(args.source_url)
         words_by_norm, words_by_first_char = load_hsk_words(selected_levels)
-        reference_matches = load_reference_word_pos_levels(args.words_csv)
+        reference_levels_by_word_pos, reference_pinyins_by_word_pos = load_reference_word_pos_data(args.words_csv)
         by_word, stats = build_sentence_index(
             corpus,
             selected_levels,
             words_by_norm,
-            reference_matches,
+            reference_levels_by_word_pos,
+            reference_pinyins_by_word_pos,
             max_sentences_per_word,
             DEFAULT_LEVEL_TOLERANCE,
         )
