@@ -1,15 +1,33 @@
 # HSK Vocabulary Flashcards
 
-A simple browser-based flashcard app for tracking and reviewing HSK vocabulary, built with React and Vite.
+A web-based flashcard app to review HSK 1–5 vocabulary with progress tracking.
 
-<div>
+[leviathan121005.github.io/hsk-vocabulary-flashcards](https://leviathan121005.github.io/hsk-vocabulary-flashcards/)
+
+<p>
   <img src="./main_preview.png" alt="App Preview" width="600" />
-</div>
+</p>
+
+## Features
+
+- **Flashcard sessions**: select a vocabulary set, mastery pool, and session size to review
+- **Self-mastery tracking**: mark each word as `Mastered` or `Not Mastered` by personal assessment
+- **Vocabulary lookup**: search words and set their mastery manually
+- **Word and character info**: support memorization with example sentences, per-character definitions, visually similar characters, characters with the same pinyin, and other uses of the character in HSK words
+- **Word audio**: verify pronunciation
+
+<p>
+  <img src="./session_preview.png" alt="Session Preview" width="600" />
+</p>
+<p>
+  <img src="./word_and_character_info_preview.png" alt="Word and Character Info Preview" width="600" />
+</p>
 
 ## 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Leviathan121005/hsk-vocabulary-learning-flashcards.git
+git clone https://github.com/Leviathan121005/hsk-vocabulary-flashcards.git
+cd hsk-vocabulary-flashcards
 ```
 
 ## 2. Install and Run Locally
@@ -19,49 +37,26 @@ npm install
 npm run dev
 ```
 
-Open the local URL shown in terminal (usually http://localhost:5173).
+Open the local URL shown in the terminal.
 
-## 3. Build for Production
+## 3. Build and Preview
 
 ```bash
 npm run build
 npm run preview
 ```
 
-## 4. How to Use
+## 4. Notes
 
-### Session Setup
+- Frontend-only, with no account login or cloud sync.
+- Visually similar characters are precomputed offline by combining SSIM, a pretrained MobileNetV3-Small, Ideographic Description Sequence (IDS) component decomposition, and a stroke-count filter.
+- Progress is stored in browser `localStorage` and can be exported or imported as a backup. It is recommended to back up progress periodically as browsers may clear site data which resets progress.
 
-1. Choose an HSK vocabulary set
-2. Set your session size
-3. Click **Start** to begin
+## References
 
-### Session Controls
+**Data sources**
+- [MandarinBean](https://mandarinbean.com/): HSK word lists
+- [Make Me a Hanzi](https://github.com/skishore/makemeahanzi): character decompositions and stroke counts
+- [HSK Annotated Corpus](https://github.com/Roxaleen/hsk-annotated-corpus): example sentences
 
-<div style="margin-bottom: 10px;">
-  <img src="./session_preview.png" alt="App Preview" width="600" />
-</div>
-
-| Keyboard | Action |
-|----------|--------|
-| <kbd>Space</kbd> | Flip card |
-| <kbd>←</kbd> / <kbd>→</kbd> | Previous / next card |
-| <kbd>N</kbd> | Mark as `Not Mastered` |
-| <kbd>M</kbd> | Mark as `Mastered` |
-> Or use the buttons on the screen
-
-End session by marking the last word or by clicking **End Session**.
-
-</div>
-
-### Other Features
-
-- Click **View Vocabulary** to search, review, and manually mark vocabularies.
-- Use **Progress Backup** to export / import your progress data.
-
-## 5. Notes
-
-- This app is frontend-only.
-- Progress is stored in your browser localStorage.
-- No account login nor cloud sync.
-- Current README.md is not up to date.
+**Built with** React, Vite, Tailwind CSS, PyTorch, torchvision, scikit-image
